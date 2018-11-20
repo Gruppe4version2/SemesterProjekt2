@@ -2,6 +2,6 @@
 {
     public interface ICostumerFactory
     {
-        
+        Costumer Create();
     }
 }

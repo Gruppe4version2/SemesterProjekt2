@@ -2,6 +2,6 @@
 {
     public interface IProjectFactory
     {
-        
+        Project Create();
     }
 }

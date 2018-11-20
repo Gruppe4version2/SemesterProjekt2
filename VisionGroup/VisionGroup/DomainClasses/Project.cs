@@ -11,5 +11,16 @@ namespace VisionGroup
         public string ProjectLeader { get; set; }
 
         public Costumer ProjectNavigation { get; set; }
+
+
+        public void PrintInfo()
+        {
+            Console.WriteLine($"Navn: {Name} " +
+                              $"\n Deadline: {Deadline} " +
+                              $"\n Project leder: {ProjectLeader}" +
+                              $"\n Kunde: {ProjectNavigation}");
+        }
     }
+
+
 }

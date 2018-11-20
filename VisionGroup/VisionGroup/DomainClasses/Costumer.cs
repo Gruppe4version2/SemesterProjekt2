@@ -12,5 +12,13 @@ namespace VisionGroup
         public string Email { get; set; }
 
         public Project Project { get; set; }
+
+        public void PrintInfo()
+        {
+            Console.WriteLine($"Navn: {Name} " +
+                              $"\n CVR: {CvrNr} " +
+                              $"\n Telefon: {PhonNr} " +
+                              $"\n Email: {Email} ");
+        }
     }
 }

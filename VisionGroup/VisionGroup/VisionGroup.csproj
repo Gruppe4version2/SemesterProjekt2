@@ -98,6 +98,8 @@
     <Compile Include="Catalogs\CatalogBase.cs" />
     <Compile Include="Catalogs\CostumerCatalog.cs" />
     <Compile Include="Catalogs\ProjectCatalog.cs" />
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\DeleteCommand.cs" />
     <Compile Include="DomainClasses\Costumer.cs" />
     <Compile Include="Factories\CostumerFactory.cs" />
     <Compile Include="Factories\ProjectFactory.cs" />
@@ -108,7 +110,10 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DomainClasses\Project.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Viewmodels\CostumerViewModel.cs" />
+    <Compile Include="Viewmodels\ProjectViewModel.cs" />
     <Compile Include="VisionGroupDbContext.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +150,9 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.9</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

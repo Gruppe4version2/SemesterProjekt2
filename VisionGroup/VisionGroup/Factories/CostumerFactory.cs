@@ -1,7 +1,12 @@
-﻿namespace VisionGroup.Factories
+﻿using VisionGroup.Interfaces;
+
+namespace VisionGroup.Factories
 {
-    public class CostumerFactory
+    public class CostumerFactory : ICostumerFactory
     {
-        
+        public Costumer Create()
+        {
+           return new Costumer();
+        }
     }
 }

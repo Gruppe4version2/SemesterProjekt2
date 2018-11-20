@@ -1,7 +1,12 @@
-﻿namespace VisionGroup.Factories
+﻿using VisionGroup.Interfaces;
+
+namespace VisionGroup.Factories
 {
-    public class ProjectFactory
+    public class ProjectFactory : IProjectFactory
     {
-        
+        public Project Create()
+        {
+            return new Project();
+        }
     }
 }

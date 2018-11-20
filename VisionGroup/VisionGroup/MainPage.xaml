@@ -5,10 +5,25 @@
     xmlns:local="using:VisionGroup"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:VisionGroup.Viewmodels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.DataContext>
+        <viewmodels:ProjectViewModel/>
+    </Page.DataContext>
     <Grid>
+    <Grid HorizontalAlignment="Stretch" Margin="10,0,0,500" VerticalAlignment="Stretch" Background="Black">
+        
+        <GridView HorizontalAlignment="Stretch" Margin="250,20,250,20" VerticalAlignment="Stretch" BorderThickness="5" BorderBrush="">
+          
+        </GridView>
+    </Grid>
+    <Grid HorizontalAlignment="Stretch" Margin="0, 500, 0, 10" VerticalAlignment="Stretch" Background="DarkGray">
+
+        <TextBlock Text="Opret projekt" FontSize ="30"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 50, 0, 10"/>
+
+    </Grid>
 
     </Grid>
 </Page>
