@@ -1,6 +1,6 @@
 ﻿namespace VisionGroup.Interfaces
 {
-    public interface ICatalog
+    public interface ICatalog<T>
     {
         
     }
