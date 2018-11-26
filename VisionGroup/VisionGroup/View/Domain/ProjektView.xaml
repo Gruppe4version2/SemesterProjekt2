@@ -65,10 +65,12 @@
         <!-- rediger view -->
 
         <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" >
-
+        
+            <!-- Søgebar -->
             <AutoSuggestBox PlaceholderText="Projekt søgning" QueryIcon="Find" Width="1070">
             </AutoSuggestBox>
             <AppBarSeparator/>
+
             <!-- Projekt navn textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
