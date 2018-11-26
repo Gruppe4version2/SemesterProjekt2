@@ -40,7 +40,7 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Assets/FORTHEHORDE.jpg"/>
+            <ImageBrush ImageSource="/Assets/Lilla by billede.jpg"/>
         </Grid.Background>
 
         <Grid.ColumnDefinitions>
@@ -51,7 +51,7 @@
         <!-- View af projekter -->
         <ListView Grid.Row="0" Grid.Column="0" Style="{StaticResource ListViewStyle}"
                   ItemsSource="{Binding ItemSelected}"
-                  SelectedItem="{Binding ItemSelected, Mode=TwoWay}">
+                  SelectedItem="{Binding ItemSelected, Mode=TwoWay}" Background="{x:Null}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
@@ -64,17 +64,19 @@
 
         <!-- rediger view -->
 
-        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" >
-        
+        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF66478D" >
+            <StackPanel.FocusVisualPrimaryBrush>
+                <AcrylicBrush/>
+            </StackPanel.FocusVisualPrimaryBrush>
+
             <!-- Søgebar -->
-            <AutoSuggestBox PlaceholderText="Projekt søgning" QueryIcon="Find" Width="1070">
-            </AutoSuggestBox>
-            <AppBarSeparator/>
+            <AutoSuggestBox PlaceholderText="Projekt søgning" QueryIcon="Find" Width="1070" Height="40"/>
+            <GridViewHeaderItem Content="Projekt information" HorizontalAlignment="Center" FontSize="36" Foreground="white" FontWeight="Bold" FontFamily="Segoe UI Symbol"/>
 
             <!-- Projekt navn textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                           Text="Projekt navn" />
+                           Text="Projekt navn" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding Project.Name, Mode=TwoWay}"
                          Width="700"/>
@@ -82,7 +84,7 @@
             <!-- Deadline textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                           Text="CVR" />
+                           Text="CVR" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding Project.Deadline, Mode=TwoWay}"
                           Width="700"/>
@@ -90,7 +92,7 @@
             <!-- Firma navn textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                           Text="Firma navn" />
+                           Text="Firma navn" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          Text="{Binding Project.ProjectNavigation, Mode=TwoWay}"
                          Width="700"/>
@@ -98,7 +100,7 @@
             <!-- Projekt leder textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                           Text="Projekt leder" />
+                           Text="Projekt leder" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          Text="{Binding Project.ProjectLeader, Mode=TwoWay}"
                          Width="700"/>

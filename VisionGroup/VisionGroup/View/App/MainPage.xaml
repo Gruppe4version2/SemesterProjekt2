@@ -20,34 +20,26 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
-        <NavigationView
-                        OpenPaneLength="200">
-            <NavigationView.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </NavigationView.Background>
-            <NavigationView.MenuItems>
 
-                <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="AlignLeft" Content="Projekter" />
-                <NavigationViewItemSeparator/>
-                <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="Street" Content="Firmaer/kunder" />
-                <NavigationViewItemSeparator/>
-                <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="People" Content="Ansatte" />
-            </NavigationView.MenuItems>
+    <NavigationView OpenPaneLength="200">
 
-            <Frame x:Name="Frame" HorizontalAlignment="Stretch" Margin="0,-56,0,0" VerticalAlignment="Stretch">
-                <Frame.Background>
-                    <ImageBrush ImageSource="/Assets/FORTHEHORDE.jpg"/>
-                </Frame.Background>
-                <Frame.ContentTransitions>
-                    <TransitionCollection>
-                        <NavigationThemeTransition/>
-                    </TransitionCollection>
-                </Frame.ContentTransitions>
-            </Frame>
-        </NavigationView>
-    </Grid>
+        <NavigationView.MenuItems>
+            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="AlignLeft" Content="Projekter" />
+            <NavigationViewItemSeparator/>
+            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="Street" Content="Firmaer/kunder" />
+            <NavigationViewItemSeparator/>
+            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="People" Content="Ansatte" />
+        </NavigationView.MenuItems>
+
+        <Frame x:Name="Frame" Margin="0,-56,0,0">
+            <Frame.Background>
+                <ImageBrush ImageSource="/Assets/Lilla by billede.jpg"/>
+            </Frame.Background>
+            <Frame.ContentTransitions>
+                <TransitionCollection>
+                    <NavigationThemeTransition/>
+                </TransitionCollection>
+            </Frame.ContentTransitions>
+        </Frame>
+    </NavigationView>
 </Page>
