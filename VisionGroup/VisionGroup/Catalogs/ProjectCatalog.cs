@@ -6,7 +6,7 @@ namespace VisionGroup
     public class ProjectCatalog : ICatalog<Project>
     {
 
-
+        
         public List<Project> ProjectList { get; set; }
 
         public void Add(Project item)

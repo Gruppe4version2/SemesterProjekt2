@@ -100,6 +100,9 @@
     <Compile Include="Catalogs\ProjectCatalog.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\DeleteCommand.cs" />
+    <Compile Include="Dictionary1.xaml.cs">
+      <DependentUpon>Dictionary1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DomainClasses\Costumer.cs" />
     <Compile Include="Factories\CostumerFactory.cs" />
     <Compile Include="Factories\ProjectFactory.cs" />
@@ -138,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dictionary1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\App\Dictionary1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -145,6 +152,10 @@
     <Page Include="View\App\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Domain\CostumerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Domain\ProjektView.xaml">
       <SubType>Designer</SubType>

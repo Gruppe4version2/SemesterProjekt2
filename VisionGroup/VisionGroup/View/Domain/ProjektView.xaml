@@ -5,34 +5,36 @@
     xmlns:local="using:VisionGroup"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:VisionGroup.Viewmodels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.DataContext>
-        <Page:ProjectViewModel/>
+        <viewmodels:ProjectViewModel/>
     </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Dictionary1.xaml"/>
+                <ResourceDictionary Source="/View/App/Dictionary1.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
+        <Grid>
 
-    <!-- Knapper i nedre højre hjørne (rediger og slet)-->
+            <!-- Knapper i nedre højre hjørne (rediger og slet)--><!--
     <Page.BottomAppBar>
         <CommandBar Style="{StaticResource CommandBarStyle}">
             <CommandBar.Content>
                 <TextBlock Style="{StaticResource TextBlockCommandContentStyle}"
-                           <!--Text="{Binding ViewStateDescription}" /> -->
+                           --><!--Text="{Binding ViewStateDescription}" /> --><!--
             </CommandBar.Content>
             <AppBarButton Icon="Edit" Label="Update" 
-                          <!--IsEnabled="{Binding ControlStates[UpdateControl].Enabled}"
-                          Command="{Binding DataCommand[UpdateCommand]}"/>-->
+                          --><!--IsEnabled="{Binding ControlStates[UpdateControl].Enabled}"
+                          Command="{Binding DataCommand[UpdateCommand]}"/>--><!--
             <AppBarButton Icon="Delete" Label="Slet" 
-                         <!-- IsEnabled="{Binding ControlStates[DeleteControl].Enabled}"
-                          Command="{Binding DataCommand[DeleteCommand]}"/> -->
+                         --><!-- IsEnabled="{Binding ControlStates[DeleteControl].Enabled}"
+                          Command="{Binding DataCommand[DeleteCommand]}"/> --><!--
  
         </CommandBar>
     </Page.BottomAppBar>
@@ -42,60 +44,53 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" MinWidth="800"/>
             <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>-->
 
         <!-- View af projekter -->
         <ListView Grid.Row="0" Grid.Column="0" Style="{StaticResource ListViewStyle}"
-                 <!-- ItemsSource="{Binding ItemCollection}"
-                  SelectedItem="{Binding ItemSelected, Mode=TwoWay}"> -->
+                  ItemsSource="{Binding ItemSelected}"
+                  SelectedItem="{Binding ItemSelected, Mode=TwoWay}"> 
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
-                        <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}" <!-- Text="{Binding HeaderText}" /> -->
-                        <TextBlock Style="{StaticResource TextBlockItemContentStyle}"<!-- </TextBlock> Text="{Binding ContentText}" /> -->
+                        <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding HeaderText}" />
+                        <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding ContentText}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
         <!-- rediger view -->
+
         <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" >
         <!-- Projekt navn textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Projekt navn" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         <!-- Text="{Binding ItemDetails.Title, Mode=TwoWay}" /> -->
+                          Text="{Binding Project.Name, Mode=TwoWay}" /> 
             </StackPanel>
-        <!-- CVR textblock -->
+        <!-- Dealine textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="CVR" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         <!-- Text="{Binding ItemDetails.Title, Mode=TwoWay}" /> -->
+                          Text="{Binding Project.Deadline, Mode=TwoWay}" /> 
             </StackPanel>
         <!-- Firma navn textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Firma navn" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                        <!-- Text="{Binding ItemDetails.Title, Mode=TwoWay}" /> -->
+                         Text="{Binding Project.ProjectNavigation, Mode=TwoWay}" />
             </StackPanel>
 
-        <!-- Tlf.nr textblock -->
-            <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
-                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                           Text="Tlf. nr.:" />
-                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                        <!-- Text="{Binding ItemDetails.Title, Mode=TwoWay}" /> -->
-            </StackPanel>
-    
-        <!-- Projekt leder textblock -->
+            <!-- Projekt leder textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Projekt leder" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                        <!-- Text="{Binding ItemDetails.Title, Mode=TwoWay}" /> -->
+                         Text="{Binding Project.ProjectLeader, Mode=TwoWay}" /> 
             </StackPanel>
 
         </StackPanel>
