@@ -20,36 +20,38 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-        <Grid>
 
-            <!-- Knapper i nedre højre hjørne (rediger og slet)--><!--
+    <!-- Knapper i nedre højre hjørne (rediger og slet)-->
     <Page.BottomAppBar>
         <CommandBar Style="{StaticResource CommandBarStyle}">
             <CommandBar.Content>
-                <TextBlock Style="{StaticResource TextBlockCommandContentStyle}"
-                           --><!--Text="{Binding ViewStateDescription}" /> --><!--
+                <TextBlock Style="{StaticResource TextBlockCommandContentStyle}" />
+
             </CommandBar.Content>
-            <AppBarButton Icon="Edit" Label="Update" 
-                          --><!--IsEnabled="{Binding ControlStates[UpdateControl].Enabled}"
-                          Command="{Binding DataCommand[UpdateCommand]}"/>--><!--
-            <AppBarButton Icon="Delete" Label="Slet" 
-                         --><!-- IsEnabled="{Binding ControlStates[DeleteControl].Enabled}"
-                          Command="{Binding DataCommand[DeleteCommand]}"/> --><!--
- 
+            <AppBarButton Icon="Edit" Label="Update" />
+
+            <AppBarButton Icon="Delete" Label="Slet" />
+
+            <AppBarButton Icon="NewFolder" Label="Opret" />
+
+
         </CommandBar>
     </Page.BottomAppBar>
 
-    <Grid Background="Black">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/FORTHEHORDE.jpg"/>
+        </Grid.Background>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="800"/>
+            <ColumnDefinition Width="Auto" MinWidth="400"/>
             <ColumnDefinition/>
-        </Grid.ColumnDefinitions>-->
+        </Grid.ColumnDefinitions>
 
         <!-- View af projekter -->
         <ListView Grid.Row="0" Grid.Column="0" Style="{StaticResource ListViewStyle}"
                   ItemsSource="{Binding ItemSelected}"
-                  SelectedItem="{Binding ItemSelected, Mode=TwoWay}"> 
+                  SelectedItem="{Binding ItemSelected, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
@@ -63,34 +65,41 @@
         <!-- rediger view -->
 
         <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" >
-        <!-- Projekt navn textblock -->
+
+            <AutoSuggestBox PlaceholderText="Projekt søgning" QueryIcon="Find" Width="1070">
+            </AutoSuggestBox>
+            <AppBarSeparator/>
+            <!-- Projekt navn textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Projekt navn" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                          Text="{Binding Project.Name, Mode=TwoWay}" /> 
+                          Text="{Binding Project.Name, Mode=TwoWay}"
+                         Width="700"/>
             </StackPanel>
-        <!-- Dealine textblock -->
+            <!-- Deadline textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="CVR" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                          Text="{Binding Project.Deadline, Mode=TwoWay}" /> 
+                          Text="{Binding Project.Deadline, Mode=TwoWay}"
+                          Width="700"/>
             </StackPanel>
-        <!-- Firma navn textblock -->
+            <!-- Firma navn textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Firma navn" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding Project.ProjectNavigation, Mode=TwoWay}" />
+                         Text="{Binding Project.ProjectNavigation, Mode=TwoWay}"
+                         Width="700"/>
             </StackPanel>
-
             <!-- Projekt leder textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Projekt leder" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding Project.ProjectLeader, Mode=TwoWay}" /> 
+                         Text="{Binding Project.ProjectLeader, Mode=TwoWay}"
+                         Width="700"/>
             </StackPanel>
 
         </StackPanel>

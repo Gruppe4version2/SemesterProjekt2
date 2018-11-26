@@ -30,14 +30,18 @@
                 </LinearGradientBrush>
             </NavigationView.Background>
             <NavigationView.MenuItems>
-                <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="Find" Content="Projekt søgning" />
-                <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="Add" Content="Opret nyt projekt" />
-                <NavigationViewItemSeparator/>
+
                 <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="AlignLeft" Content="Projekter" />
-                <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="People" Content="Firmaer/kunder" />
+                <NavigationViewItemSeparator/>
+                <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="Street" Content="Firmaer/kunder" />
+                <NavigationViewItemSeparator/>
+                <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="People" Content="Ansatte" />
             </NavigationView.MenuItems>
 
             <Frame x:Name="Frame" HorizontalAlignment="Stretch" Margin="0,-56,0,0" VerticalAlignment="Stretch">
+                <Frame.Background>
+                    <ImageBrush ImageSource="/Assets/FORTHEHORDE.jpg"/>
+                </Frame.Background>
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition/>
