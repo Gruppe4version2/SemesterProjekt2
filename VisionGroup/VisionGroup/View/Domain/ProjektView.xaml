@@ -51,7 +51,7 @@
         <!-- View af projekter -->
         <ListView Grid.Row="0" Grid.Column="0" Style="{StaticResource ListViewStyle}"
                   ItemsSource="{Binding ItemSelected}"
-                  SelectedItem="{Binding ItemSelected, Mode=TwoWay}" Background="{x:Null}">
+                  SelectedItem="{Binding ItemSelected, Mode=TwoWay}" Background="{x:Null}" Margin="10,50,10,50">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
@@ -64,7 +64,10 @@
 
         <!-- rediger view -->
 
-        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF66478D" >
+        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF66478D" HorizontalAlignment="Left" Margin="10,50,0,50" VerticalAlignment="Stretch" Width="1030
+                    
+                    
+                    " >
             <StackPanel.FocusVisualPrimaryBrush>
                 <AcrylicBrush/>
             </StackPanel.FocusVisualPrimaryBrush>
