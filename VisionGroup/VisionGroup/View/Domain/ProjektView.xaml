@@ -73,7 +73,7 @@
             </StackPanel.FocusVisualPrimaryBrush>
 
             <!-- Søgebar -->
-            <AutoSuggestBox PlaceholderText="Projekt søgning" QueryIcon="Find" Width="1070" Height="40"/>
+            <AutoSuggestBox PlaceholderText="Projekt søgning" QueryIcon="Find" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             <GridViewHeaderItem Content="Projekt information" HorizontalAlignment="Center" FontSize="36" Foreground="white" FontWeight="Bold" FontFamily="Segoe UI Symbol"/>
 
             <!-- Projekt navn textblock -->
