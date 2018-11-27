@@ -1,0 +1,122 @@
+﻿<Page
+    x:Class="VisionGroup.MainPage1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:VisionGroup"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:VisionGroup.Viewmodels"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+<Page.DataContext>
+    <viewmodels:CostumerViewModel/>
+</Page.DataContext>
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/View/App/Dictionary1.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+        <!-- Knapper i nedre højre hjørne (rediger og slet)-->
+        <Page.BottomAppBar>
+            <CommandBar Style="{StaticResource CommandBarStyle}">
+                <CommandBar.Content>
+                    <TextBlock Style="{StaticResource TextBlockCommandContentStyle}" />
+
+                </CommandBar.Content>
+                <AppBarButton Icon="Edit" Label="Update" />
+
+                <AppBarButton Icon="Delete" Label="Slet" />
+
+                <AppBarButton Icon="NewFolder" Label="Opret" />
+
+
+            </CommandBar>
+        </Page.BottomAppBar>
+
+        <Grid>
+
+            <Grid Background="Beige">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MinWidth="800"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+
+                <!-- View af kunder -->
+                <ListView Grid.Row="0" Grid.Column="0" Style="{StaticResource ListViewStyle}"
+                  ItemsSource="{Binding CostumerList}"
+                  SelectedItem="{Binding  SelectedCostumer, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
+                                <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding HeaderText}" />
+                                <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding ContentText}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <!-- rediger view -->
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" >
+
+                    <!-- Kunde navn textblock -->
+                    <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
+                        <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                           Text="Firma navn" />
+                        <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                          Text="{Binding Costumer.Name, Mode=TwoWay}" />
+                    </StackPanel>
+                    <!-- Dealine textblock -->
+                    <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
+                        <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                           Text="CVR" />
+                        <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                          Text="{Binding Costumer., Mode=TwoWay}" />
+                    </StackPanel>
+                    <!-- Firma navn textblock -->
+                    <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
+                        <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                           Text="Email" />
+                        <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                         Text="{Binding Costumer.Email, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <!-- Projekt leder textblock -->
+                    <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
+                        <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                           Text="Telefon nummer" />
+                        <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                         Text="{Binding Costumer.PhonNr, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <!-- Liste over projekter til valgte kunde -->
+                    <ListView HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Name="ProjektForCostumerListView"
+                      Width="400"
+                      Height="600"
+                      Margin="50, 50, 50, 50"
+                      ItemsSource="{Binding ProjectsForCostumer}"
+                      SelectedItem="{Binding  SelectedProject, Mode=TwoWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
+                                    <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding Costumer.Project.Name}" />
+                                    <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding Costumer.Project.Deadline}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+
+                </StackPanel>
+            </Grid>
+        </Grid>
+</Page>

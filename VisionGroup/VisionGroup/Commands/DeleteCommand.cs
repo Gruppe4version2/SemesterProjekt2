@@ -2,14 +2,12 @@
 {
     public class DeleteCommand : CommandBase
     {
-
-
-        public override bool CanExecute()
+        protected override bool CanExecute()
         {
             return true;
         }
 
-        public override void Execute()
+        protected override void Execute()
         {
             throw new System.NotImplementedException();
         }

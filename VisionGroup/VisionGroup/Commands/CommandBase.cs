@@ -5,9 +5,9 @@ namespace VisionGroup.Commands
 {
     public abstract class CommandBase : ICommand
     {
-        public abstract bool CanExecute();
+        protected abstract bool CanExecute();
 
-        public abstract void Execute();
+        protected abstract void Execute();
 
 
         public bool CanExecute(object parameter)
