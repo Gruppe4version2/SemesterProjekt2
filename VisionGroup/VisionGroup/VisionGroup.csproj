@@ -100,7 +100,6 @@
     <Compile Include="Catalogs\ProjectCatalog.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\DeleteCommand.cs" />
-    <Compile Include="Commands\NavigationCommand.cs" />
     <Compile Include="Dictionary1.xaml.cs">
       <DependentUpon>Dictionary1.xaml</DependentUpon>
     </Compile>
@@ -110,7 +109,6 @@
     <Compile Include="Interfaces\ICatalog.cs" />
     <Compile Include="Interfaces\ICostumerFactory.cs" />
     <Compile Include="Interfaces\IProjectFactory.cs" />
-    <Compile Include="Viewmodels\AppViewModel.cs" />
     <Compile Include="View\App\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -171,13 +169,7 @@
       <Version>2.1.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.2</Version>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>11.0.2</Version>
-    </PackageReference>
-    <PackageReference Include="Utilis.Win">
-      <Version>0.8.1.82</Version>
+      <Version>6.1.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

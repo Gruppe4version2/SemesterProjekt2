@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.DataContext>
-        <viewmodels:AppViewModel/>
+        <viewmodels:ProjectViewModel/>
     </Page.DataContext>
 
     <Page.Resources>
@@ -21,14 +21,12 @@
     </Page.Resources>
 
 
-    <NavigationView Header="Indsæt navn"
-        OpenPaneLength="200"
-                    SelectedItem="{Binding SelectedNavigationViewItem}">
+    <NavigationView OpenPaneLength="200">
 
         <NavigationView.MenuItems>
-            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="AlignLeft" Content="Projekter" Tag="ÅbenProjektView" />
+            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="AlignLeft" Content="Projekter" />
             <NavigationViewItemSeparator/>
-            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="Street" Content="Firmaer/kunder" Tag="ÅbenCostumerView" />
+            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="Street" Content="Firmaer/kunder" />
             <NavigationViewItemSeparator/>
             <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="People" Content="Ansatte" />
         </NavigationView.MenuItems>
