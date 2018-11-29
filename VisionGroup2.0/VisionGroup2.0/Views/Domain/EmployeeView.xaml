@@ -1,8 +1,8 @@
 ﻿<Page
-    x:Class="VisionGroup2._0.Views.Domain.CostumerView"
+    x:Class="VisionGroup2._0.EmployeeView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:VisionGroup2._0.Views.Domain"
+    xmlns:local="using:VisionGroup2._0"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:VisionGroup2._0.ViewModels"
@@ -71,12 +71,12 @@
 
             <!-- Søgebar -->
             <AutoSuggestBox PlaceholderText="Søg" QueryIcon="Find" Width="1070" Height="40"/>
-            <GridViewHeaderItem Content="Kunde information" HorizontalAlignment="Center" FontSize="36" Foreground="white" FontWeight="Bold" FontFamily="Segoe UI Symbol"/>
+            <GridViewHeaderItem Content="Medarbejder information" HorizontalAlignment="Center" FontSize="36" Foreground="white" FontWeight="Bold" FontFamily="Segoe UI Symbol"/>
 
             <!-- Kunde navn textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                           Text="Firma navn" Foreground="white"/>
+                           Text="Fulde navn" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding Costumer.Name, Mode=TwoWay}"
                          Width="700"/>
@@ -84,7 +84,7 @@
             <!-- CVR textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                           Text="CVR" Foreground="White" />
+                           Text="Email" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding Costumer.CvrNr, Mode=TwoWay}"
                           Width="700"/>
@@ -92,19 +92,12 @@
             <!-- Email textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                           Text="Email" Foreground="White" />
+                           Text="Telefon nummer" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          Text="{Binding Costumer.Email, Mode=TwoWay}"
                          Width="700"/>
             </StackPanel>
-            <!-- Telefon nr textblock -->
-            <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
-                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                           Text="Telefon nummer" Foreground="White" />
-                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding Costumer.PhonNr, Mode=TwoWay}"
-                         Width="700"/>
-            </StackPanel>
+            
             <ListView HorizontalAlignment="Center"
                      Width="600"
                       Height="500"
