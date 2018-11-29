@@ -20,6 +20,12 @@ namespace VisionGroup2._0.ViewModels
         public Costumer Costumer { get; set; }
         public Project Project { get; set; }
 
+        public CostumerViewModel()
+        {
+            this._projectCatalog = new ProjectCatalog();
+            this._costumerCatalog = new CostumerCatalog();
+        }
+
 
         public string Name
         {
@@ -72,15 +78,17 @@ namespace VisionGroup2._0.ViewModels
             {
                 List<Project> list = new List<Project>();
 
-                foreach (var l in _projectCatalog.ProjectList)
+                if (this._projectCatalog.ProjectList != null)
                 {
-                    if (Project.CostumerId == Costumer.CostumerId)
+                    foreach (var l in _projectCatalog.ProjectList)
                     {
-                        list.Add(l);
+                        if (Project.CostumerId == Costumer.CostumerId)
+                        {
+                            list.Add(l);
+                        }
                     }
                 }
-
-
+                
                 return list;
             }
         }
@@ -100,11 +108,18 @@ namespace VisionGroup2._0.ViewModels
             get {
                 if (SelectedCostumer == null)
                 {
-                    var costumerList = from costumer in _costumerCatalog.CostumerList
-                        orderby costumer.Name
-                        select costumer;
-                    SelectedCostumer = costumerList.First();
-                    return costumerList.ToList();
+                    if (this._costumerCatalog.CostumerList != null)
+                    {
+                        var costumerList = from costumer in _costumerCatalog.CostumerList
+                                           orderby costumer.Name
+                                           select costumer;
+                        SelectedCostumer = costumerList.First();
+                        return costumerList.ToList();
+                    }
+                    else
+                    {
+                        return this._costumerCatalog.CostumerList;
+                    }
                 }
                 else
                     {
