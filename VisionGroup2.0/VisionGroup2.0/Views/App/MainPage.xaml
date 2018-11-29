@@ -28,7 +28,9 @@
 
         <NavigationView.MenuItems>
             <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="AlignLeft" Content="Projects" Tag="OpenProjectView" />
-            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="Street" Content="Costumers" Tag="OpenCostumerView" />
+            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="Emoji2"  Content="Costumers" Tag="OpenCostumerView" />
+            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="People" Content="Employee" Tag="OpenEmployeeView" />
+
         </NavigationView.MenuItems>
 
         <Frame x:Name="Frame" Margin="0,-56,0,0">

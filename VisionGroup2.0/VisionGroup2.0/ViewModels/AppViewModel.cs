@@ -63,6 +63,8 @@ namespace VisionGroup2._0.ViewModels
         {
             NavigationCommands.Add("OpenProjectView", new NavigationCommand(AppFrame, typeof(Views.Domain.ProjectView)));
             NavigationCommands.Add("OpenCostumerView", new NavigationCommand(AppFrame, typeof(Views.Domain.CostumerView)));
+            NavigationCommands.Add("OpenEmployeeView", new NavigationCommand(AppFrame, typeof(Views.Domain.Employee)));
+
 
         }
         #endregion
