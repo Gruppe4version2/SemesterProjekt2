@@ -17,6 +17,7 @@ namespace VisionGroup2._0
         }
 
         public virtual DbSet<Costumer> Costumers { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -51,6 +52,23 @@ namespace VisionGroup2._0
                 entity.Property(e => e.PhonNr).HasColumnName("Phon_nr");
             });
 
+            modelBuilder.Entity<Employee>(entity =>
+            {
+                entity.ToTable("Employee");
+
+                entity.Property(e => e.EmployeeId)
+                    .HasColumnName("Employee_Id")
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
             modelBuilder.Entity<Project>(entity =>
             {
                 entity.ToTable("Project");
@@ -62,6 +80,10 @@ namespace VisionGroup2._0
                 entity.Property(e => e.CostumerId).HasColumnName("Costumer_Id");
 
                 entity.Property(e => e.Deadline).HasColumnType("datetime");
+
+                entity.Property(e => e.EmployeeId)
+                    .HasColumnName("Employee_Id")
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -76,6 +98,12 @@ namespace VisionGroup2._0
                     .HasForeignKey(d => d.CostumerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CostumerID");
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.Projects)
+                    .HasForeignKey(d => d.EmployeeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EmployeeID ");
             });
 
             OnModelCreatingPartial(modelBuilder);
