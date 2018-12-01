@@ -24,11 +24,11 @@
     <NavigationView OpenPaneLength="200">
 
         <NavigationView.MenuItems>
-            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="AlignLeft" Content="Projekter" />
+            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="AlignLeft" Content="Projekter" Tag="OpenProjektView"/>
             <NavigationViewItemSeparator/>
-            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="Street" Content="Firmaer/kunder" />
+            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="Street" Content="Firmaer/kunder"/>
             <NavigationViewItemSeparator/>
-            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="People" Content="Ansatte" />
+            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="People" Content="Ansatte"/>
         </NavigationView.MenuItems>
 
         <Frame x:Name="Frame" Margin="0,-56,0,0">

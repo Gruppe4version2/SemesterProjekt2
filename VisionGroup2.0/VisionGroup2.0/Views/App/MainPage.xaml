@@ -9,6 +9,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+
     <Page.DataContext>
         <viewModels:AppViewModel/>
     </Page.DataContext>
@@ -33,10 +34,7 @@
 
         </NavigationView.MenuItems>
 
-        <Frame x:Name="Frame" Margin="0,-56,0,0">
-            <Frame.Background>
-                <ImageBrush ImageSource="/Assets/Lilla by billede.jpg"/>
-            </Frame.Background>
+        <Frame x:Name="Frame" Margin="0,-56,0,0" Background="#FF3D3466">
             <Frame.ContentTransitions>
                 <TransitionCollection>
                     <NavigationThemeTransition/>

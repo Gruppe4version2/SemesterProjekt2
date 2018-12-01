@@ -21,6 +21,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
+
     <!-- Knapper i nedre højre hjørne (rediger og slet)-->
     <Page.BottomAppBar>
         <CommandBar Style="{StaticResource CommandBarStyle}">
@@ -39,9 +40,6 @@
     </Page.BottomAppBar>
 
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Assets/Lilla by billede.jpg"/>
-        </Grid.Background>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" MinWidth="400"/>
@@ -64,7 +62,7 @@
 
         <!-- rediger view -->
 
-        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF66478D" >
+        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF685AA6" >
             <StackPanel.FocusVisualPrimaryBrush>
                 <AcrylicBrush/>
             </StackPanel.FocusVisualPrimaryBrush>
