@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Catalogs\CatalogBase.cs" />
     <Compile Include="Catalogs\CostumerCatalog.cs" />
+    <Compile Include="Catalogs\EmployeeCatalog.cs" />
     <Compile Include="Catalogs\ProjectCatalog.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\NavigationCommand.cs" />
@@ -104,17 +105,20 @@
     <Compile Include="DbContextVisionGroup.cs" />
     <Compile Include="DomainClasses\Employee.cs" />
     <Compile Include="Factories\CustomerFactory.cs" />
+    <Compile Include="Factories\EmployeeFactory.cs" />
     <Compile Include="Factories\ProjectFactory.cs" />
     <Compile Include="Interfaces\IAppViewModel.cs" />
     <Compile Include="Interfaces\ICatalog.cs" />
     <Compile Include="Interfaces\ICommandBase.cs" />
     <Compile Include="Interfaces\ICostumerFactory.cs" />
+    <Compile Include="Interfaces\IEmployeeFactory.cs" />
     <Compile Include="Interfaces\IProjectFactory.cs" />
     <Compile Include="DomainClasses\Project.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\AppViewModelBase.cs" />
     <Compile Include="ViewModels\CostumerViewModel.cs" />
+    <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="Views\App\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
