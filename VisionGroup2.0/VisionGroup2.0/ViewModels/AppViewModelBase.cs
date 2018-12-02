@@ -19,19 +19,19 @@ namespace VisionGroup2._0.ViewModels
 
         protected AppViewModelBase()
         {
-            this._appFrame = AppViewModelBase._appFrameInstance;
-            this._navigationCommands = new Dictionary<string, ICommand>();
+            _appFrame = _appFrameInstance;
+            _navigationCommands = new Dictionary<string, ICommand>();
         }
 
         public static Frame AppFrameInstance
         {
             get
             {
-                return AppViewModelBase._appFrameInstance;
+                return _appFrameInstance;
             }
             set
             {
-                AppViewModelBase._appFrameInstance = value;
+                _appFrameInstance = value;
             }
         }
 
@@ -39,7 +39,7 @@ namespace VisionGroup2._0.ViewModels
         {
             get
             {
-                return this._navigationCommands;
+                return _navigationCommands;
             }
         }
 
@@ -47,16 +47,16 @@ namespace VisionGroup2._0.ViewModels
         {
             get
             {
-                return this._appFrame;
+                return _appFrame;
             }
         }
 
         public void SetAppFrame(Frame appFrame)
         {
-            this._appFrame = appFrame;
-            AppViewModelBase.AppFrameInstance = this._appFrame;
-            this.AddCommands();
-            this.OnPropertyChanged("NavigationCommands");
+            _appFrame = appFrame;
+            AppFrameInstance = _appFrame;
+            AddCommands();
+            OnPropertyChanged("NavigationCommands");
         }
 
         public abstract void AddCommands();

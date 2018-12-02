@@ -27,8 +27,8 @@ namespace VisionGroup2._0.ViewModels
 
         #region Properties
         /// <summary>
-        /// This property is used for Data Binding by the NavigationView
-        /// control in the main application view.
+        /// Propertien bliver brugt til at lave databinding via navigationviewet
+        /// Som kontrollerer MainPage viewet
         /// </summary>
         public NavigationViewItem SelectedMenuItem
         {
@@ -38,11 +38,11 @@ namespace VisionGroup2._0.ViewModels
                 _selectedMenuItem = value;
 
                 if (_selectedMenuItem == null) return;
-
-                // The value of the Tag property is extracted from the selected Menu item.
-                // This value should match one of the available command keys in the
-                // NavigationCommands dictionary.
+                // Man trækker _selectedMenuItem's Tag værdi ud over giver den en variable(tag)
+                // Denne værdi burde matche en af værdierne fra NavigationCommands dictonarien
                 string tag = _selectedMenuItem.Tag.ToString();
+
+                // Hvis tag ikke passer med en key, laver vi følgende exception
                 if (!NavigationCommands.ContainsKey(tag))
                 {
                     throw new ArgumentException($"Menu entry {tag} has no matching navigation command");
@@ -54,10 +54,9 @@ namespace VisionGroup2._0.ViewModels
 
         #region Methods
         /// <summary>
-        /// This method is used for adding application-specific navigation
-        /// commands into the NavigationCommands dictionary. The keys used
-        /// for the commands should match Tag values on menu items from the
-        /// main application view.
+        /// Metoden bliver brugt til at lave specifikke navigationer i applikationen
+        /// Nøglen i dictionarien skal passe med Tag værdien i MainView
+
         /// </summary>
         public override void AddCommands()
         {
