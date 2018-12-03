@@ -13,7 +13,7 @@ namespace VisionGroup2._0.DomainClasses
         public int CostumerId { get; set; }
         public string Name { get; set; }
         public int CvrNr { get; set; }
-        public int PhonNr { get; set; }
+        public int PhoneNr { get; set; }
         public string Email { get; set; }
 
         public ICollection<Project> Projects { get; set; }

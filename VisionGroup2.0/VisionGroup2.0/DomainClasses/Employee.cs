@@ -7,14 +7,14 @@ namespace VisionGroup2._0.DomainClasses
     {
         public Employee()
         {
-            Projects = new HashSet<Project>();
+            ProjectsForEmployees = new HashSet<ProjectsForEmployee>();
         }
 
         public int EmployeeId { get; set; }
         public string Name { get; set; }
-        public string Email { get; set; }
         public int PhoneNr { get; set; }
+        public string Email { get; set; }
 
-        public ICollection<Project> Projects { get; set; }
+        public ICollection<ProjectsForEmployee> ProjectsForEmployees { get; set; }
     }
 }

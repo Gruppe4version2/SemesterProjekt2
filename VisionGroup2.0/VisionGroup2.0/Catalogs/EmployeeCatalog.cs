@@ -8,7 +8,7 @@ using VisionGroup2._0.Interfaces;
 
 namespace VisionGroup2._0.Catalogs
 {
-    class EmployeeCatalog : ICatalog<Employee>
+    public class EmployeeCatalog : ICatalog<Employee>
     {
         public List<Employee> EmployeeList { get; set; }
 

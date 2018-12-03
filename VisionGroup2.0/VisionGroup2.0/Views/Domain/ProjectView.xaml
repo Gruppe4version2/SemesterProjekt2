@@ -47,8 +47,8 @@
 
         <!-- View af projekter -->
         <ListView Grid.Row="0" Grid.Column="0" Style="{StaticResource ListViewStyle}"
-                  ItemsSource="{Binding ItemSelected}"
-                  SelectedItem="{Binding ItemSelected, Mode=TwoWay}" Background="{x:Null}">
+                  ItemsSource="{Binding ProjectList}"
+                  SelectedItem="{Binding SelectedProject, Mode=TwoWay}" Background="{x:Null}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
@@ -61,7 +61,13 @@
 
         <!-- rediger view -->
 
-        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF685AA6" >
+        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" >
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF4100FF" Offset="0.603"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
             <StackPanel.FocusVisualPrimaryBrush>
                 <AcrylicBrush/>
             </StackPanel.FocusVisualPrimaryBrush>
@@ -78,14 +84,7 @@
                           Text="{Binding Project.Name, Mode=TwoWay}"
                          Width="700"/>
             </StackPanel>
-            <!-- Deadline textblock -->
-            <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
-                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                           Text="Deadline" Foreground="White" />
-                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                          Text="{Binding Project.Deadline, Mode=TwoWay}"
-                          Width="700"/>
-            </StackPanel>
+
             <!-- Firma navn textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
@@ -94,14 +93,34 @@
                          Text="{Binding Project.CostumerId, Mode=TwoWay}"
                          Width="700"/>
             </StackPanel>
-            <!-- Projekt leder textblock -->
+            <!-- Deadline textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
+
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                           Text="Projekt leder" Foreground="White" />
-                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding Project.ProjectLeader, Mode=TwoWay}"
-                         Width="700"/>
+                       Text="Deadline" Foreground="White"/>
+                <DatePicker AccessKey="{Binding Project.Deadline}" Width="400"/>
             </StackPanel>
+            <!-- List af medarbejder for valgte for projekt -->
+            <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                       Text="Medarbejder" Foreground="White"/>
+            <ListView HorizontalAlignment="Center"
+                      Width="600"
+                      Height="500"
+                      ItemsSource="{Binding EmployeesForProject}"
+                      SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
+                            <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding ProjectNavigation.Name }" />
+                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding ProjectNavigation.CvrNr}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+
+
 
         </StackPanel>
     </Grid>

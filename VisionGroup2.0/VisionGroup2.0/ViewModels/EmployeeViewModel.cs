@@ -22,6 +22,8 @@ namespace VisionGroup2._0.ViewModels
 
         public Project Project { get; set; }
 
+        public ProjectsForEmployee ProjectsForEmployee { get; set; }
+
 
         public EmployeeViewModel()
         {
@@ -81,7 +83,7 @@ namespace VisionGroup2._0.ViewModels
                 {
                     foreach (var l in _projectCatalog.ProjectList)
                     {
-                        if (Project.EmployeeId == Employee.EmployeeId)
+                        if (ProjectsForEmployee.EmployeeId == Employee.EmployeeId)
                         {
                             list.Add(l);
                         }

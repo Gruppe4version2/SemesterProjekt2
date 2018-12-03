@@ -100,13 +100,15 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Telefon nummer" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding Costumer.PhonNr, Mode=TwoWay}"
+                         Text="{Binding Costumer.PhoneNr, Mode=TwoWay}"
                          Width="700"/>
             </StackPanel>
+
+            <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                       Text="Projekter" Foreground="White"/>
             <ListView HorizontalAlignment="Center"
                      Width="600"
                       Height="500"
-                      Margin="60"
                      ItemsSource="{Binding ProjectsForCostumer}"
                       SelectedItem="{Binding SelectedProject, Mode=TwoWay}">
                 <ListView.ItemTemplate>

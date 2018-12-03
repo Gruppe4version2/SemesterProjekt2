@@ -44,10 +44,10 @@ namespace VisionGroup2._0.ViewModels
 
         public int Phone
         {
-            get { return Costumer.PhonNr; }
+            get { return Costumer.PhoneNr; }
             set
             {
-                Costumer.PhonNr = value;
+                Costumer.PhoneNr = value;
                 OnPropertyChanged();
             }
         }
@@ -68,7 +68,7 @@ namespace VisionGroup2._0.ViewModels
 
         public string ContentText
         {
-            get { return Costumer.CvrNr + " " + Costumer.PhonNr + " " + Costumer.Email; }
+            get { return Costumer.CvrNr + " " + Costumer.PhoneNr + " " + Costumer.Email; }
         }
 
 

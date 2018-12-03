@@ -19,13 +19,14 @@ namespace VisionGroup2._0
         public virtual DbSet<Costumer> Costumers { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<ProjectsForEmployee> ProjectsForEmployees { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=gruppe4.database.windows.net;Initial Catalog=db;User ID=VisionGroup;Password=Password123");
+                optionsBuilder.UseSqlServer("Data Source=gruppe4.database.windows.net;Initial Catalog=db;Persist Security Info=True;User ID=VisionGroup;Password=Password123");
             }
         }
 
@@ -49,7 +50,7 @@ namespace VisionGroup2._0
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.PhonNr).HasColumnName("Phon_nr");
+                entity.Property(e => e.PhoneNr).HasColumnName("Phone_Nr");
             });
 
             modelBuilder.Entity<Employee>(entity =>
@@ -58,7 +59,7 @@ namespace VisionGroup2._0
 
                 entity.Property(e => e.EmployeeId)
                     .HasColumnName("Employee_Id")
-                    .HasDefaultValueSql("((1))");
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.Email)
                     .IsRequired()
@@ -67,6 +68,8 @@ namespace VisionGroup2._0
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.PhoneNr).HasColumnName("Phone_Nr");
             });
 
             modelBuilder.Entity<Project>(entity =>
@@ -81,10 +84,6 @@ namespace VisionGroup2._0
 
                 entity.Property(e => e.Deadline).HasColumnType("datetime");
 
-                entity.Property(e => e.EmployeeId)
-                    .HasColumnName("Employee_Id")
-                    .HasDefaultValueSql("((1))");
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
@@ -98,12 +97,29 @@ namespace VisionGroup2._0
                     .HasForeignKey(d => d.CostumerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CostumerID");
+            });
+
+            modelBuilder.Entity<ProjectsForEmployee>(entity =>
+            {
+                entity.HasKey(e => new { e.ProjectId, e.EmployeeId });
+
+                entity.Property(e => e.ProjectId).HasColumnName("Project_Id");
+
+                entity.Property(e => e.EmployeeId).HasColumnName("Employee_Id");
+
+                entity.Property(e => e.IsLeader).HasColumnName("Is_Leader");
 
                 entity.HasOne(d => d.Employee)
-                    .WithMany(p => p.Projects)
+                    .WithMany(p => p.ProjectsForEmployees)
                     .HasForeignKey(d => d.EmployeeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_EmployeeID ");
+                    .HasConstraintName("FK_EmployeeId");
+
+                entity.HasOne(d => d.Project)
+                    .WithMany(p => p.ProjectsForEmployees)
+                    .HasForeignKey(d => d.ProjectId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProjectId");
             });
 
             OnModelCreatingPartial(modelBuilder);

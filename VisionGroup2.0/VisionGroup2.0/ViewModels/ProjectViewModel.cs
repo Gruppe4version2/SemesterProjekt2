@@ -15,6 +15,16 @@ namespace VisionGroup2._0.ViewModels
     {
 
         private ProjectCatalog _projectCatalog;
+        private ProjectsForEmployee _projectsForEmployee;
+
+        public ProjectViewModel()
+        {
+            this._projectCatalog = new ProjectCatalog();
+            this._projectsForEmployee = new ProjectsForEmployee();
+        }
+        public EmployeeCatalog EmployeeCatalog { get; set; }
+        public Employee Employee { get; set; }
+
 
         public Project Project { get; set; }
 
@@ -38,24 +48,88 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
-        public string ProjectLeader
-        {
-            get { return Project.ProjectLeader; }
-            set
-            {
-                Project.ProjectLeader = value;
-                OnPropertyChanged();
-            }
-        }
+
 
         public Costumer Costumer
         {
             get { return Project.Costumer; }
         }
 
-        public List<Project> ListOfProjects
+        public List<Project> ProjectList
         {
-            get { return _projectCatalog.ProjectList; }
+            get
+            {
+                if (SelectedProject == null)
+                {
+                    if (this._projectCatalog.ProjectList != null)
+                    {
+                        var projectList = from project in _projectCatalog.ProjectList
+                                           orderby project.Name
+                            select project;
+                        SelectedProject = projectList.First();
+                        return projectList.ToList();
+                    }
+                    else
+                    {
+                        return this._projectCatalog.ProjectList;
+                    }
+                }
+                else
+                {
+                    var projectList = from project in _projectCatalog.ProjectList
+                                       where project.Name == SelectedProject.Name
+
+                        orderby project.Name
+                        select project;
+                    SelectedProject = projectList.First();
+                    return projectList.ToList();
+                }
+
+            }
+        }
+
+        public Project SelectedProject
+        {
+            get { return Project; }
+            set
+            {
+                Project = value;
+                OnPropertyChanged(nameof(ProjectList));
+            }
+        }
+
+        public List<Employee> EmployeesForProject
+        {
+            get
+            {
+                List<Employee> list = new List<Employee>();
+                if (_projectCatalog.ProjectList !=null)
+                {
+
+
+                    foreach (var employee in EmployeeCatalog.EmployeeList)
+                    {
+                        if (_projectsForEmployee.ProjectId == Project.ProjectId)
+                        {
+                            list.Add(employee);
+                        }
+                    }
+                }
+
+                return list;
+            }
+           
+        }
+
+        public Employee SelectedEmployee
+        {
+            get { return Employee; }
+            set
+            {
+                Employee = value;
+                OnPropertyChanged(nameof(EmployeesForProject));
+            }
+
         }
 
 
