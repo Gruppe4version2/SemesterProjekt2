@@ -62,7 +62,7 @@
 
         <!-- rediger view -->
 
-        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF685AA6" >
+        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" >
             <StackPanel.FocusVisualPrimaryBrush>
                 <AcrylicBrush/>
             </StackPanel.FocusVisualPrimaryBrush>
@@ -105,7 +105,7 @@
             </StackPanel>
 
             <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                       Text="Projekter" Foreground="White"/>
+                       Text="Projekter tilknyttet kunder" Foreground="White" Width="400"/> 
             <ListView HorizontalAlignment="Center"
                      Width="600"
                       Height="500"
