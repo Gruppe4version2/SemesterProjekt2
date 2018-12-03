@@ -10,34 +10,65 @@ namespace VisionGroup2._0.Catalogs
 {
     public class CostumerCatalog : ICatalog<Costumer>
     {
+        private List<Costumer>_costumerList;
+        public List<Costumer> CostumerList
+        {
+            get
+            {
+                if (this._costumerList != null)
+                {
+                    return this._costumerList;
+                }
+                else
+                {
+                    Load();
+                    return this._costumerList;
 
-        public List<Costumer> CostumerList { get; set; }
+                }
+            }
+            set
+            {
+                this._costumerList = value;
+            }
+        }
 
-       
        
         public void Add(Costumer item)
         {
-            CostumerList.Add(item);
+            using (var db = new DbContextVisionGroup())
+            {
+                db.Costumers.Add(item);
+                db.SaveChanges();
+            }
         }
         
         public void Remove(Costumer item)
         {
-            CostumerList.Remove(item);
+            using (var db = new DbContextVisionGroup())
+            {
+                db.Costumers.Remove(item);
+                db.SaveChanges();
+            }
         }
 
 
 
-        // Finder index for gamle item, som har et bestemt ProjectId
-        // Den erstatter med ny item med samme ProjectId
+        
         public void Update(Costumer item)
         {
-            CostumerList[CostumerList
-                .FindIndex(a => a.CostumerId == item.CostumerId)] = item;
+            using (var db = new DbContextVisionGroup())
+            {
+                db.Costumers.Update(item);
+                db.SaveChanges();
+            }
         }
 
-        public void Load(Costumer item)
+        public void Load()
         {
-            throw new System.NotImplementedException();
+            using (var db = new DbContextVisionGroup())
+            {
+                CostumerList = db.Costumers.ToList();
+            }
         }
     }
 }

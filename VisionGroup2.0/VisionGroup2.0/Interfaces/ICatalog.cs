@@ -8,7 +8,7 @@
 
         void Update(T item);
 
-        void Load(T item);
+        void Load();
 
     }
 }
