@@ -10,32 +10,65 @@ namespace VisionGroup2._0.Catalogs
 {
     public class ProjectCatalog : ICatalog<Project>
     {
+        private List<Project> _projectList;
+        public List<Project> ProjectList
+        {
+            get
+            {
+                if (this._projectList != null)
+                {
+                    return this._projectList;
+                }
+                else
+                {
+                    Load();
+                    return this._projectList;
 
+                }
+            }
+            set
+            {
+                this._projectList = value;
+            }
+        }
 
-        public List<Project> ProjectList { get; set; }
 
         public void Add(Project item)
         {
-            ProjectList.Add(item);
+            using (var db = new DbContextVisionGroup())
+            {
+                db.Projects.Add(item);
+                db.SaveChanges();
+            }
         }
 
         public void Remove(Project item)
         {
-            ProjectList.Remove(item);
+            using (var db = new DbContextVisionGroup())
+            {
+                db.Projects.Remove(item);
+                db.SaveChanges();
+            }
         }
 
 
-        // Finder index for gamle item, som har et bestemt ProjectId
-        // Den erstatter med ny item med samme ProjectId
+
+
         public void Update(Project item)
         {
-            ProjectList[ProjectList
-                .FindIndex(a => a.ProjectId == item.ProjectId)] = item;
+            using (var db = new DbContextVisionGroup())
+            {
+                db.Projects.Update(item);
+                db.SaveChanges();
+            }
         }
 
         public void Load()
         {
-            throw new System.NotImplementedException();
+            using (var db = new DbContextVisionGroup())
+            {
+                ProjectList = db.Projects.ToList();
+            }
         }
     }
 }

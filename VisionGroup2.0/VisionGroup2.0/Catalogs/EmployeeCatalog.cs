@@ -10,27 +10,65 @@ namespace VisionGroup2._0.Catalogs
 {
     public class EmployeeCatalog : ICatalog<Employee>
     {
-        public List<Employee> EmployeeList { get; set; }
+        private List<Employee> _employeeList;
+        public List<Employee> EmployeeList
+        {
+            get
+            {
+                if (this._employeeList != null)
+                {
+                    return this._employeeList;
+                }
+                else
+                {
+                    Load();
+                    return this._employeeList;
+
+                }
+            }
+            set
+            {
+                this._employeeList = value;
+            }
+        }
+
 
         public void Add(Employee item)
         {
-            EmployeeList.Add(item);
-        }
-
-        public void Load()
-        {
-            throw new NotImplementedException();
+            using (var db = new DbContextVisionGroup())
+            {
+                db.Employees.Add(item);
+                db.SaveChanges();
+            }
         }
 
         public void Remove(Employee item)
         {
-            EmployeeList.Remove(item);
+            using (var db = new DbContextVisionGroup())
+            {
+                db.Employees.Remove(item);
+                db.SaveChanges();
+            }
         }
+
+
+
 
         public void Update(Employee item)
         {
-            EmployeeList[EmployeeList
-                .FindIndex(a => a.EmployeeId == item.EmployeeId)] = item;
+            using (var db = new DbContextVisionGroup())
+            {
+                db.Employees.Update(item);
+                db.SaveChanges();
+            }
+        }
+
+        public void Load()
+        {
+            using (var db = new DbContextVisionGroup())
+            {
+                EmployeeList = db.Employees.ToList();
+            }
         }
     }
 }
