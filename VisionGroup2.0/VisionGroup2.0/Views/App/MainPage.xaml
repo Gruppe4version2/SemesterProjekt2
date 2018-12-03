@@ -28,9 +28,9 @@
                     SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
 
         <NavigationView.MenuItems>
-            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="AlignLeft" Content="Projects" Tag="OpenProjectView" />
-            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="Emoji2"  Content="Costumers" Tag="OpenCostumerView" />
-            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="People" Content="Employee" Tag="OpenEmployeeView" />
+            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="AlignLeft" Content="Projekter" Tag="OpenProjectView" />
+            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="Emoji2"  Content="Kunder" Tag="OpenCostumerView" />
+            <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="People" Content="Ansatte" Tag="OpenEmployeeView" />
 
         </NavigationView.MenuItems>
 

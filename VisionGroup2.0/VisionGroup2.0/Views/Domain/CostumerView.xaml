@@ -29,7 +29,7 @@
                 <TextBlock Style="{StaticResource TextBlockCommandContentStyle}" />
 
             </CommandBar.Content>
-            <AppBarButton Icon="Edit" Label="Update" />
+            <AppBarButton Icon="Edit" Label="Opdater" />
 
             <AppBarButton Icon="Delete" Label="Slet" />
 

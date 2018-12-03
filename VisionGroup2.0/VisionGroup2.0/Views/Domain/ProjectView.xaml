@@ -28,7 +28,7 @@
                 <TextBlock Style="{StaticResource TextBlockCommandContentStyle}" />
 
             </CommandBar.Content>
-            <AppBarButton Icon="Edit" Label="Update" />
+            <AppBarButton Icon="Edit" Label="Opdater" />
 
             <AppBarButton Icon="Delete" Label="Slet" />
 
@@ -81,7 +81,7 @@
             <!-- Deadline textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                           Text="CVR" Foreground="White" />
+                           Text="Deadline" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding Project.Deadline, Mode=TwoWay}"
                           Width="700"/>
