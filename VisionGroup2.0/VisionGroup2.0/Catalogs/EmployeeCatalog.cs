@@ -17,7 +17,7 @@ namespace VisionGroup2._0.Catalogs
             EmployeeList.Add(item);
         }
 
-        public void Load(Employee item)
+        public void Load()
         {
             throw new NotImplementedException();
         }

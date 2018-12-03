@@ -33,7 +33,7 @@ namespace VisionGroup2._0.Catalogs
                 .FindIndex(a => a.ProjectId == item.ProjectId)] = item;
         }
 
-        public void Load(Project item)
+        public void Load()
         {
             throw new System.NotImplementedException();
         }
