@@ -52,8 +52,8 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
-                        <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding HeaderText}" />
-                        <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding ContentText}"/>
+                        <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding Name}" />
+                        <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding Deadline}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -75,7 +75,7 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Projekt navn" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                          Text="{Binding Project.Name, Mode=TwoWay}"
+                          Text="{Binding SelectedProject.Name, Mode=TwoWay}"
                          Width="700"/>
             </StackPanel>
 
@@ -84,7 +84,7 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Firma navn" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding Project.CostumerId, Mode=TwoWay}"
+                         Text="{Binding SelectedProject.CostumerId, Mode=TwoWay}"
                          Width="700"/>
             </StackPanel>
             <!-- Deadline textblock -->
@@ -92,7 +92,7 @@
 
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                        Text="Deadline" Foreground="White"/>
-                <DatePicker AccessKey="{Binding Project.Deadline}" Width="400"/>
+                <DatePicker AccessKey="{Binding SelectedProject.Deadline}" Width="400"/>
             </StackPanel>
             <!-- List af medarbejder for valgte for projekt -->
             <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
@@ -105,8 +105,8 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
-                            <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding ProjectNavigation.Name }" />
-                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding ProjectNavigation.CvrNr}"/>
+                            <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding}" />
+                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

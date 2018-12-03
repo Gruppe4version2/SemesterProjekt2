@@ -50,6 +50,16 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
+        public string CostumerName
+        {
+            get { return SelectedProject.Costumer.Name; }
+            set
+            {
+                SelectedProject.Costumer.Name = value;
+                OnPropertyChanged();
+            }
+
+        }
 
 
         public Costumer Costumer
@@ -81,7 +91,7 @@ namespace VisionGroup2._0.ViewModels
                     var projectList = from project in _projectCatalog.ProjectList
                                        where project.Name == SelectedProject.Name
 
-                        orderby project.Name
+                        orderby project.Name    
                         select project;
                     return projectList.ToList();
                 }
@@ -105,7 +115,8 @@ namespace VisionGroup2._0.ViewModels
             set
             {
                 this._selectedProject = value;
-                OnPropertyChanged(nameof(ProjectList));
+                OnPropertyChanged();
+                
             }
         }
 

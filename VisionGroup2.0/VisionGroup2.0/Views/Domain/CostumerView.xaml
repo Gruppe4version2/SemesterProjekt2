@@ -53,8 +53,8 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
-                        <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding }" />
-                        <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding Header}"/>
+                        <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding Name }" />
+                        <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding  CvrNr}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -76,7 +76,7 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Firma navn" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                          Text="{Binding Costumer.Name, Mode=TwoWay}"
+                          Text="{Binding SelectedCostumer.Name, Mode=TwoWay}"
                          Width="700"/>
             </StackPanel>
             <!-- CVR textblock -->
@@ -84,7 +84,7 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="CVR" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                          Text="{Binding Costumer.CvrNr, Mode=TwoWay}"
+                          Text="{Binding SelectedCostumer.CvrNr, Mode=TwoWay}"
                           Width="700"/>
             </StackPanel>
             <!-- Email textblock -->
@@ -92,7 +92,7 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Email" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding Costumer.Email, Mode=TwoWay}"
+                         Text="{Binding SelectedCostumer.Email, Mode=TwoWay}"
                          Width="700"/>
             </StackPanel>
             <!-- Telefon nr textblock -->
@@ -100,7 +100,7 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Telefon nummer" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding Costumer.PhoneNr, Mode=TwoWay}"
+                         Text="{Binding SelectedCostumer.PhoneNr, Mode=TwoWay}"
                          Width="700"/>
             </StackPanel>
 
@@ -114,8 +114,8 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
-                            <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding ProjectNavigation.Name }" />
-                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding ProjectNavigation.CvrNr}"/>
+                            <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding  Name}" />
+                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding  Deadline}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

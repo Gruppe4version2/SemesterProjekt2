@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.DataContext>
-        <viewModels:CostumerViewModel/>
+        <viewModels:EmployeeViewModel/>
     </Page.DataContext>
 
     <Page.Resources>
@@ -45,15 +45,15 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <!-- View af kunder -->
+        <!-- View af medarbejderer -->
         <ListView Grid.Row="0" Grid.Column="0" Style="{StaticResource ListViewStyle}"
-                  ItemsSource="{Binding CostumerList}"
-                  SelectedItem="{Binding SelectedCostumer, Mode=TwoWay}" Background="{x:Null}">
+                  ItemsSource="{Binding EmployeeList}"
+                  SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}" Background="{x:Null}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
-                        <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding }" />
-                        <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding Header}"/>
+                        <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding Name}" />
+                        <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding PhoneNr}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -75,41 +75,40 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Fulde navn" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                          Text="{Binding Costumer.Name, Mode=TwoWay}"
+                          Text="{Binding SelectedEmployee.Name, Mode=TwoWay}"
                          Width="700"/>
             </StackPanel>
-            <!-- CVR textblock -->
+            <!-- Telefon textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                           Text="Email" Foreground="White" />
+                           Text="Telefon nummer" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                          Text="{Binding Costumer.CvrNr, Mode=TwoWay}"
+                          Text="{Binding SelectedEmployee.PhoneNr, Mode=TwoWay}"
                           Width="700"/>
             </StackPanel>
             <!-- Email textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                           Text="Telefon nummer" Foreground="White" />
+                           Text="Email" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding Costumer.Email, Mode=TwoWay}"
+                         Text="{Binding SelectedEmployee.Email, Mode=TwoWay}"
                          Width="700"/>
             </StackPanel>
+            <!-- Liste af projekter -->
 
-            <ListView HorizontalAlignment="Center"
-                     Width="600"
-                      Height="500"
-                      Margin="60"
-                     ItemsSource="{Binding ProjectsForCostumer}"
-                      SelectedItem="{Binding SelectedProject, Mode=TwoWay}">
+            <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                       Text="Tilknyttet projekter" Foreground="White" Width="400"/>
+            <ListView Grid.Row="0" Grid.Column="0" Style="{StaticResource ListViewStyle}"
+                      ItemsSource="{Binding EmployeeProjects}"
+                      SelectedItem="{Binding SelectedProject, Mode=TwoWay}" Background="{x:Null}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
-                            <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding ProjectNavigation.Name }" />
-                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding ProjectNavigation.CvrNr}"/>
+                            <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding Name}" />
+                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding PhoneNr}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-
             </ListView>
 
         </StackPanel>

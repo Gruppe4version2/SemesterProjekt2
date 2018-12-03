@@ -17,6 +17,10 @@ namespace VisionGroup2._0.ViewModels
 
         private EmployeeCatalog _employeeCatalog;
 
+        private Employee _selectedEmployee;
+        private ProjectsForEmployee _projectsForEmployee;
+
+
 
         public Employee Employee { get; set; }
 
@@ -28,13 +32,16 @@ namespace VisionGroup2._0.ViewModels
         public EmployeeViewModel()
         {
             this._projectCatalog = new ProjectCatalog();
+            _projectCatalog.Load();
             this._employeeCatalog = new EmployeeCatalog();
+            _employeeCatalog.Load();
+            _projectsForEmployee = new ProjectsForEmployee();
         }
 
 
         public string Name
         {
-            get { return Employee.Name; }
+            get { return SelectedEmployee.Name; }
             set
             {
                 Employee.Name = value;
@@ -45,7 +52,7 @@ namespace VisionGroup2._0.ViewModels
         
         public int Phone
         {
-            get { return Employee.PhoneNr; }
+            get { return SelectedEmployee.PhoneNr; }
             set
             {
                 Employee.PhoneNr = value;
@@ -55,7 +62,7 @@ namespace VisionGroup2._0.ViewModels
 
         public string Email
         {
-            get { return Employee.Email; }
+            get { return SelectedEmployee.Email; }
             set
             {
                 Employee.Email = value;
@@ -64,12 +71,12 @@ namespace VisionGroup2._0.ViewModels
         }
         public string HeaderText
         {
-            get { return Employee.Name; }
+            get { return SelectedEmployee.Name; }
         }
 
         public string ContentText
         {
-            get { return Employee.PhoneNr + " " + Employee.Email; }
+            get { return SelectedEmployee.PhoneNr + " " + SelectedEmployee.Email; }
         }
 
 
@@ -83,7 +90,7 @@ namespace VisionGroup2._0.ViewModels
                 {
                     foreach (var l in _projectCatalog.ProjectList)
                     {
-                        if (ProjectsForEmployee.EmployeeId == Employee.EmployeeId)
+                        if (_projectsForEmployee.EmployeeId == SelectedEmployee.EmployeeId)
                         {
                             list.Add(l);
                         }
@@ -107,11 +114,22 @@ namespace VisionGroup2._0.ViewModels
 
         public Employee SelectedEmployee
         {
-            get { return Employee; }
+            get
+            {
+                if (this._selectedEmployee != null)
+                {
+                    return this._selectedEmployee;
+                }
+                else
+                {
+                    this._selectedEmployee= EmployeeList[0];
+                    return this._selectedEmployee;
+                }
+            }
             set
             {
-                Employee = value;
-                OnPropertyChanged(nameof(EmployeeList));
+                this._selectedEmployee = value;
+                OnPropertyChanged();
             }
         }
 
@@ -120,15 +138,15 @@ namespace VisionGroup2._0.ViewModels
         {
             get
             {
-                if (SelectedEmployee == null)
+                if (_selectedEmployee == null)
                 {
                     if (this._employeeCatalog.EmployeeList != null)
                     {
-                        var EmployeeList = from Employee in _employeeCatalog.EmployeeList
-                                           orderby Employee.Name
-                                           select Employee;
-                        SelectedEmployee = EmployeeList.First();
-                        return EmployeeList.ToList();
+                        var employeeList = from employee in _employeeCatalog.EmployeeList
+                            orderby employee.Name
+                            select employee;
+                        SelectedEmployee = employeeList.First();
+                        return employeeList.ToList();
                     }
                     else
                     {
@@ -137,13 +155,12 @@ namespace VisionGroup2._0.ViewModels
                 }
                 else
                 {
-                    var EmployeeList = from Employee in _employeeCatalog.EmployeeList
-                                       where Employee.Name == SelectedEmployee.Name
+                    var employeeList = from employee in _employeeCatalog.EmployeeList
+                        where employee.Name == SelectedEmployee.Name
 
-                                       orderby Employee.Name
-                                       select Employee;
-                    SelectedEmployee = EmployeeList.First();
-                    return EmployeeList.ToList();
+                        orderby employee.Name
+                        select employee;
+                    return employeeList.ToList();
                 }
 
             }

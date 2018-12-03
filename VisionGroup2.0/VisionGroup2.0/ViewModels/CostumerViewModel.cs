@@ -15,60 +15,64 @@ namespace VisionGroup2._0.ViewModels
     {
         private ProjectCatalog _projectCatalog;
         private CostumerCatalog _costumerCatalog;
+        private Costumer _selectedCostumer;
+        private Project _project;
 
 
         public Costumer Costumer { get; set; }
-        public Project Project { get; set; }
 
         public CostumerViewModel()
         {
             this._projectCatalog = new ProjectCatalog();
+            _projectCatalog.Load();
             this._costumerCatalog = new CostumerCatalog();
+            _costumerCatalog.Load();
+            this._project = new Project();
         }
 
 
         public string Name
         {
-            get { return Costumer.Name; }
+            get { return SelectedCostumer.Name; }
             set
             {
-                Costumer.Name = value;
+                SelectedCostumer.Name = value;
                 OnPropertyChanged();
             }
         }
 
         public int CVR
         {
-            get { return Costumer.CvrNr; }
+            get { return SelectedCostumer.CvrNr; }
         }
 
         public int Phone
         {
-            get { return Costumer.PhoneNr; }
+            get { return SelectedCostumer.PhoneNr; }
             set
             {
-                Costumer.PhoneNr = value;
+                SelectedCostumer.PhoneNr = value;
                 OnPropertyChanged();
             }
         }
 
         public string Email
         {
-            get { return Costumer.Email; }
+            get { return SelectedCostumer.Email; }
             set
             {
-                Costumer.Email = value;
+                SelectedCostumer.Email = value;
                 OnPropertyChanged();
             }
         }
         public string HeaderText
         {
-            get { return Costumer.Name; }
+            get { return SelectedCostumer.Name; }
         }
 
         public string ContentText
         {
-            get { return Costumer.CvrNr + " " + Costumer.PhoneNr + " " + Costumer.Email; }
+            get { return SelectedCostumer.CvrNr + " " + SelectedCostumer.PhoneNr + " " + SelectedCostumer.Email; }
         }
 
 
@@ -82,7 +86,7 @@ namespace VisionGroup2._0.ViewModels
                 {
                     foreach (var l in _projectCatalog.ProjectList)
                     {
-                        if (Project.CostumerId == Costumer.CostumerId)
+                        if (_project.CostumerId == SelectedCostumer.CostumerId)
                         {
                             list.Add(l);
                         }
@@ -95,24 +99,25 @@ namespace VisionGroup2._0.ViewModels
 
         public Project SelectedProject
         {
-            get { return Project; }
+            get { return _project; }
             set
             {
-                Project = value;
+                _project = value;
                 OnPropertyChanged(nameof(ProjectsForCostumer));
             }
         }
 
         public List<Costumer> CostumerList
         {
-            get {
-                if (SelectedCostumer == null)
+            get
+            {
+                if (_selectedCostumer == null)
                 {
                     if (this._costumerCatalog.CostumerList != null)
                     {
                         var costumerList = from costumer in _costumerCatalog.CostumerList
-                                           orderby costumer.Name
-                                           select costumer;
+                            orderby costumer.Name
+                            select costumer;
                         SelectedCostumer = costumerList.First();
                         return costumerList.ToList();
                     }
@@ -122,25 +127,35 @@ namespace VisionGroup2._0.ViewModels
                     }
                 }
                 else
-                    {
-                        var costumerList = from costumer in _costumerCatalog.CostumerList
-                            where costumer.Name == SelectedCostumer.Name
+                {
+                    var costumerList = from costumer in _costumerCatalog.CostumerList
+                        where costumer.Name == SelectedCostumer.Name
 
-                            orderby costumer.Name
-                            select costumer;
-                        SelectedCostumer = costumerList.First();
-                        return costumerList.ToList();
-                    }
-
+                        orderby costumer.Name
+                        select costumer;
+                    return costumerList.ToList();
                 }
+
             }
+        }
         public Costumer SelectedCostumer
         {
-            get { return Costumer; }
+            get
+            {
+                if (this._selectedCostumer != null)
+                {
+                    return this._selectedCostumer;
+                }
+                else
+                {
+                    this._selectedCostumer = CostumerList[0];
+                    return this._selectedCostumer;
+                }
+            }
             set
             {
-                Costumer = value;
-                OnPropertyChanged(nameof(CostumerList));
+                this._selectedCostumer = value;
+                OnPropertyChanged();
             }
         }
 
