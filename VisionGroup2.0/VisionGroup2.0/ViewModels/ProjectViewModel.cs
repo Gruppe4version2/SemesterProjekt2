@@ -17,33 +17,35 @@ namespace VisionGroup2._0.ViewModels
         private ProjectCatalog _projectCatalog;
         private ProjectsForEmployee _projectsForEmployee;
 
+        private Project _selectedProject;
         public ProjectViewModel()
         {
             this._projectCatalog = new ProjectCatalog();
+            this._projectCatalog.Load();
             this._projectsForEmployee = new ProjectsForEmployee();
+            EmployeeCatalog = new EmployeeCatalog();
+            EmployeeCatalog.Load();
         }
         public EmployeeCatalog EmployeeCatalog { get; set; }
         public Employee Employee { get; set; }
 
 
-        public Project Project { get; set; }
-
         public string Name
         {
-            get { return Project.Name; }
+            get { return SelectedProject.Name; }
             set
             {
-                Project.Name = value;
+                SelectedProject.Name = value;
                 OnPropertyChanged();
             }
         }
 
         public DateTime? Deadline
         {
-            get { return Project.Deadline; }
+            get { return SelectedProject.Deadline; }
             set
             {
-                Project.Deadline = value;
+                SelectedProject.Deadline = value;
                 OnPropertyChanged();
             }
         }
@@ -52,14 +54,14 @@ namespace VisionGroup2._0.ViewModels
 
         public Costumer Costumer
         {
-            get { return Project.Costumer; }
+            get { return SelectedProject.Costumer; }
         }
 
         public List<Project> ProjectList
         {
             get
             {
-                if (SelectedProject == null)
+                if (_selectedProject == null)
                 {
                     if (this._projectCatalog.ProjectList != null)
                     {
@@ -81,7 +83,6 @@ namespace VisionGroup2._0.ViewModels
 
                         orderby project.Name
                         select project;
-                    SelectedProject = projectList.First();
                     return projectList.ToList();
                 }
 
@@ -90,10 +91,20 @@ namespace VisionGroup2._0.ViewModels
 
         public Project SelectedProject
         {
-            get { return Project; }
+            get {
+                if (this._selectedProject != null)
+                {
+                    return this._selectedProject;
+                }
+                else
+                {
+                    this._selectedProject = ProjectList[0];
+                    return this._selectedProject;
+                }
+            }
             set
             {
-                Project = value;
+                this._selectedProject = value;
                 OnPropertyChanged(nameof(ProjectList));
             }
         }
@@ -109,7 +120,7 @@ namespace VisionGroup2._0.ViewModels
 
                     foreach (var employee in EmployeeCatalog.EmployeeList)
                     {
-                        if (_projectsForEmployee.ProjectId == Project.ProjectId)
+                        if (_projectsForEmployee.ProjectId == SelectedProject.ProjectId)
                         {
                             list.Add(employee);
                         }
