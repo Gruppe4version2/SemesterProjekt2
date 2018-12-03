@@ -113,8 +113,8 @@
     <Compile Include="Interfaces\ICostumerFactory.cs" />
     <Compile Include="Interfaces\IEmployeeFactory.cs" />
     <Compile Include="Interfaces\IProjectFactory.cs" />
-    <Compile Include="DomainClasses\ProjectsForEmployee.cs" />
     <Compile Include="DomainClasses\Project.cs" />
+    <Compile Include="DomainClasses\ProjectsForEmployee.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\AppViewModelBase.cs" />
