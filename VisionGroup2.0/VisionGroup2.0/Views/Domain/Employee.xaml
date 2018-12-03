@@ -61,7 +61,7 @@
 
         <!-- rediger view -->
 
-        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF685AA6" >
+        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" >
             <StackPanel.FocusVisualPrimaryBrush>
                 <AcrylicBrush/>
             </StackPanel.FocusVisualPrimaryBrush>

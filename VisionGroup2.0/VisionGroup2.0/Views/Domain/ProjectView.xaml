@@ -61,13 +61,7 @@
 
         <!-- rediger view -->
 
-        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" >
-            <StackPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="#FF4100FF" Offset="0.603"/>
-                </LinearGradientBrush>
-            </StackPanel.Background>
+        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" >
             <StackPanel.FocusVisualPrimaryBrush>
                 <AcrylicBrush/>
             </StackPanel.FocusVisualPrimaryBrush>
@@ -102,7 +96,7 @@
             </StackPanel>
             <!-- List af medarbejder for valgte for projekt -->
             <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                       Text="Medarbejder" Foreground="White"/>
+                       Text="Medarbejder tilknyttet projektet" Foreground="White" Width="400"/>
             <ListView HorizontalAlignment="Center"
                       Width="600"
                       Height="500"
