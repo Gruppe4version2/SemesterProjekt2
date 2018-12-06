@@ -28,7 +28,7 @@
                 <TextBlock Style="{StaticResource TextBlockCommandContentStyle}" />
 
             </CommandBar.Content>
-            <AppBarButton Icon="Edit" Label="Opdater" />
+            <AppBarButton Icon="Edit" Label="Rediger" />
 
             <AppBarButton Icon="Delete" Label="Slet" IsEnabled="True" Command="{Binding DeleteCommand}" />
 
