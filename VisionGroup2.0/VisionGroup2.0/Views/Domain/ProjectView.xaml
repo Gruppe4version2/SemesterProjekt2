@@ -30,9 +30,9 @@
             </CommandBar.Content>
             <AppBarButton Icon="Edit" Label="Opdater" />
 
-            <AppBarButton Icon="Delete" Label="Slet" />
+            <AppBarButton Icon="Delete" Label="Slet" IsEnabled="True" Command="{Binding DeleteCommand}" />
 
-            <AppBarButton Icon="NewFolder" Label="Opret" />
+            <AppBarButton Icon="NewFolder" Label="Opret" IsEnabled="True" Command="{Binding AddProject}" />
 
 
         </CommandBar>
@@ -87,30 +87,39 @@
                          Text="{Binding SelectedProject.CostumerId, Mode=TwoWay}"
                          Width="700"/>
             </StackPanel>
+
+
+<!-- Firma navn textblock -->
+                <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
+                    <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                               Text="ID" Foreground="White" />
+                    <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                             Text="{Binding SelectedProject.ProjectId, Mode=TwoWay}"
+                             Width="700"/>
+                </StackPanel>
             <!-- Deadline textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
 
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                        Text="Deadline" Foreground="White"/>
-                <DatePicker AccessKey="{Binding SelectedProject.Deadline}" Width="400"/>
+                <DatePicker Width="450" Date="{Binding Deadline}"/>
             </StackPanel>
-            <!-- List af medarbejder for valgte for projekt -->
+
+
+            <!-- List af medarbejder for valgte projekt -->
             <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                        Text="Medarbejder tilknyttet projektet" Foreground="White" Width="400"/>
-            <ListView HorizontalAlignment="Center"
-                      Width="600"
-                      Height="500"
+            <ListView Grid.Row="0" Grid.Column="0" Style="{StaticResource ListViewStyle}"
                       ItemsSource="{Binding EmployeesForProject}"
-                      SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}">
+                      Background="{x:Null}" Width="500" Height =" 400">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
-                            <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding}" />
-                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding}"/>
+                            <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding Name}" />
+                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding PhoneNr}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-
             </ListView>
 
 

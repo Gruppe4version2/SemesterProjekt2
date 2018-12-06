@@ -99,7 +99,10 @@
     <Compile Include="Catalogs\CostumerCatalog.cs" />
     <Compile Include="Catalogs\EmployeeCatalog.cs" />
     <Compile Include="Catalogs\ProjectCatalog.cs" />
+    <Compile Include="Commands\AddCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\CreateCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\NavigationCommand.cs" />
     <Compile Include="DomainClasses\Costumer.cs" />
     <Compile Include="DbContextVisionGroup.cs" />
@@ -120,6 +123,7 @@
     <Compile Include="ViewModels\AppViewModelBase.cs" />
     <Compile Include="ViewModels\CostumerViewModel.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
+    <Compile Include="ViewModels\NewCostumerViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="Views\App\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -133,6 +137,9 @@
     </Compile>
     <Compile Include="Views\Domain\ProjectView.xaml.cs">
       <DependentUpon>ProjectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\New objects\NewCostumer.xaml.cs">
+      <DependentUpon>NewCostumer.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +181,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Domain\ProjectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\New objects\NewCostumer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

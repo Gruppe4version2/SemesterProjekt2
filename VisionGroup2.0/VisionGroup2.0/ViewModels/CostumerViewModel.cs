@@ -5,21 +5,24 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using VisionGroup2._0.Annotations;
 using VisionGroup2._0.Catalogs;
+using VisionGroup2._0.Commands;
 using VisionGroup2._0.DomainClasses;
 
 namespace VisionGroup2._0.ViewModels
 {
-    public class CostumerViewModel : INotifyPropertyChanged
+    public class CostumerViewModel : INotifyPropertyChanged 
     {
         private ProjectCatalog _projectCatalog;
         private CostumerCatalog _costumerCatalog;
         private Costumer _selectedCostumer;
         private Project _project;
-
-
+        private Action _remove;
+        private Predicate<Costumer> _canRemove;
         public Costumer Costumer { get; set; }
+        private RelayCommand<Costumer> _deleteCommand;
 
         public CostumerViewModel()
         {
@@ -28,6 +31,23 @@ namespace VisionGroup2._0.ViewModels
             this._costumerCatalog = new CostumerCatalog();
             _costumerCatalog.Load();
             this._project = new Project();
+            _remove = () =>
+            {
+                _costumerCatalog.Remove(SelectedCostumer);
+                Refresh();
+            };
+            _canRemove = (Costumer selectedCostumer) => _costumerCatalog.CostumerList.Contains(SelectedCostumer);
+            _deleteCommand = new RelayCommand<Costumer>(_remove, _canRemove);
+        }
+
+        public RelayCommand<Costumer> DeleteCommand
+        {
+            get
+            {
+                return _deleteCommand;
+               
+            }
+            
         }
 
 
@@ -40,6 +60,8 @@ namespace VisionGroup2._0.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        
 
         public int CVR
         {
@@ -65,6 +87,8 @@ namespace VisionGroup2._0.ViewModels
                 OnPropertyChanged();
             }
         }
+
+
         public string HeaderText
         {
             get { return SelectedCostumer.Name; }
@@ -159,6 +183,11 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
+        public void Refresh()
+        {
+            OnPropertyChanged(nameof(CostumerCatalog.Load));
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -167,6 +196,8 @@ namespace VisionGroup2._0.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
     }
 
 

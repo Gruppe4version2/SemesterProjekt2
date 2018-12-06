@@ -5,8 +5,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using VisionGroup2._0.Annotations;
 using VisionGroup2._0.Catalogs;
+using VisionGroup2._0.Commands;
 using VisionGroup2._0.DomainClasses;
 
 namespace VisionGroup2._0.ViewModels
@@ -16,26 +18,74 @@ namespace VisionGroup2._0.ViewModels
 
         private ProjectCatalog _projectCatalog;
         private ProjectsForEmployee _projectsForEmployee;
+        private EmployeeCatalog _employeeCatalog;
+        private Action _remove;
+        private Predicate<Project> _canRemove;
+        private RelayCommand<Project> _deleteCommand;
+
+
 
         private Project _selectedProject;
+        private Employee _selectedEmployee;
         public ProjectViewModel()
         {
             this._projectCatalog = new ProjectCatalog();
             this._projectCatalog.Load();
             this._projectsForEmployee = new ProjectsForEmployee();
-            EmployeeCatalog = new EmployeeCatalog();
-            EmployeeCatalog.Load();
+            _employeeCatalog = new EmployeeCatalog();
+            _employeeCatalog.Load();
+            _remove = () =>
+            {
+                _projectCatalog.Remove(SelectedProject);
+                _projectCatalog.ProjectList.Remove(SelectedProject);
+                _selectedProject = null;
+                OnPropertyChanged(nameof(ProjectList));
+            };
+            _canRemove = (Project selectedProject) => _projectCatalog.ProjectList.Contains(SelectedProject);
+            _deleteCommand = new RelayCommand<Project>(_remove, _canRemove);
         }
-        public EmployeeCatalog EmployeeCatalog { get; set; }
-        public Employee Employee { get; set; }
 
+        public RelayCommand<Project> DeleteCommand
+        {
+            get
+            {
+                return _deleteCommand;
 
+            }
+
+        }
         public string Name
         {
             get { return SelectedProject.Name; }
             set
             {
                 SelectedProject.Name = value;
+                OnPropertyChanged();
+            }
+        }
+
+        //public ICommand DeleteProject
+        //{
+        //    get
+        //    {
+        //        return new DeleteCommand(_projectCatalog);
+        //    }
+        //}
+
+        public ICommand AddProject
+        {
+            get
+            {
+                return new CreateCommand(_projectCatalog);
+            }
+        }
+
+        public string CostumerName
+        {
+            get { return SelectedProject.Costumer.Name; }
+            set
+            {
+                SelectedProject.Costumer.Name = value;
                 OnPropertyChanged();
             }
         }
@@ -50,21 +100,26 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
-        public string CostumerName
+        public Project SelectedProject
         {
-            get { return SelectedProject.Costumer.Name; }
+            get
+            {
+                if (this._selectedProject != null)
+                {
+                    return this._selectedProject;
+                }
+                else
+                {
+                    this._selectedProject = ProjectList[0];
+                    return this._selectedProject;
+                }
+            }
             set
             {
-                SelectedProject.Costumer.Name = value;
+                this._selectedProject = value;
                 OnPropertyChanged();
+
             }
-
-        }
-
-
-        public Costumer Costumer
-        {
-            get { return SelectedProject.Costumer; }
         }
 
         public List<Project> ProjectList
@@ -99,37 +154,17 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
-        public Project SelectedProject
-        {
-            get {
-                if (this._selectedProject != null)
-                {
-                    return this._selectedProject;
-                }
-                else
-                {
-                    this._selectedProject = ProjectList[0];
-                    return this._selectedProject;
-                }
-            }
-            set
-            {
-                this._selectedProject = value;
-                OnPropertyChanged();
-                
-            }
-        }
 
         public List<Employee> EmployeesForProject
         {
+
             get
             {
                 List<Employee> list = new List<Employee>();
-                if (_projectCatalog.ProjectList !=null)
+
+                if (_projectCatalog.ProjectList != null)
                 {
-
-
-                    foreach (var employee in EmployeeCatalog.EmployeeList)
+                    foreach (var employee in _employeeCatalog.EmployeeList)
                     {
                         if (_projectsForEmployee.ProjectId == SelectedProject.ProjectId)
                         {
@@ -139,19 +174,35 @@ namespace VisionGroup2._0.ViewModels
                 }
 
                 return list;
+
             }
-           
         }
 
         public Employee SelectedEmployee
         {
-            get { return Employee; }
+            get
+            {
+                if (this._selectedEmployee != null)
+                {
+                    return this._selectedEmployee;
+                }
+                else
+                {
+                    this._selectedEmployee = EmployeesForProject[0];
+                    return this._selectedEmployee;
+                }
+            }
             set
             {
-                Employee = value;
-                OnPropertyChanged(nameof(EmployeesForProject));
-            }
+                this._selectedEmployee = value;
+                OnPropertyChanged();
 
+            }
+        }
+        public void Refresh()
+        {
+            OnPropertyChanged(nameof(ProjectCatalog.Load));
+            OnPropertyChanged(nameof(ProjectList));
         }
 
 

@@ -1,0 +1,90 @@
+﻿<Page
+    x:Class="VisionGroup2._0.Views.New_objects.NewCostumer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:VisionGroup2._0.Views.New_objects"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:VisionGroup2._0.ViewModels"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <viewModels:NewCostumerViewModel/>
+    </Page.DataContext>
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Views/App/Dictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <!-- rediger view -->
+
+        <StackPanel Grid.Row="0" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" >
+            <StackPanel.FocusVisualPrimaryBrush>
+                <AcrylicBrush/>
+            </StackPanel.FocusVisualPrimaryBrush>
+
+            <!-- Kunde navn textblock -->
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Height="80" FontSize="50"
+                           Text="Firma navn" Foreground="white"/>
+                <TextBox Text="{Binding Costumer.Name, Mode=TwoWay}"
+                         Width="700"
+                         Height="50"/>
+            </StackPanel>
+            <!-- CVR textblock -->
+            <StackPanel HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Height="80" FontSize="50"
+                           Text="CVR" Foreground="white"/>
+                <TextBox Text="{Binding Costumer.CvrNr, Mode=TwoWay}"
+                         Width="700"
+                         Height="50"/>
+            </StackPanel>
+            <!-- Email textblock -->
+            <StackPanel HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Height="80" FontSize="50"
+                           Text="Email" Foreground="white"/>
+                <TextBox Text="{Binding Costumer.Email, Mode=TwoWay}"
+                         Width="700"
+                         Height="50"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Height="80" FontSize="50"
+                           Text="Telefon" Foreground="white"/>
+                <TextBox Text="{Binding Costumer.PhoneNr, Mode=TwoWay}"
+                         Width="700"
+                         Height="50"/>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Height="80" FontSize="50"
+                           Text="Given ID" Foreground="white"/>
+                <TextBox Text="{Binding Costumer.CostumerId, Mode=TwoWay}"
+                         Width="700"
+                         Height="50"/>
+               </StackPanel>
+
+            <Button HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Height="100"
+                    Width="300"
+                    Content="Tilføj"
+                    Command="{Binding NewCommand}"
+                    Click="Button_navigation_CostumerView"/>
+            </StackPanel>
+    </Grid>
+</Page>

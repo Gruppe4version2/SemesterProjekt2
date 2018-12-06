@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using VisionGroup2._0.ViewModels;
+using VisionGroup2._0.Views.New_objects;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,6 +27,11 @@ namespace VisionGroup2._0.Views.Domain
         public ProjectView()
         {
             this.InitializeComponent();
+
+        }
+        public void Button_navigation_NewCostumer(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(NewCostumer), null);
         }
     }
 }

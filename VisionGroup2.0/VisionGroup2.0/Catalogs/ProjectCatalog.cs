@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using VisionGroup2._0.Annotations;
 using VisionGroup2._0.DomainClasses;
 using VisionGroup2._0.Interfaces;
 
 namespace VisionGroup2._0.Catalogs
 {
-    public class ProjectCatalog : ICatalog<Project>
+    public class ProjectCatalog : ICatalog<Project>, INotifyPropertyChanged
     {
         private List<Project> _projectList;
         public List<Project> ProjectList
@@ -39,6 +43,7 @@ namespace VisionGroup2._0.Catalogs
             {
                 db.Projects.Add(item);
                 db.SaveChanges();
+                OnPropertyChanged();
             }
         }
 
@@ -47,7 +52,13 @@ namespace VisionGroup2._0.Catalogs
             using (var db = new DbContextVisionGroup())
             {
                 db.Projects.Remove(item);
+                var projectEmployees = db.ProjectsForEmployees.Where(p => p.ProjectId == item.ProjectId).ToList();
+                foreach (var employee in projectEmployees)
+                {
+                    db.ProjectsForEmployees.Remove(employee);
+                }
                 db.SaveChanges();
+                OnPropertyChanged();
             }
         }
 
@@ -60,6 +71,7 @@ namespace VisionGroup2._0.Catalogs
             {
                 db.Projects.Update(item);
                 db.SaveChanges();
+                OnPropertyChanged();
             }
         }
 
@@ -69,6 +81,13 @@ namespace VisionGroup2._0.Catalogs
             {
                 ProjectList = db.Projects.ToList();
             }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

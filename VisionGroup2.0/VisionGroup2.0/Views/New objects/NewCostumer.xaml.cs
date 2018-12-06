@@ -12,25 +12,25 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using VisionGroup2._0.Views.New_objects;
+using VisionGroup2._0.Views.Domain;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace VisionGroup2._0.Views.Domain
+namespace VisionGroup2._0.Views.New_objects
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class CostumerView : Page
+    public sealed partial class NewCostumer : Page
     {
-        public CostumerView()
+        public NewCostumer()
         {
             this.InitializeComponent();
         }
 
-        public void Button_navigation_NewCostumer(object sender, RoutedEventArgs e)
+        public void Button_navigation_CostumerView(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(NewCostumer), null);
+            this.Frame.Navigate(typeof(CostumerView), null);
         }
     }
 }

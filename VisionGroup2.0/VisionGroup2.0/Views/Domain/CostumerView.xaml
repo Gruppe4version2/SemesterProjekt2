@@ -31,7 +31,7 @@
             </CommandBar.Content>
             <AppBarButton Icon="Edit" Label="Opdater" />
 
-            <AppBarButton Icon="Delete" Label="Slet" />
+            <AppBarButton Icon="Delete" Label="Slet" IsEnabled="True" Command="{Binding DeleteCommand}" />
 
             <AppBarButton Icon="NewFolder" Label="Opret" />
 
@@ -59,6 +59,14 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        
+        <Button Content="Ny kunde" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom"
+                Height="100"
+                Width="300"
+                Margin="20,20,20,20"
+                Click="Button_navigation_NewCostumer"/>
 
         <!-- rediger view -->
 
