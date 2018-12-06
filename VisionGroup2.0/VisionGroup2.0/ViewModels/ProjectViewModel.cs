@@ -166,7 +166,7 @@ namespace VisionGroup2._0.ViewModels
                 {
                     foreach (var employee in _employeeCatalog.EmployeeList)
                     {
-                        if (_projectsForEmployee.ProjectId == SelectedProject.ProjectId)
+                        if (employee.ProjectsForEmployees.Where(p => p.ProjectId == SelectedProject.ProjectId).Any())
                         {
                             list.Add(employee);
                         }
@@ -177,6 +177,8 @@ namespace VisionGroup2._0.ViewModels
 
             }
         }
+
+        public Employee ProjectLeader { get; private set; }
 
         public Employee SelectedEmployee
         {
