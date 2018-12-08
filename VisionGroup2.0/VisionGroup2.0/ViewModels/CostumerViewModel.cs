@@ -19,43 +19,41 @@ namespace VisionGroup2._0.ViewModels
         private CostumerCatalog _costumerCatalog;
         private Costumer _selectedCostumer;
         private Project _selectedProject;
-        private Action _remove;
-        private Predicate<Costumer> _canRemove;
-        private RelayCommand<Costumer> _deleteCommand;
 
         public CostumerViewModel()
         {
             this._projectCatalog = ProjectCatalog.Instance;
             this._costumerCatalog = CostumerCatalog.Instance;
-            this.OnPropertyChanged(nameof(CostumerList));
-            _remove = () =>
+            this.OnPropertyChanged(nameof(this.CostumerList));
+            
+            this.DeleteCustomerCommand = new RelayCommand<Costumer>(() => 
                 {
-                    _costumerCatalog.Remove(_selectedCostumer);
+                    this._costumerCatalog.Remove(this._selectedCostumer);
                     this._selectedCostumer = null;
-                    this.OnPropertyChanged(nameof(CostumerList));
-                };
-            _canRemove = (Costumer selectedCostumer) => ProjectsForCostumer.Count == 0;
-            _deleteCommand = new RelayCommand<Costumer>(_remove, _canRemove);
+                    this.OnPropertyChanged(nameof(this.CostumerList));
+                },
+                costumer => this.ProjectsForCostumer.Count == 0);
+            this.UpdateCustomerCommand = new RelayCommand<Costumer>(() =>
+                {
+                    int id = this._selectedCostumer.CostumerId;
+                    this._costumerCatalog.Update(this._selectedCostumer);
+                    this.OnPropertyChanged(nameof(this.CostumerList));
+                    SelectedCostumer = CostumerList.Find((costumer => costumer.CostumerId == id));
+                });
+
         }
 
-        public RelayCommand<Costumer> DeleteCommand
-        {
-            get
-            {
-                return _deleteCommand;
-               
-            }
-            
-        }
+        public RelayCommand<Costumer> DeleteCustomerCommand { get; private set; }
+        public RelayCommand<Costumer> UpdateCustomerCommand { get; private set; }
 
 
         public string Name
         {
-            get { return SelectedCostumer.Name; }
+            get { return this.SelectedCostumer.Name; }
             set
             {
-                SelectedCostumer.Name = value;
-                OnPropertyChanged();
+                this.SelectedCostumer.Name = value;
+                this.OnPropertyChanged();
             }
         }
 
@@ -63,38 +61,38 @@ namespace VisionGroup2._0.ViewModels
 
         public int CVR
         {
-            get { return SelectedCostumer.CvrNr; }
+            get { return this.SelectedCostumer.CvrNr; }
         }
 
         public int Phone
         {
-            get { return SelectedCostumer.PhoneNr; }
+            get { return this.SelectedCostumer.PhoneNr; }
             set
             {
-                SelectedCostumer.PhoneNr = value;
-                OnPropertyChanged();
+                this.SelectedCostumer.PhoneNr = value;
+                this.OnPropertyChanged();
             }
         }
 
         public string Email
         {
-            get { return SelectedCostumer.Email; }
+            get { return this.SelectedCostumer.Email; }
             set
             {
-                SelectedCostumer.Email = value;
-                OnPropertyChanged();
+                this.SelectedCostumer.Email = value;
+                this.OnPropertyChanged();
             }
         }
 
 
         public string HeaderText
         {
-            get { return SelectedCostumer.Name; }
+            get { return this.SelectedCostumer.Name; }
         }
 
         public string ContentText
         {
-            get { return SelectedCostumer.CvrNr + " " + SelectedCostumer.PhoneNr + " " + SelectedCostumer.Email; }
+            get { return this.SelectedCostumer.CvrNr + " " + this.SelectedCostumer.PhoneNr + " " + this.SelectedCostumer.Email; }
         }
 
 
@@ -102,17 +100,15 @@ namespace VisionGroup2._0.ViewModels
         {
             get
             {
-                List<Project> list = new List<Project>();
+                var list = new List<Project>();
 
                 if (this._projectCatalog.ProjectList != null)
                 {
-                    foreach (var l in _projectCatalog.ProjectList)
-                    {
-                        if (l.CostumerId == SelectedCostumer.CostumerId)
+                    foreach (Project l in this._projectCatalog.ProjectList)
+                        if (l.CostumerId == this.SelectedCostumer.CostumerId)
                         {
                             list.Add(l);
                         }
-                    }
                 }
                 
                 return list;
@@ -125,7 +121,7 @@ namespace VisionGroup2._0.ViewModels
             set
             {
                 this._selectedProject = value;
-                OnPropertyChanged(nameof(ProjectsForCostumer));
+                this.OnPropertyChanged(nameof(this.ProjectsForCostumer));
             }
         }
 
@@ -133,14 +129,17 @@ namespace VisionGroup2._0.ViewModels
         {
             get
             {
-                if (_selectedCostumer == null)
                 {
                     if (this._costumerCatalog.CostumerList != null)
                     {
-                        var costumerList = from costumer in _costumerCatalog.CostumerList
-                            orderby costumer.Name
-                            select costumer;
-                        SelectedCostumer = costumerList.First();
+                        var costumerList = from costumer in this._costumerCatalog.CostumerList
+                                           orderby costumer.Name
+                                           select costumer;
+                        if (this._selectedCostumer == null)
+                        {
+                            this._selectedCostumer = costumerList.First();
+                        }
+
                         return costumerList.ToList();
                     }
                     else
@@ -148,44 +147,31 @@ namespace VisionGroup2._0.ViewModels
                         return this._costumerCatalog.CostumerList;
                     }
                 }
-                else
-                {
-                    var costumerList = from costumer in _costumerCatalog.CostumerList
-                        where costumer.Name == SelectedCostumer.Name
-
-                        orderby costumer.Name
-                        select costumer;
-                    return costumerList.ToList();
-                }
-
             }
         }
         public Costumer SelectedCostumer
         {
             get
             {
-                if (this._selectedCostumer != null)
+                if (this._selectedCostumer == null)
                 {
-                    return this._selectedCostumer;
+                    this._selectedCostumer = CostumerList.First();
                 }
-                else
-                {
-                    this._selectedCostumer = this._costumerCatalog.CostumerList[0];
-                    return this._selectedCostumer;
-                }
+                return this._selectedCostumer;
             }
+
             set
             {
                 this._selectedCostumer = value;
-                OnPropertyChanged();
-                this.OnPropertyChanged(nameof(ProjectsForCostumer));
-                DeleteCommand.RaiseCanExecuteChanged();
+                this.OnPropertyChanged();
+                this.OnPropertyChanged(nameof(this.ProjectsForCostumer));
+                this.DeleteCustomerCommand.RaiseCanExecuteChanged();
             }
         }
 
         public void Refresh()
         {
-            OnPropertyChanged(nameof(CostumerList));
+            this.OnPropertyChanged(nameof(this.CostumerList));
         }
 
 
@@ -194,7 +180,7 @@ namespace VisionGroup2._0.ViewModels
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
 

@@ -21,7 +21,7 @@ namespace VisionGroup2._0.Catalogs
             }
         }
         #endregion
-        private List<Costumer>_costumerList;
+        private List<Costumer> _costumerList;
         public List<Costumer> CostumerList
         {
             get
@@ -32,11 +32,12 @@ namespace VisionGroup2._0.Catalogs
                 }
                 else
                 {
-                    Load();
+                    this.Load();
                     return this._costumerList;
 
                 }
             }
+
             set
             {
                 this._costumerList = value;
@@ -46,7 +47,7 @@ namespace VisionGroup2._0.Catalogs
        
         public void Add(Costumer item)
         {
-            using (var db = new DbContextVisionGroup())
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
             {
                 db.Costumers.Add(item);
                 this._costumerList.Add(item);
@@ -56,7 +57,7 @@ namespace VisionGroup2._0.Catalogs
         
         public void Remove(Costumer item)
         {
-            using (var db = new DbContextVisionGroup())
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
             {
                 db.Costumers.Remove(item);
                 this._costumerList.Remove(item);
@@ -69,18 +70,19 @@ namespace VisionGroup2._0.Catalogs
         
         public void Update(Costumer item)
         {
-            using (var db = new DbContextVisionGroup())
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
             {
                 db.Costumers.Update(item);
+                this.CostumerList[this.CostumerList.FindIndex(costumer => costumer.CostumerId == item.CostumerId)] = item;
                 db.SaveChanges();
             }
         }
 
         public void Load()
         {
-            using (var db = new DbContextVisionGroup())
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
             {
-                CostumerList = db.Costumers.ToList();
+                this.CostumerList = db.Costumers.ToList();
             }
         }
     }
