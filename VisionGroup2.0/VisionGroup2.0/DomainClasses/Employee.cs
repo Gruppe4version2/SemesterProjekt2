@@ -10,7 +10,7 @@ namespace VisionGroup2._0.DomainClasses
             ProjectsForEmployees = new HashSet<ProjectsForEmployee>();
         }
 
-        public int EmployeeId { get; }
+        public int EmployeeId { get; set; }
         public string Name { get; set; }
         public int PhoneNr { get; set; }
         public string Email { get; set; }

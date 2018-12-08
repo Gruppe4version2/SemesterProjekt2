@@ -15,87 +15,39 @@ namespace VisionGroup2._0.ViewModels
     public class EmployeeViewModel : INotifyPropertyChanged
     {
         private ProjectCatalog _projectCatalog;
-
         private EmployeeCatalog _employeeCatalog;
-
         private Employee _selectedEmployee;
-        private ProjectsForEmployee _projectsForEmployee;
-
-
-
-        public Employee Employee { get; set; }
-
-        public Project Project { get; set; }
-
-        public ProjectsForEmployee ProjectsForEmployee { get; set; }
+        private ProjectForEmployeesCatalog _projectsForEmployee;
         private Action _remove;
         private Predicate<Employee> _canRemove;
         private RelayCommand<Employee> _deleteCommand;
+        private Project _selectedProject;
 
 
         public EmployeeViewModel()
         {
-            this._projectCatalog = new ProjectCatalog();
-            _projectCatalog.Load();
-            this._employeeCatalog = new EmployeeCatalog();
-            _employeeCatalog.Load();
-            _projectsForEmployee = new ProjectsForEmployee();
-            _remove = () =>
+            this._projectCatalog = ProjectCatalog.Instance;
+            this._employeeCatalog = EmployeeCatalog.Instance;
+            this._projectsForEmployee = ProjectForEmployeesCatalog.Instance;
+            this._remove = () =>
             {
-                _projectCatalog.Remove(SelectedProject);
-                _projectCatalog.ProjectList.Remove(SelectedProject);
-                _selectedEmployee = null;
-                OnPropertyChanged(nameof(EmployeeList));
+                this._projectCatalog.Remove(this.SelectedProject);
+                this._projectCatalog.ProjectList.Remove(this.SelectedProject);
+                this._selectedEmployee = null;
+                this.OnPropertyChanged(nameof(this.EmployeeList));
             };
-            _canRemove = (Employee selectedEmployee) => _employeeCatalog.EmployeeList.Contains(SelectedEmployee);
-            _deleteCommand = new RelayCommand<Employee>(_remove, _canRemove);
+            this._canRemove = (Employee selectedEmployee) => this._employeeCatalog.EmployeeList.Contains(this.SelectedEmployee);
+            this._deleteCommand = new RelayCommand<Employee>(this._remove, this._canRemove);
         }
-
-
+        
         public RelayCommand<Employee> DeleteCommand
         {
-            get { return _deleteCommand; }
-        }
-
-
-        public string Name
-        {
-            get { return SelectedEmployee.Name; }
-            set
-            {
-                Employee.Name = value;
-                OnPropertyChanged();
-            }
-        }
-
-        
-        public int Phone
-        {
-            get { return SelectedEmployee.PhoneNr; }
-            set
-            {
-                Employee.PhoneNr = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Email
-        {
-            get { return SelectedEmployee.Email; }
-            set
-            {
-                Employee.Email = value;
-                OnPropertyChanged();
-            }
-        }
-        public string HeaderText
-        {
-            get { return SelectedEmployee.Name; }
+            get { return this._deleteCommand; }
         }
 
         public string ContentText
         {
-            get { return SelectedEmployee.PhoneNr + " " + SelectedEmployee.Email; }
+            get { return this.SelectedEmployee.PhoneNr + " " + this.SelectedEmployee.Email; }
         }
 
 
@@ -103,30 +55,29 @@ namespace VisionGroup2._0.ViewModels
         {
             get
             {
-                List<Project> list = new List<Project>();
-
-                if (this._projectCatalog.ProjectList != null)
+                List<Project> projectList = new List<Project>();
+                foreach (var projectForEmployee in SelectedEmployee.ProjectsForEmployees)
                 {
-                    foreach (var l in _projectCatalog.ProjectList)
+                    foreach (var project in this._projectCatalog.ProjectList)
                     {
-                        if (_projectsForEmployee.EmployeeId == SelectedEmployee.EmployeeId)
+                        if (project.ProjectId == projectForEmployee.ProjectId)
                         {
-                            list.Add(l);
+                            projectList.Add(project);
                         }
                     }
                 }
 
-                return list;
+                return projectList;
             }
         }
 
         public Project SelectedProject
         {
-            get { return Project; }
+            get { return this._selectedProject; }
             set
             {
-                Project = value;
-                OnPropertyChanged(nameof(EmployeeProjects));
+                this._selectedProject = value;
+                this.OnPropertyChanged();
             }
         }
 
@@ -141,14 +92,15 @@ namespace VisionGroup2._0.ViewModels
                 }
                 else
                 {
-                    this._selectedEmployee= EmployeeList[0];
+                    this._selectedEmployee = this.EmployeeList[0];
                     return this._selectedEmployee;
                 }
             }
+
             set
             {
                 this._selectedEmployee = value;
-                OnPropertyChanged();
+                this.OnPropertyChanged();
             }
         }
 
@@ -157,14 +109,14 @@ namespace VisionGroup2._0.ViewModels
         {
             get
             {
-                if (_selectedEmployee == null)
+                if (this._selectedEmployee == null)
                 {
                     if (this._employeeCatalog.EmployeeList != null)
                     {
-                        var employeeList = from employee in _employeeCatalog.EmployeeList
+                        IOrderedEnumerable<Employee> employeeList = from employee in this._employeeCatalog.EmployeeList
                             orderby employee.Name
                             select employee;
-                        SelectedEmployee = employeeList.First();
+                        this.SelectedEmployee = employeeList.First();
                         return employeeList.ToList();
                     }
                     else
@@ -174,8 +126,8 @@ namespace VisionGroup2._0.ViewModels
                 }
                 else
                 {
-                    var employeeList = from employee in _employeeCatalog.EmployeeList
-                        where employee.Name == SelectedEmployee.Name
+                    IOrderedEnumerable<Employee> employeeList = from employee in this._employeeCatalog.EmployeeList
+                        where employee.Name == this.SelectedEmployee.Name
 
                         orderby employee.Name
                         select employee;
@@ -187,8 +139,8 @@ namespace VisionGroup2._0.ViewModels
 
         public void Refresh()
         {
-            OnPropertyChanged(nameof(EmployeeCatalog.Load));
-            OnPropertyChanged(nameof(EmployeeList));
+            this.OnPropertyChanged(nameof(EmployeeCatalog.Load));
+            this.OnPropertyChanged(nameof(this.EmployeeList));
         }
 
 
@@ -198,7 +150,7 @@ namespace VisionGroup2._0.ViewModels
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
