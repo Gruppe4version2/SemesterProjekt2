@@ -11,10 +11,12 @@ using VisionGroup2._0.Interfaces;
 
 namespace VisionGroup2._0.Catalogs
 {
-    public class EmployeeCatalog : ICatalog<Employee>, INotifyPropertyChanged
+    public class EmployeeCatalog : ICatalog<Employee>
     {
         #region Singleton
+
         private static EmployeeCatalog _instance;
+
         public static EmployeeCatalog Instance
         {
             get
@@ -23,8 +25,11 @@ namespace VisionGroup2._0.Catalogs
                 return _instance;
             }
         }
+
         #endregion
+
         private List<Employee> _employeeList;
+
         public List<Employee> EmployeeList
         {
             get
@@ -52,8 +57,8 @@ namespace VisionGroup2._0.Catalogs
             using (var db = new DbContextVisionGroup())
             {
                 db.Employees.Add(item);
+                EmployeeList.Add(item);
                 db.SaveChanges();
-                OnPropertyChanged();
             }
         }
 
@@ -62,14 +67,15 @@ namespace VisionGroup2._0.Catalogs
             using (var db = new DbContextVisionGroup())
             {
                 db.Employees.Remove(item);
-                var projectEmployees = db.ProjectsForEmployees.Where(p => p.EmployeeId == item.EmployeeId).ToList();
-                foreach (var project in projectEmployees)
+                EmployeeList.Remove(item);
+                foreach (var project in item.ProjectsForEmployees)
                 {
                     db.ProjectsForEmployees.Remove(project);
+                    ProjectForEmployeesCatalog.Instance.ProjectsForEmployeesList.Remove(project);
                 }
+
                 db.SaveChanges();
-                OnPropertyChanged();
-                
+
             }
         }
 
@@ -81,6 +87,7 @@ namespace VisionGroup2._0.Catalogs
             using (var db = new DbContextVisionGroup())
             {
                 db.Employees.Update(item);
+                this.EmployeeList[this.EmployeeList.FindIndex(employee => employee.EmployeeId == item.EmployeeId)] = item;
                 db.SaveChanges();
             }
         }
@@ -103,14 +110,6 @@ namespace VisionGroup2._0.Catalogs
                     }
                 }
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -18,6 +18,10 @@ using VisionGroup2._0.Views.App;
 
 namespace VisionGroup2._0
 {
+    using System.Threading.Tasks;
+
+    using VisionGroup2._0.Catalogs;
+
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
@@ -30,6 +34,7 @@ namespace VisionGroup2._0
         public App()
         {
             this.InitializeComponent();
+            this.LoadDatabaseOnStartup();
             this.Suspending += OnSuspending;
         }
 
@@ -82,6 +87,16 @@ namespace VisionGroup2._0
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+        }
+
+        void LoadDatabaseOnStartup()
+        {
+            Task a = Task.Run(new Action(EmployeeCatalog.Instance.Load));
+            Task b = Task.Run(new Action(CostumerCatalog.Instance.Load));
+            Task c = Task.Run(new Action(ProjectCatalog.Instance.Load));
+            a.Wait();
+            b.Wait();
+            c.Wait();
         }
 
         /// <summary>

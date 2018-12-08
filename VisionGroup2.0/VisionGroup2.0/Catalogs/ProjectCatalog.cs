@@ -12,10 +12,12 @@ using VisionGroup2._0.Interfaces;
 
 namespace VisionGroup2._0.Catalogs
 {
-    public class ProjectCatalog : ICatalog<Project>, INotifyPropertyChanged
+    public class ProjectCatalog : ICatalog<Project>
     {
         #region Singleton
+
         private static ProjectCatalog _instance;
+
         public static ProjectCatalog Instance
         {
             get
@@ -24,8 +26,11 @@ namespace VisionGroup2._0.Catalogs
                 return _instance;
             }
         }
+
         #endregion
+
         private List<Project> _projectList;
+
         public List<Project> ProjectList
         {
             get
@@ -53,8 +58,8 @@ namespace VisionGroup2._0.Catalogs
             using (var db = new DbContextVisionGroup())
             {
                 db.Projects.Add(item);
+                ProjectList.Add(item);
                 db.SaveChanges();
-                OnPropertyChanged();
             }
         }
 
@@ -63,13 +68,13 @@ namespace VisionGroup2._0.Catalogs
             using (var db = new DbContextVisionGroup())
             {
                 db.Projects.Remove(item);
-                var projectEmployees = db.ProjectsForEmployees.Where(p => p.ProjectId == item.ProjectId).ToList();
-                foreach (var employee in projectEmployees)
+                foreach (var projectforEmployee in ProjectForEmployeesCatalog.Instance.ProjectsForEmployeesList.Where(p => p.ProjectId == item.ProjectId).ToList())
                 {
-                    db.ProjectsForEmployees.Remove(employee);
+                    db.ProjectsForEmployees.Remove(projectforEmployee);
+                    ProjectForEmployeesCatalog.Instance.ProjectsForEmployeesList.Remove(projectforEmployee);
                 }
+
                 db.SaveChanges();
-                OnPropertyChanged();
             }
         }
 
@@ -81,8 +86,8 @@ namespace VisionGroup2._0.Catalogs
             using (var db = new DbContextVisionGroup())
             {
                 db.Projects.Update(item);
+                this.ProjectList[this.ProjectList.FindIndex(project => project.ProjectId == item.ProjectId)] = item;
                 db.SaveChanges();
-                OnPropertyChanged();
             }
         }
 
@@ -92,13 +97,6 @@ namespace VisionGroup2._0.Catalogs
             {
                 ProjectList = db.Projects.ToList();
             }
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

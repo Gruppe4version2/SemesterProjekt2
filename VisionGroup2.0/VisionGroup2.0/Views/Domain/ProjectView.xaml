@@ -84,7 +84,7 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Firma navn" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding SelectedProject.CostumerId, Mode=TwoWay}"
+                         Text="{Binding SelectedProjectCostumer.Name}"
                          Width="700"/>
             </StackPanel>
 
@@ -93,8 +93,8 @@
                 <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                     <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                                Text="ID" Foreground="White" />
-                    <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                             Text="{Binding SelectedProject.ProjectId, Mode=TwoWay}"
+                    <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
+                             Text="{Binding SelectedProject.ProjectId}"
                              Width="700"/>
                 </StackPanel>
             <!-- Deadline textblock -->
@@ -102,7 +102,7 @@
 
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                        Text="Deadline" Foreground="White"/>
-                <DatePicker Width="450" Date="{Binding Deadline}"/>
+                <DatePicker Width="450" Date="{Binding DeadLineOffset, Mode=TwoWay}"/>
             </StackPanel>
 
 

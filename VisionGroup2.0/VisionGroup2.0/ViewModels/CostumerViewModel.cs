@@ -47,49 +47,6 @@ namespace VisionGroup2._0.ViewModels
         public RelayCommand<Costumer> UpdateCustomerCommand { get; private set; }
 
 
-        public string Name
-        {
-            get { return this.SelectedCostumer.Name; }
-            set
-            {
-                this.SelectedCostumer.Name = value;
-                this.OnPropertyChanged();
-            }
-        }
-
-        
-
-        public int CVR
-        {
-            get { return this.SelectedCostumer.CvrNr; }
-        }
-
-        public int Phone
-        {
-            get { return this.SelectedCostumer.PhoneNr; }
-            set
-            {
-                this.SelectedCostumer.PhoneNr = value;
-                this.OnPropertyChanged();
-            }
-        }
-
-        public string Email
-        {
-            get { return this.SelectedCostumer.Email; }
-            set
-            {
-                this.SelectedCostumer.Email = value;
-                this.OnPropertyChanged();
-            }
-        }
-
-
-        public string HeaderText
-        {
-            get { return this.SelectedCostumer.Name; }
-        }
-
         public string ContentText
         {
             get { return this.SelectedCostumer.CvrNr + " " + this.SelectedCostumer.PhoneNr + " " + this.SelectedCostumer.Email; }

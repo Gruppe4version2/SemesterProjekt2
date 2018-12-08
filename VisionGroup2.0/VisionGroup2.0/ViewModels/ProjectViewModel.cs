@@ -18,6 +18,7 @@ namespace VisionGroup2._0.ViewModels
 
         private ProjectCatalog _projectCatalog;
         private ProjectForEmployeesCatalog _projectForEmployeesCatalog;
+        private CostumerCatalog _costumerCatalog;
         private EmployeeCatalog _employeeCatalog;
         private Action _remove;
         private Predicate<Project> _canRemove;
@@ -28,9 +29,8 @@ namespace VisionGroup2._0.ViewModels
         public ProjectViewModel()
         {
             this._projectCatalog = ProjectCatalog.Instance;
-            this._projectCatalog.Load();
-            this._employeeCatalog = new EmployeeCatalog();
-            this._employeeCatalog.Load();
+            this._employeeCatalog = EmployeeCatalog.Instance;
+            this._costumerCatalog = CostumerCatalog.Instance;
             this._remove = () =>
             {
                 this._projectCatalog.Remove(this.SelectedProject);
@@ -50,44 +50,16 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
-        public string Name
+        public DateTimeOffset DeadLineOffset
         {
             get
             {
-                return this.SelectedProject.Name;
+                DateTimeOffset d = new DateTimeOffset(SelectedProject.Deadline.Value);
+                return d;
             }
-
             set
             {
-                this.SelectedProject.Name = value;
-                this.OnPropertyChanged();
-            }
-        }
-
-        public string CostumerName
-        {
-            get
-            {
-                return this.SelectedProject.Costumer.Name;
-            }
-
-            set
-            {
-                this.SelectedProject.Costumer.Name = value;
-                this.OnPropertyChanged();
-            }
-        }
-
-        public DateTime? Deadline
-        {
-            get
-            {
-                return this.SelectedProject.Deadline;
-            }
-
-            set
-            {
-                this.SelectedProject.Deadline = value;
+                SelectedProject.Deadline = value.DateTime;
                 this.OnPropertyChanged();
             }
         }
@@ -112,6 +84,8 @@ namespace VisionGroup2._0.ViewModels
                 this._selectedProject = value;
                 this.OnPropertyChanged();
                 this.OnPropertyChanged(nameof(EmployeesForProject));
+                this.OnPropertyChanged(nameof(DeadLineOffset));
+                this.OnPropertyChanged(nameof(SelectedProjectCostumer));
             }
         }
 
@@ -191,6 +165,15 @@ namespace VisionGroup2._0.ViewModels
                 this._selectedEmployee = value;
                 this.OnPropertyChanged();
 
+            }
+        }
+
+        public Costumer SelectedProjectCostumer
+        {
+            get
+            {
+                return this._costumerCatalog.CostumerList.Find(
+                    (costumer => costumer.CostumerId == SelectedProject.CostumerId));
             }
         }
         public void Refresh()
