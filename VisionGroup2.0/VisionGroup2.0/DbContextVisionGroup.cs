@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using VisionGroup2._0.DomainClasses;
 
 namespace VisionGroup2._0
 {
