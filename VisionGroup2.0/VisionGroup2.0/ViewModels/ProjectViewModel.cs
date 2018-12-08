@@ -31,35 +31,38 @@ namespace VisionGroup2._0.ViewModels
             this._projectCatalog = ProjectCatalog.Instance;
             this._employeeCatalog = EmployeeCatalog.Instance;
             this._costumerCatalog = CostumerCatalog.Instance;
-            this._remove = () =>
-            {
-                this._projectCatalog.Remove(this.SelectedProject);
-                this._projectCatalog.ProjectList.Remove(this.SelectedProject);
-                this._selectedProject = null;
-                this.OnPropertyChanged(nameof(this.ProjectList));
-            };
+            
             this._canRemove = (Project selectedProject) => this._projectCatalog.ProjectList.Contains(this.SelectedProject);
-            this._deleteCommand = new RelayCommand<Project>(this._remove, this._canRemove);
+            this.DeleteCommand = new RelayCommand<Project>(new Action(() =>
+                                                                               {
+                                                                                   this._projectCatalog.Remove(this.SelectedProject);
+                                                                                   this._selectedProject = null;
+                                                                                   this.OnPropertyChanged(nameof(this.ProjectList));
+                                                                               }), 
+                                                            new Predicate<Project>(project => this.SelectedProject != null));
+            this.UpdateCommand = new RelayCommand<Project>(new Action(() =>
+                                                                      {
+                                                                          int id = this._selectedProject.ProjectId;
+                                                                          this._projectCatalog.Update(this._selectedProject);
+                                                                          this.OnPropertyChanged(nameof(this.ProjectList));
+                                                                          this.SelectedProject = this.ProjectList.Find(project => project.ProjectId == id);
+                                                                      }));
         }
 
-        public RelayCommand<Project> DeleteCommand
-        {
-            get
-            {
-                return this._deleteCommand;
-            }
-        }
+        public RelayCommand<Project> DeleteCommand { get; }
+        public RelayCommand<Project> UpdateCommand { get; }
 
         public DateTimeOffset DeadLineOffset
         {
             get
             {
-                DateTimeOffset d = new DateTimeOffset(SelectedProject.Deadline.Value);
+                DateTimeOffset d = new DateTimeOffset(this.SelectedProject.Deadline.Value);
                 return d;
             }
+
             set
             {
-                SelectedProject.Deadline = value.DateTime;
+                this.SelectedProject.Deadline = value.DateTime;
                 this.OnPropertyChanged();
             }
         }
@@ -83,9 +86,9 @@ namespace VisionGroup2._0.ViewModels
             {
                 this._selectedProject = value;
                 this.OnPropertyChanged();
-                this.OnPropertyChanged(nameof(EmployeesForProject));
-                this.OnPropertyChanged(nameof(DeadLineOffset));
-                this.OnPropertyChanged(nameof(SelectedProjectCostumer));
+                this.OnPropertyChanged(nameof(this.EmployeesForProject));
+                this.OnPropertyChanged(nameof(this.DeadLineOffset));
+                this.OnPropertyChanged(nameof(this.SelectedProjectCostumerName));
             }
         }
 
@@ -95,26 +98,17 @@ namespace VisionGroup2._0.ViewModels
             {
                 if (this._selectedProject == null)
                 {
-                    if (this._projectCatalog.ProjectList != null)
-                    {
-                        var projectList = from project in this._projectCatalog.ProjectList
+                    var projectList = from project in this._projectCatalog.ProjectList
                                            orderby project.Name
                             select project;
                         this.SelectedProject = projectList.First();
-                        return projectList.ToList();
-                    }
-                    else
-                    {
-                        return this._projectCatalog.ProjectList;
-                    }
+                    return projectList.ToList();
                 }
                 else
                 {
                     var projectList = from project in this._projectCatalog.ProjectList
-                                       where project.Name == this.SelectedProject.Name
-
-                        orderby project.Name    
-                        select project;
+                                      orderby project.Name
+                                      select project;
                     return projectList.ToList();
                 }
 
@@ -168,12 +162,20 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
-        public Costumer SelectedProjectCostumer
+        public string SelectedProjectCostumerName
         {
             get
             {
                 return this._costumerCatalog.CostumerList.Find(
-                    (costumer => costumer.CostumerId == SelectedProject.CostumerId));
+                    costumer => costumer.CostumerId == this.SelectedProject.CostumerId).Name;
+            }
+            set
+            {
+                if (this._costumerCatalog.CostumerList.Where(n => n.Name == value).ToList().Count == 1)
+                {
+                    SelectedProject.CostumerId = this._costumerCatalog.CostumerList.Find((costumer => costumer.Name == value)).CostumerId;
+                }
+                this.OnPropertyChanged();
             }
         }
         public void Refresh()

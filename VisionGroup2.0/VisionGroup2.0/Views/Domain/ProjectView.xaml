@@ -28,7 +28,7 @@
                 <TextBlock Style="{StaticResource TextBlockCommandContentStyle}" />
 
             </CommandBar.Content>
-            <AppBarButton Icon="Edit" Label="Rediger" />
+            <AppBarButton Icon="Save" Label="Gem" IsEnabled="True" Command="{Binding UpdateCommand}" />
 
             <AppBarButton Icon="Delete" Label="Slet" IsEnabled="True" Command="{Binding DeleteCommand}" />
 
@@ -84,7 +84,7 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Firma navn" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding SelectedProjectCostumer.Name}"
+                         Text="{Binding SelectedProjectCostumerName, Mode=TwoWay}"
                          Width="700"/>
             </StackPanel>
 
