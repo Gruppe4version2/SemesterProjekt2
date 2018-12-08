@@ -111,7 +111,7 @@ namespace VisionGroup2._0.ViewModels
             {
                 this._selectedProject = value;
                 this.OnPropertyChanged();
-
+                this.OnPropertyChanged(nameof(EmployeesForProject));
             }
         }
 
@@ -123,7 +123,7 @@ namespace VisionGroup2._0.ViewModels
                 {
                     if (this._projectCatalog.ProjectList != null)
                     {
-                        IOrderedEnumerable<Project> projectList = from project in this._projectCatalog.ProjectList
+                        var projectList = from project in this._projectCatalog.ProjectList
                                            orderby project.Name
                             select project;
                         this.SelectedProject = projectList.First();
@@ -136,7 +136,7 @@ namespace VisionGroup2._0.ViewModels
                 }
                 else
                 {
-                    IOrderedEnumerable<Project> projectList = from project in this._projectCatalog.ProjectList
+                    var projectList = from project in this._projectCatalog.ProjectList
                                        where project.Name == this.SelectedProject.Name
 
                         orderby project.Name    
@@ -153,7 +153,7 @@ namespace VisionGroup2._0.ViewModels
 
             get
             {
-                List<Employee> list = new List<Employee>();
+                var list = new List<Employee>();
 
                 if (this._selectedProject != null)
                 {

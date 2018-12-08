@@ -59,6 +59,7 @@ namespace VisionGroup2._0.Catalogs
             using (var db = new DbContextVisionGroup())
             {
                 db.Costumers.Remove(item);
+                this._costumerList.Remove(item);
                 db.SaveChanges();
             }
         }

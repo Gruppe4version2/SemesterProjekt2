@@ -29,11 +29,12 @@ namespace VisionGroup2._0.ViewModels
             this._costumerCatalog = CostumerCatalog.Instance;
             this.OnPropertyChanged(nameof(CostumerList));
             _remove = () =>
-            {
-                _costumerCatalog.Remove(SelectedCostumer);
-                Refresh();
-            };
-            _canRemove = (Costumer selectedCostumer) => _costumerCatalog.CostumerList.Contains(SelectedCostumer);
+                {
+                    _costumerCatalog.Remove(_selectedCostumer);
+                    this._selectedCostumer = null;
+                    this.OnPropertyChanged(nameof(CostumerList));
+                };
+            _canRemove = (Costumer selectedCostumer) => ProjectsForCostumer.Count == 0;
             _deleteCommand = new RelayCommand<Costumer>(_remove, _canRemove);
         }
 
@@ -177,12 +178,14 @@ namespace VisionGroup2._0.ViewModels
             {
                 this._selectedCostumer = value;
                 OnPropertyChanged();
+                this.OnPropertyChanged(nameof(ProjectsForCostumer));
+                DeleteCommand.RaiseCanExecuteChanged();
             }
         }
 
         public void Refresh()
         {
-            OnPropertyChanged(nameof(CostumerCatalog.Load));
+            OnPropertyChanged(nameof(CostumerList));
         }
 
 
