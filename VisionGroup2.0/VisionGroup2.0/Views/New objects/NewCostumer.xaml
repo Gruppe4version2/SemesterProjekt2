@@ -83,7 +83,7 @@
                     Height="100"
                     Width="300"
                     Content="Tilføj"
-                    Command="{Binding NewCommand}"
+                    Command="{Binding AddCommand}"
                     Click="Button_navigation_CostumerView"/>
             </StackPanel>
     </Grid>

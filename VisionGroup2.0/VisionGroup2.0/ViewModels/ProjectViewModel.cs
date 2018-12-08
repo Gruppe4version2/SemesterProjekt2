@@ -18,6 +18,7 @@ namespace VisionGroup2._0.ViewModels
 
         private ProjectCatalog _projectCatalog;
         private ProjectsForEmployee _projectsForEmployee;
+        private ProjectForEmployeesCatalog _projectForEmployeesCatalog;
         private EmployeeCatalog _employeeCatalog;
         private Action _remove;
         private Predicate<Project> _canRemove;
@@ -32,6 +33,8 @@ namespace VisionGroup2._0.ViewModels
             this._projectCatalog = new ProjectCatalog();
             this._projectCatalog.Load();
             this._projectsForEmployee = new ProjectsForEmployee();
+            this._projectForEmployeesCatalog = new ProjectForEmployeesCatalog();
+            _projectForEmployeesCatalog.Load();
             _employeeCatalog = new EmployeeCatalog();
             _employeeCatalog.Load();
             _remove = () =>
@@ -61,22 +64,6 @@ namespace VisionGroup2._0.ViewModels
             {
                 SelectedProject.Name = value;
                 OnPropertyChanged();
-            }
-        }
-
-        //public ICommand DeleteProject
-        //{
-        //    get
-        //    {
-        //        return new DeleteCommand(_projectCatalog);
-        //    }
-        //}
-
-        public ICommand AddProject
-        {
-            get
-            {
-                return new CreateCommand(_projectCatalog);
             }
         }
 
@@ -166,7 +153,7 @@ namespace VisionGroup2._0.ViewModels
                 {
                     foreach (var employee in _employeeCatalog.EmployeeList)
                     {
-                        if (employee.ProjectsForEmployees.Where(p => p.ProjectId == SelectedProject.ProjectId).Any())
+                        if (employee.ProjectsForEmployees.Where(p => p.ProjectId == SelectedProject.ProjectId).ToList().Count > 0)
                         {
                             list.Add(employee);
                         }

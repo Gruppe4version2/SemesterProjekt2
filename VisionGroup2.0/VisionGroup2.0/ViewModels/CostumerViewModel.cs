@@ -21,8 +21,9 @@ namespace VisionGroup2._0.ViewModels
         private Project _project;
         private Action _remove;
         private Predicate<Costumer> _canRemove;
-        public Costumer Costumer { get; set; }
         private RelayCommand<Costumer> _deleteCommand;
+
+        public Costumer Costumer { get; set; }
 
         public CostumerViewModel()
         {

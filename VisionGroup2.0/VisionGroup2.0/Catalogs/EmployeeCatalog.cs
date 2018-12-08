@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using VisionGroup2._0.Annotations;
 using VisionGroup2._0.DomainClasses;
 using VisionGroup2._0.Interfaces;
 
 namespace VisionGroup2._0.Catalogs
 {
-    public class EmployeeCatalog : ICatalog<Employee>
+    public class EmployeeCatalog : ICatalog<Employee>, INotifyPropertyChanged
     {
         private List<Employee> _employeeList;
         public List<Employee> EmployeeList
@@ -39,6 +42,7 @@ namespace VisionGroup2._0.Catalogs
             {
                 db.Employees.Add(item);
                 db.SaveChanges();
+                OnPropertyChanged();
             }
         }
 
@@ -47,7 +51,14 @@ namespace VisionGroup2._0.Catalogs
             using (var db = new DbContextVisionGroup())
             {
                 db.Employees.Remove(item);
+                var projectEmployees = db.ProjectsForEmployees.Where(p => p.EmployeeId == item.EmployeeId).ToList();
+                foreach (var project in projectEmployees)
+                {
+                    db.ProjectsForEmployees.Remove(project);
+                }
                 db.SaveChanges();
+                OnPropertyChanged();
+                
             }
         }
 
@@ -69,6 +80,14 @@ namespace VisionGroup2._0.Catalogs
             {
                 EmployeeList = db.Employees.ToList();
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

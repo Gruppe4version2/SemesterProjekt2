@@ -99,9 +99,8 @@
     <Compile Include="Catalogs\CostumerCatalog.cs" />
     <Compile Include="Catalogs\EmployeeCatalog.cs" />
     <Compile Include="Catalogs\ProjectCatalog.cs" />
-    <Compile Include="Commands\AddCommand.cs" />
+    <Compile Include="Catalogs\ProjectForEmployeesCatalog.cs" />
     <Compile Include="Commands\CommandBase.cs" />
-    <Compile Include="Commands\CreateCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\NavigationCommand.cs" />
     <Compile Include="DomainClasses\Costumer.cs" />

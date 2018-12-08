@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VisionGroup2._0.Annotations;
 using VisionGroup2._0.Catalogs;
+using VisionGroup2._0.Commands;
 using VisionGroup2._0.DomainClasses;
 
 namespace VisionGroup2._0.ViewModels
@@ -27,6 +28,9 @@ namespace VisionGroup2._0.ViewModels
         public Project Project { get; set; }
 
         public ProjectsForEmployee ProjectsForEmployee { get; set; }
+        private Action _remove;
+        private Predicate<Employee> _canRemove;
+        private RelayCommand<Employee> _deleteCommand;
 
 
         public EmployeeViewModel()
@@ -36,6 +40,21 @@ namespace VisionGroup2._0.ViewModels
             this._employeeCatalog = new EmployeeCatalog();
             _employeeCatalog.Load();
             _projectsForEmployee = new ProjectsForEmployee();
+            _remove = () =>
+            {
+                _projectCatalog.Remove(SelectedProject);
+                _projectCatalog.ProjectList.Remove(SelectedProject);
+                _selectedEmployee = null;
+                OnPropertyChanged(nameof(EmployeeList));
+            };
+            _canRemove = (Employee selectedEmployee) => _employeeCatalog.EmployeeList.Contains(SelectedEmployee);
+            _deleteCommand = new RelayCommand<Employee>(_remove, _canRemove);
+        }
+
+
+        public RelayCommand<Employee> DeleteCommand
+        {
+            get { return _deleteCommand; }
         }
 
 
@@ -165,7 +184,13 @@ namespace VisionGroup2._0.ViewModels
 
             }
         }
-        
+
+        public void Refresh()
+        {
+            OnPropertyChanged(nameof(EmployeeCatalog.Load));
+            OnPropertyChanged(nameof(EmployeeList));
+        }
+
 
 
         public event PropertyChangedEventHandler PropertyChanged;

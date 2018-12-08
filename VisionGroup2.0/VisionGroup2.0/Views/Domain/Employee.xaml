@@ -30,7 +30,7 @@
             </CommandBar.Content>
             <AppBarButton Icon="Edit" Label="Rediger" />
 
-            <AppBarButton Icon="Delete" Label="Slet" />
+            <AppBarButton Icon="Delete" Label="Slet" IsEnabled="True" Command="{Binding DeleteCommand}"/>
 
             <AppBarButton Icon="NewFolder" Label="Opret" />
 

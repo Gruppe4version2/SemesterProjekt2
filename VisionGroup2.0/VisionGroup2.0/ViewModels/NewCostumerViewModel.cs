@@ -19,15 +19,34 @@ namespace VisionGroup2._0.ViewModels
         private CostumerCatalog _costumerCatalog;
 
         private CostumerFactory _costumerFactory;
-        public Costumer Costumer { get; set; }
-       
+        private Costumer _costumer;
 
+        private Action _add;
+        private Predicate<Costumer> _canAdd;
+        private RelayCommand<Costumer> _addCommand;
         public NewCostumerViewModel()
         {
-            Costumer = new Costumer();
+            _costumer = new Costumer();
             _costumerCatalog = new CostumerCatalog();
             _costumerCatalog.Load();
             _costumerFactory = new CostumerFactory();
+
+            _add = () =>
+            {
+                _costumerCatalog.Add(_costumerFactory.Create());
+                _costumerCatalog.CostumerList.Add(_costumerFactory.Create());
+
+            };
+            _canAdd = (Costumer selectedCostumer) => _costumerCatalog.CostumerList.Contains(_costumer);
+            _addCommand = new RelayCommand<Costumer>(_add, _canAdd);
+        }
+
+        public RelayCommand<Costumer> AddCommand
+        {
+            get
+            {
+                return _addCommand;
+            }
         }
 
         public string Name
@@ -72,16 +91,6 @@ namespace VisionGroup2._0.ViewModels
         {
             get { return _costumerCatalog.CostumerList.Count + 1; }
         }
-
-        public ICommand NewCommand
-        {
-            get
-            {
-                return new AddCommand(_costumerCatalog, new CostumerFactory());
-            }
-        }
-
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
