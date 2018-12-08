@@ -18,20 +18,16 @@ namespace VisionGroup2._0.ViewModels
         private ProjectCatalog _projectCatalog;
         private CostumerCatalog _costumerCatalog;
         private Costumer _selectedCostumer;
-        private Project _project;
+        private Project _selectedProject;
         private Action _remove;
         private Predicate<Costumer> _canRemove;
         private RelayCommand<Costumer> _deleteCommand;
 
-        public Costumer Costumer { get; set; }
-
         public CostumerViewModel()
         {
-            this._projectCatalog = new ProjectCatalog();
-            _projectCatalog.Load();
-            this._costumerCatalog = new CostumerCatalog();
-            _costumerCatalog.Load();
-            this._project = new Project();
+            this._projectCatalog = ProjectCatalog.Instance;
+            this._costumerCatalog = CostumerCatalog.Instance;
+            this.OnPropertyChanged(nameof(CostumerList));
             _remove = () =>
             {
                 _costumerCatalog.Remove(SelectedCostumer);
@@ -111,7 +107,7 @@ namespace VisionGroup2._0.ViewModels
                 {
                     foreach (var l in _projectCatalog.ProjectList)
                     {
-                        if (_project.CostumerId == SelectedCostumer.CostumerId)
+                        if (l.CostumerId == SelectedCostumer.CostumerId)
                         {
                             list.Add(l);
                         }
@@ -124,10 +120,10 @@ namespace VisionGroup2._0.ViewModels
 
         public Project SelectedProject
         {
-            get { return _project; }
+            get { return this._selectedProject; }
             set
             {
-                _project = value;
+                this._selectedProject = value;
                 OnPropertyChanged(nameof(ProjectsForCostumer));
             }
         }
@@ -173,7 +169,7 @@ namespace VisionGroup2._0.ViewModels
                 }
                 else
                 {
-                    this._selectedCostumer = CostumerList[0];
+                    this._selectedCostumer = this._costumerCatalog.CostumerList[0];
                     return this._selectedCostumer;
                 }
             }

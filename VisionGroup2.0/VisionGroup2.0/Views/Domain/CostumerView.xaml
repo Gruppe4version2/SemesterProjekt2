@@ -118,7 +118,7 @@
                      Width="600"
                       Height="500"
                      ItemsSource="{Binding ProjectsForCostumer}"
-                      SelectedItem="{Binding SelectedProject, Mode=TwoWay}">
+                      SelectedItem="{Binding SelectedSelectedProject, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
