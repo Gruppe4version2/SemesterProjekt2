@@ -115,8 +115,8 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
-                            <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding Name}" />
-                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding PhoneNr}"/>
+                            <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding Name}" Foreground="White" />
+                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding PhoneNr}" Foreground="Black"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

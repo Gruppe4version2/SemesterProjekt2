@@ -10,6 +10,17 @@ namespace VisionGroup2._0.Catalogs
 {
     public class CostumerCatalog : ICatalog<Costumer>
     {
+        #region Singleton
+        private static CostumerCatalog _instance;
+        public static CostumerCatalog Instance
+        {
+            get
+            {
+                _instance = _instance ?? (_instance = new CostumerCatalog());
+                return _instance;
+            }
+        }
+        #endregion
         private List<Costumer>_costumerList;
         public List<Costumer> CostumerList
         {

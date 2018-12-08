@@ -13,6 +13,17 @@ namespace VisionGroup2._0.Catalogs
 {
     public class EmployeeCatalog : ICatalog<Employee>, INotifyPropertyChanged
     {
+        #region Singleton
+        private static EmployeeCatalog _instance;
+        public static EmployeeCatalog Instance
+        {
+            get
+            {
+                _instance = _instance ?? (_instance = new EmployeeCatalog());
+                return _instance;
+            }
+        }
+        #endregion
         private List<Employee> _employeeList;
         public List<Employee> EmployeeList
         {
@@ -78,7 +89,19 @@ namespace VisionGroup2._0.Catalogs
         {
             using (var db = new DbContextVisionGroup())
             {
+                Task a = Task.Run(new Action(ProjectForEmployeesCatalog.Instance.Load));
                 EmployeeList = db.Employees.ToList();
+                a.Wait();
+                foreach (var employee in this._employeeList)
+                {
+                    foreach (var projectForEmployee in ProjectForEmployeesCatalog.Instance.ProjectsForEmployeesList)
+                    {
+                        if (employee.EmployeeId == projectForEmployee.EmployeeId)
+                        {
+                            employee.ProjectsForEmployees.Add(projectForEmployee);
+                        }
+                    }
+                }
             }
         }
 

@@ -14,6 +14,17 @@ namespace VisionGroup2._0.Catalogs
 {
     public class ProjectCatalog : ICatalog<Project>, INotifyPropertyChanged
     {
+        #region Singleton
+        private static ProjectCatalog _instance;
+        public static ProjectCatalog Instance
+        {
+            get
+            {
+                _instance = _instance ?? (_instance = new ProjectCatalog());
+                return _instance;
+            }
+        }
+        #endregion
         private List<Project> _projectList;
         public List<Project> ProjectList
         {

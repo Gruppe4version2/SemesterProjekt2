@@ -10,5 +10,6 @@ namespace VisionGroup2._0.Catalogs
     class CatalogBase
     {
 
+
     }
 }

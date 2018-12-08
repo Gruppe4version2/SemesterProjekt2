@@ -10,6 +10,17 @@ namespace VisionGroup2._0.Catalogs
 {
     class ProjectForEmployeesCatalog : ICatalog<ProjectsForEmployee>
     {
+        #region Singleton
+        private static ProjectForEmployeesCatalog _instance;
+        public static ProjectForEmployeesCatalog Instance
+        {
+            get
+            {
+                _instance = _instance ?? (_instance = new ProjectForEmployeesCatalog());
+                return _instance;
+            }
+        }
+        #endregion
         private List<ProjectsForEmployee> _projectsForEmployees;
         public List<ProjectsForEmployee> ProjectsForEmployeesList
         {
