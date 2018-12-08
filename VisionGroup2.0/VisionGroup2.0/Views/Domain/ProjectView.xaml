@@ -83,9 +83,12 @@
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Firma navn" Foreground="White" />
-                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                <AutoSuggestBox Style="{StaticResource AutoSuggestBoxDetailsStyle}"
                          Text="{Binding SelectedProjectCostumerName, Mode=TwoWay}"
-                         Width="700"/>
+                                TextChanged="AutoSuggestBox_TextChanged"
+                                SuggestionChosen="AutoSuggestBox_SuggestionChosen"
+                                Margin="0,0,0,0"
+                                Width="700" />
             </StackPanel>
 
 

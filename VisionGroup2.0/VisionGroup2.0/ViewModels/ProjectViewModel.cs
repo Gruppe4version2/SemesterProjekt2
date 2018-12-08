@@ -178,6 +178,7 @@ namespace VisionGroup2._0.ViewModels
                 this.OnPropertyChanged();
             }
         }
+
         public void Refresh()
         {
             this.OnPropertyChanged(nameof(ProjectCatalog.Load));

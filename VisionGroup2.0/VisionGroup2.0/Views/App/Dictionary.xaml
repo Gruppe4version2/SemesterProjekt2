@@ -97,6 +97,18 @@
         <Setter Property="Width" Value="500"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
+    <!--AutoSuggestBox Styles-->
+    <Style x:Key="AutoSuggestBoxDetailsStyle"
+           TargetType="AutoSuggestBox">
+        <Setter Property="FontSize"
+                Value="24" />
+        <Setter Property="FontWeight"
+                Value="Bold" />
+        <Setter Property="Width"
+                Value="500" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+    </Style>
 
     <!--TimePicker Styles-->
     <Style x:Key="TimePickerStyle" TargetType="TimePicker">
