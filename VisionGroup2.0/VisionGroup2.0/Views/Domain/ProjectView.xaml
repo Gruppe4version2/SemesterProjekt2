@@ -114,7 +114,7 @@
                        Text="Medarbejder tilknyttet projektet" Foreground="White" Width="400"/>
             <ListView Grid.Row="0" Grid.Column="0" Style="{StaticResource ListViewStyle}"
                       ItemsSource="{Binding EmployeesForProject}"
-                      Background="{x:Null}" Width="500" Height =" 400">
+                      Background="#FF4E698D" Width="500" Height =" 400">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
