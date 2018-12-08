@@ -4,6 +4,6 @@ namespace VisionGroup2._0.Interfaces
 {
     public interface ICostumerFactory
     {
-        Costumer Create();
+        void Create();
     }
 }

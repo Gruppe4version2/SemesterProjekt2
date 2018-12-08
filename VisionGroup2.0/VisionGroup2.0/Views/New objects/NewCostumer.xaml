@@ -34,7 +34,7 @@
                         Orientation="Horizontal">
                 <TextBlock VerticalAlignment="Center" Height="80" FontSize="50"
                            Text="Firma navn" Foreground="white"/>
-                <TextBox Text="{Binding Costumer.Name, Mode=TwoWay}"
+                <TextBox Text="{Binding NewCostumer.Name, Mode=TwoWay}"
                          Width="700"
                          Height="50"/>
             </StackPanel>
@@ -44,7 +44,7 @@
                         Orientation="Horizontal">
                 <TextBlock VerticalAlignment="Center" Height="80" FontSize="50"
                            Text="CVR" Foreground="white"/>
-                <TextBox Text="{Binding Costumer.CvrNr, Mode=TwoWay}"
+                <TextBox Text="{Binding NewCostumer.CvrNr, Mode=TwoWay}"
                          Width="700"
                          Height="50"/>
             </StackPanel>
@@ -54,7 +54,7 @@
                         Orientation="Horizontal">
                 <TextBlock VerticalAlignment="Center" Height="80" FontSize="50"
                            Text="Email" Foreground="white"/>
-                <TextBox Text="{Binding Costumer.Email, Mode=TwoWay}"
+                <TextBox Text="{Binding NewCostumer.Email, Mode=TwoWay}"
                          Width="700"
                          Height="50"/>
             </StackPanel>
@@ -63,20 +63,12 @@
                         Orientation="Horizontal">
                 <TextBlock VerticalAlignment="Center" Height="80" FontSize="50"
                            Text="Telefon" Foreground="white"/>
-                <TextBox Text="{Binding Costumer.PhoneNr, Mode=TwoWay}"
+                <TextBox Text="{Binding NewCostumer.PhoneNr, Mode=TwoWay}"
                          Width="700"
                          Height="50"/>
             </StackPanel>
 
-            <StackPanel HorizontalAlignment="Center" 
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" Height="80" FontSize="50"
-                           Text="Given ID" Foreground="white"/>
-                <TextBox Text="{Binding Costumer.CostumerId, Mode=TwoWay}"
-                         Width="700"
-                         Height="50"/>
-               </StackPanel>
+            
 
             <Button HorizontalAlignment="Center"
                     VerticalAlignment="Center"

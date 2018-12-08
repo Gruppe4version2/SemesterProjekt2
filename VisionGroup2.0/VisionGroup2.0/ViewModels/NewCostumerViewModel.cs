@@ -19,26 +19,14 @@ namespace VisionGroup2._0.ViewModels
         private CostumerCatalog _costumerCatalog;
 
         private CostumerFactory _costumerFactory;
-        private Costumer _costumer;
 
-        private Action _add;
-        private Predicate<Costumer> _canAdd;
         private RelayCommand<Costumer> _addCommand;
         public NewCostumerViewModel()
         {
-            _costumer = new Costumer();
-            _costumerCatalog = new CostumerCatalog();
-            _costumerCatalog.Load();
+            _costumerCatalog = CostumerCatalog.Instance;
             _costumerFactory = new CostumerFactory();
 
-            _add = () =>
-            {
-                _costumerCatalog.Add(_costumerFactory.Create());
-                _costumerCatalog.CostumerList.Add(_costumerFactory.Create());
-
-            };
-            _canAdd = (Costumer selectedCostumer) => _costumerCatalog.CostumerList.Contains(_costumer);
-            _addCommand = new RelayCommand<Costumer>(_add, _canAdd);
+            _addCommand = new RelayCommand<Costumer>(new Action(this._costumerFactory.Create), new Predicate<Costumer>(this._costumerFactory.CanCreate));
         }
 
         public RelayCommand<Costumer> AddCommand
@@ -49,47 +37,19 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
-        public string Name
+        public Costumer NewCostumer
         {
+            get
+            {
+                return this._costumerFactory.NewCostumer;
+            }
             set
             {
-                _costumerFactory.Create().Name = value;
-                OnPropertyChanged();
+                this._costumerFactory.NewCostumer = value;
+                this.OnPropertyChanged();
+                AddCommand.RaiseCanExecuteChanged();
+                this.OnPropertyChanged(nameof(AddCommand));
             }
-        }
-
-        public string Email
-        {
-
-            set
-            {
-                _costumerFactory.Create().Email = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int CVR
-        {
-            set
-            {
-                _costumerFactory.Create().CvrNr = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int PhoneNr
-        {
-
-            set
-            {
-                _costumerFactory.Create().PhoneNr= value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int GivenId
-        {
-            get { return _costumerCatalog.CostumerList.Count + 1; }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

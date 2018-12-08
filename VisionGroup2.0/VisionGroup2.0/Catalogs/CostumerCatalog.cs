@@ -49,6 +49,7 @@ namespace VisionGroup2._0.Catalogs
             using (var db = new DbContextVisionGroup())
             {
                 db.Costumers.Add(item);
+                this._costumerList.Add(item);
                 db.SaveChanges();
             }
         }

@@ -2,8 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
+
 namespace VisionGroup2._0
 {
+    using VisionGroup2._0.DomainClasses;
+
     public partial class DbContextVisionGroup : DbContext
     {
         public DbContextVisionGroup()
