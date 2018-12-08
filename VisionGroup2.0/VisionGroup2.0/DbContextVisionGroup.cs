@@ -6,8 +6,7 @@ using VisionGroup2._0.DomainClasses;
 
 namespace VisionGroup2._0
 {
-    using VisionGroup2._0.DomainClasses;
-
+    
     public partial class DbContextVisionGroup : DbContext
     {
         public DbContextVisionGroup()
