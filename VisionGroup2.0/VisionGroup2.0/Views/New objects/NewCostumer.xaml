@@ -23,60 +23,53 @@
     <Grid>
         <!-- rediger view -->
 
-        <StackPanel Grid.Row="0" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" >
+        <StackPanel Grid.Row="0" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" Width="800" >
             <StackPanel.FocusVisualPrimaryBrush>
                 <AcrylicBrush/>
             </StackPanel.FocusVisualPrimaryBrush>
 
+            <GridViewHeaderItem Content="Tilføj ny kunde" HorizontalAlignment="Center" FontSize="36" Foreground="white" FontWeight="Bold" FontFamily="Segoe UI Symbol"/>
             <!-- Kunde navn textblock -->
-            <StackPanel HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" Height="80" FontSize="50"
+            <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
+                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
                            Text="Firma navn" Foreground="white"/>
-                <TextBox Text="{Binding NewCostumer.Name, Mode=TwoWay}"
-                         Width="700"
-                         Height="50"/>
+                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                         Text="{Binding NewCostumer.Name, Mode=TwoWay}"
+                         Width="500"/>
             </StackPanel>
             <!-- CVR textblock -->
-            <StackPanel HorizontalAlignment="Center" 
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" Height="80" FontSize="50"
+            <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
+                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
                            Text="CVR" Foreground="white"/>
-                <TextBox Text="{Binding NewCostumer.CvrNr, Mode=TwoWay}"
-                         Width="700"
-                         Height="50"/>
+                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                         Text="{Binding NewCostumer.CvrNr, Mode=TwoWay}"
+                         Width="500"/>
             </StackPanel>
             <!-- Email textblock -->
-            <StackPanel HorizontalAlignment="Center" 
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" Height="80" FontSize="50"
+            <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}" >
+                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
                            Text="Email" Foreground="white"/>
-                <TextBox Text="{Binding NewCostumer.Email, Mode=TwoWay}"
-                         Width="700"
-                         Height="50"/>
+                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                         Text="{Binding NewCostumer.Email, Mode=TwoWay}"
+                         Width="500"/>
             </StackPanel>
-            <StackPanel HorizontalAlignment="Center" 
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" Height="80" FontSize="50"
+            <!-- Telefon textblock -->
+            <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}" >
+                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
                            Text="Telefon" Foreground="white"/>
-                <TextBox Text="{Binding NewCostumer.PhoneNr, Mode=TwoWay}"
-                         Width="700"
-                         Height="50"/>
+                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                         Text="{Binding NewCostumer.PhoneNr, Mode=TwoWay}"
+                         Width="500"/>
             </StackPanel>
 
-            
-
+            <!-- Tilføj kunde knap -->
             <Button HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Height="100"
                     Width="300"
                     Content="Tilføj"
                     Command="{Binding AddCommand}"
-                    Click="Button_navigation_CostumerView"/>
+                    Click="Button_navigation_CostumerView" FontFamily="Segoe UI Symbol" FontSize="24" Foreground="White"/>
             </StackPanel>
     </Grid>
 </Page>
