@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using VisionGroup2._0.DomainClasses;
 
 namespace VisionGroup2._0
 {
@@ -36,9 +35,7 @@ namespace VisionGroup2._0
             {
                 entity.ToTable("Costumer");
 
-                entity.Property(e => e.CostumerId)
-                    .HasColumnName("Costumer_Id")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.CostumerId).HasColumnName("Costumer_Id");
 
                 entity.Property(e => e.CvrNr).HasColumnName("CVR_nr");
 
@@ -57,9 +54,7 @@ namespace VisionGroup2._0
             {
                 entity.ToTable("Employee");
 
-                entity.Property(e => e.EmployeeId)
-                    .HasColumnName("Employee_Id")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.EmployeeId).HasColumnName("Employee_Id");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
@@ -76,9 +71,7 @@ namespace VisionGroup2._0
             {
                 entity.ToTable("Project");
 
-                entity.Property(e => e.ProjectId)
-                    .HasColumnName("Project_Id")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.ProjectId).HasColumnName("Project_Id");
 
                 entity.Property(e => e.CostumerId).HasColumnName("Costumer_Id");
 
