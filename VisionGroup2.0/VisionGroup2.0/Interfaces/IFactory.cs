@@ -2,7 +2,7 @@
 
 namespace VisionGroup2._0.Interfaces
 {
-    public interface ICostumerFactory
+    public interface IFactory
     {
         void Create();
     }

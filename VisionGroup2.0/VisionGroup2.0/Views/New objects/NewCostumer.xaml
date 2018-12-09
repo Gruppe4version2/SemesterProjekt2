@@ -5,14 +5,13 @@
     xmlns:local="using:VisionGroup2._0.Views.New_objects"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="using:VisionGroup2._0.ViewModels"
-    mc:Ignorable="d"
+    xmlns:create="using:VisionGroup2._0.ViewModels.Create"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+      mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Page.DataContext>
-        <viewModels:NewCostumerViewModel/>
-    </Page.DataContext>
-
+    
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -34,15 +33,17 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
                            Text="Firma navn" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding NewCostumer.Name, Mode=TwoWay}"
-                         Width="500"/>
+                         TextChanged="{x:Bind Path=createViewModel.Update}"
+                         Text="{x:Bind Path=createViewModel.NewCostumer.Name, Mode=TwoWay}"
+                         Width="500" />
             </StackPanel>
             <!-- CVR textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
                            Text="CVR" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding NewCostumer.CvrNr, Mode=TwoWay}"
+                         TextChanged="{x:Bind Path=createViewModel.Update}"
+                         Text="{x:Bind Path=createViewModel.NewCostumer.CvrNr, Mode=TwoWay}"
                          Width="500"/>
             </StackPanel>
             <!-- Email textblock -->
@@ -50,7 +51,8 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
                            Text="Email" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding NewCostumer.Email, Mode=TwoWay}"
+                         TextChanged="{x:Bind Path=createViewModel.Update}"
+                         Text="{x:Bind Path=createViewModel.NewCostumer.Email, Mode=TwoWay}"
                          Width="500"/>
             </StackPanel>
             <!-- Telefon textblock -->
@@ -58,7 +60,8 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
                            Text="Telefon" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Text="{Binding NewCostumer.PhoneNr, Mode=TwoWay}"
+                         TextChanged="{x:Bind Path=createViewModel.Update}"
+                         Text="{x:Bind createViewModel.NewCostumer.PhoneNr, Mode=TwoWay}"
                          Width="500"/>
             </StackPanel>
 

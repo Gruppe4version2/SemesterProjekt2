@@ -112,7 +112,7 @@
     <Compile Include="Interfaces\IAppViewModel.cs" />
     <Compile Include="Interfaces\ICatalog.cs" />
     <Compile Include="Interfaces\ICommandBase.cs" />
-    <Compile Include="Interfaces\ICostumerFactory.cs" />
+    <Compile Include="Interfaces\IFactory.cs" />
     <Compile Include="Interfaces\IEmployeeFactory.cs" />
     <Compile Include="Interfaces\IProjectFactory.cs" />
     <Compile Include="DomainClasses\Project.cs" />
@@ -121,8 +121,9 @@
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\AppViewModelBase.cs" />
     <Compile Include="ViewModels\CostumerViewModel.cs" />
+    <Compile Include="ViewModels\Create\CreateProjektViewModel.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
-    <Compile Include="ViewModels\NewCostumerViewModel.cs" />
+    <Compile Include="ViewModels\Create\CreateCostumerViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="Views\App\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -194,6 +195,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.9</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
+      <Version>2.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

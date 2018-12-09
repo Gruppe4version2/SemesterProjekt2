@@ -3,16 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using VisionGroup2._0.Catalogs;
 using VisionGroup2._0.DomainClasses;
 using VisionGroup2._0.Interfaces;
 
 namespace VisionGroup2._0.Factories
 {
-    public class ProjectFactory : IProjectFactory
+    public class ProjectFactory : IFactory
     {
-        public Project Create()
+        private ProjectCatalog _projectCatalog;
+        public ProjectFactory()
         {
-            return new Project();
+            this.NewProject = new Project();
+            this._projectCatalog = ProjectCatalog.Instance;
+        }
+
+        public Project NewProject { get; set; }
+        public bool CanCreate(Project newProject)
+        {
+            foreach (Project project in this._projectCatalog.ProjectList)
+            {
+                if (project.Name == this.NewProject.Name
+                    || this.NewProject.Deadline == null
+                    || this.NewProject.Name.Length < 1
+                    || CostumerCatalog.Instance.CostumerList.Where(p => p.CostumerId == NewProject.CostumerId).ToList().Count != 1)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public void Create()
+        {
+            if (this.CanCreate(this.NewProject))
+            {
+                this._projectCatalog.Add(this.NewProject);
+            }
         }
     }
 }
