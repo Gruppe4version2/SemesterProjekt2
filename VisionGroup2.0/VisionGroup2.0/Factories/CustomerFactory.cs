@@ -10,10 +10,10 @@ namespace VisionGroup2._0.Factories
 {
     using VisionGroup2._0.Catalogs;
 
-    public class Factory : IFactory
+    public class CostumerFactory : IFactory
     {
         private CostumerCatalog _costumerCatalog;
-        public Factory()
+        public CostumerFactory()
         {
             this.NewCostumer = new Costumer();
             this._costumerCatalog = CostumerCatalog.Instance;

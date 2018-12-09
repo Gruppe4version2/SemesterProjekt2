@@ -15,19 +15,14 @@
 
     internal class CreateCostumerViewModel : INotifyPropertyChanged
     {
-        private CostumerCatalog _costumerCatalog;
+        private CostumerFactory costumerFactory;
 
-        private Factory _factory;
-
-        private Costumer _newCostumer;
 
         public CreateCostumerViewModel()
         {
-            this._costumerCatalog = CostumerCatalog.Instance;
-            this._factory = new Factory();
-            this._newCostumer = new Costumer();
+            this.costumerFactory = new CostumerFactory();
 
-            this.AddCommand = new RelayCommand<Costumer>(new Action(this._factory.Create), new Predicate<Costumer>(costumer => this._factory.CanCreate(this._factory.NewCostumer)));
+            this.AddCommand = new RelayCommand<Costumer>(new Action(this.costumerFactory.Create), new Predicate<Costumer>(costumer => this.costumerFactory.CanCreate(this.costumerFactory.NewCostumer)));
             UpdateCommand = new RelayCommand<Costumer>(new Action(() =>
                                                                        {
                                                                            this.OnPropertyChanged(nameof(NewCostumer));
@@ -47,13 +42,13 @@
         {
             get
             {
-                return this._factory.NewCostumer;
+                return this.costumerFactory.NewCostumer;
             }
 
             set
             {
                 
-                    this._factory.NewCostumer = value;
+                    this.costumerFactory.NewCostumer = value;
                     this.OnPropertyChanged();
                     this.AddCommand.RaiseCanExecuteChanged();
                     this.OnPropertyChanged(nameof(this.AddCommand));
