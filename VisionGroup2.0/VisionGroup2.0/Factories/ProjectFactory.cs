@@ -22,17 +22,23 @@ namespace VisionGroup2._0.Factories
         public Project NewProject { get; set; }
         public bool CanCreate(Project newProject)
         {
-            foreach (Project project in this._projectCatalog.ProjectList)
+            if (newProject.Name == null || newProject.Deadline == null)
             {
-                if (project.Name == this.NewProject.Name
-                    || this.NewProject.Deadline == null
-                    || this.NewProject.Name.Length < 1
-                    || CostumerCatalog.Instance.CostumerList.Where(p => p.CostumerId == NewProject.CostumerId).ToList().Count != 1)
-                {
-                    return false;
-                }
+                return false;
             }
 
+            foreach (Project project in this._projectCatalog.ProjectList)
+                {
+                    if (project.Name == newProject.Name
+                        || CostumerCatalog.Instance.CostumerList.Where(p => p.CostumerId == newProject.CostumerId)
+                                          .ToList().Count != 1)
+                    {
+                        return false;
+                    }
+                }
+            
+
+            NewProject = newProject;
             return true;
         }
 

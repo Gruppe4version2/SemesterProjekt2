@@ -32,9 +32,9 @@ namespace VisionGroup2._0.Views.Domain
             this.InitializeComponent();
 
         }
-        public void Button_navigation_NewCostumer(object sender, RoutedEventArgs e)
+        public void Button_navigation_NewProject(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(NewCostumer), null);
+            this.Frame.Navigate(typeof(NewProject), null);
         }
 
         private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)

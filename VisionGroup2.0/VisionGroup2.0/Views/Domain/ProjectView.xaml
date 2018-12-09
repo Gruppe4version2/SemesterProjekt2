@@ -65,6 +65,7 @@
                 Height="100"
                 Width="300"
                 Margin="20,20,20,20"
+                Click="Button_navigation_NewProject"
                 Foreground="White" Background="#FF4E698D" FontSize="24"/>
 
         <!-- rediger view -->

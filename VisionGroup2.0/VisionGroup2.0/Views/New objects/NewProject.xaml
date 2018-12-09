@@ -35,7 +35,8 @@
                            Text="Projekt navn"
                            Foreground="white" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Width="500" />
+                         LostFocus="{x:Bind CreateViewModel.Update}"
+                         Text="{x:Bind CreateViewModel.NewProject.Name, Mode=TwoWay}"/>
             </StackPanel>
 
             <!-- Firma navn -->
@@ -43,17 +44,13 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
                            Text="Firma navn"
                            Foreground="white" />
-                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         Width="500" />
-            </StackPanel>
-
-            <!-- ID -->
-            <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
-                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
-                           Text="ID"
-                           Foreground="white" />
-                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
-                           Width="500" />
+                <AutoSuggestBox Style="{StaticResource AutoSuggestBoxDetailsStyle}"
+                                Text="{x:Bind CreateViewModel.SelectedProjectCostumerName, Mode=TwoWay}"
+                                TextChanged="AutoSuggestBox_TextChanged"
+                                SuggestionChosen="AutoSuggestBox_SuggestionChosen"
+                                LostFocus="{x:Bind CreateViewModel.Update}"
+                                Margin="0,0,0,0"
+                                Width="500" />
             </StackPanel>
 
             <!-- Deadline -->
@@ -62,7 +59,9 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
                            Text="Deadline"
                            Foreground="White" />
-                <DatePicker Width="450" />
+                <DatePicker Width="450" 
+                            LostFocus="{x:Bind CreateViewModel.Update}"
+                            Date="{x:Bind CreateViewModel.DeadLineOffset, Mode=TwoWay}"/>
             </StackPanel>
 
             <!-- Tilføj projekt knap -->
@@ -74,7 +73,9 @@
                     Content="Tilføj"
                     FontFamily="Segoe UI Symbol"
                     FontSize="24"
-                    Foreground="White" />
+                    Foreground="White"
+                    Command="{x:Bind CreateViewModel.AddCommand}"
+                    Click="Button_navigation_ProjectView" />
 
         </StackPanel>
 

@@ -17,21 +17,18 @@ namespace VisionGroup2._0.ViewModels.Create
     {
         private ProjectFactory _factory;
 
+        private CostumerCatalog _costumerCatalog;
+
 
         public CreateProjectViewModel()
         {
             this._factory = new ProjectFactory();
+            this._costumerCatalog = CostumerCatalog.Instance;
 
-            this.AddCommand = new RelayCommand<Costumer>(new Action(this._factory.Create), new Predicate<Costumer>(project => this._factory.CanCreate(this._factory.NewProject)));
+            this.AddCommand = new RelayCommand<Project>(new Action(this._factory.Create), new Predicate<Project>(project => this._factory.CanCreate(this._factory.NewProject)));
         }
 
-        public RelayCommand<Costumer> AddCommand { get; }
-
-        public void Update()
-        {
-            AddCommand.RaiseCanExecuteChanged();
-        }
-
+        public RelayCommand<Project> AddCommand { get; }
         public Project NewProject
         {
             get
@@ -47,6 +44,59 @@ namespace VisionGroup2._0.ViewModels.Create
                 this.AddCommand.RaiseCanExecuteChanged();
                 this.OnPropertyChanged(nameof(this.AddCommand));
             }
+        }
+
+        public DateTimeOffset DeadLineOffset
+        {
+            get
+            {
+                if (this.NewProject.Deadline.HasValue)
+                {
+                    DateTimeOffset d = new DateTimeOffset(this.NewProject.Deadline.Value);
+                    return d;
+                }
+                else
+                {
+                    NewProject.Deadline = DateTime.Today;
+                    DateTimeOffset d = new DateTimeOffset(this.NewProject.Deadline.Value);
+                    this.OnPropertyChanged(nameof(NewProject));
+                    AddCommand.RaiseCanExecuteChanged();
+                    return d;
+                }
+            }
+
+            set
+            {
+                NewProject.Deadline = value.DateTime;
+                AddCommand.RaiseCanExecuteChanged();
+                this.OnPropertyChanged();
+                this.OnPropertyChanged(nameof(NewProject));
+            }
+        }
+        public string SelectedProjectCostumerName
+        {
+            get
+            {
+                if (this._costumerCatalog.CostumerList.Where(p => p.CostumerId == NewProject.CostumerId).ToList().Count != 1)
+                {
+                    return string.Empty;
+                }
+                return this._costumerCatalog.CostumerList.Find(
+                                                               costumer => costumer.CostumerId == this.NewProject.CostumerId).Name;
+            }
+            set
+            {
+                if (this._costumerCatalog.CostumerList.Where(n => n.Name == value).ToList().Count == 1)
+                {
+                    this.NewProject.CostumerId = this._costumerCatalog.CostumerList.Find((costumer => costumer.Name == value)).CostumerId;
+                    AddCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public void Update()
+        {
+            AddCommand.RaiseCanExecuteChanged();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
