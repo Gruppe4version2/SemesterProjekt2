@@ -59,6 +59,14 @@
             </ListView.ItemTemplate>
         </ListView>
 
+        <Button Content="Opret ny Ansat" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom"
+                Height="100"
+                Width="300"
+                Margin="20,20,20,20"
+                Foreground="White" Background="#FF4E698D" FontSize="24"/>
+
         <!-- rediger view -->
 
         <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" >
@@ -97,10 +105,12 @@
             <!-- Liste af projekter -->
 
             <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                       Text="Tilknyttet projekter" Foreground="White" Width="400"/>
-            <ListView Grid.Row="0" Grid.Column="0" Style="{StaticResource ListViewStyle}"
+                       Text="Tilknyttet projekter" Foreground="White" Width="400" HorizontalAlignment="Center" TextAlignment="Center"/>
+            <ListView HorizontalAlignment="Center"
+                      Width="500"
+                      Height="400"
                       ItemsSource="{Binding EmployeeProjects}"
-                      SelectedItem="{Binding SelectedProject, Mode=TwoWay}" Background="{x:Null}">
+                      SelectedItem="{Binding SelectedProject, Mode=TwoWay}" Background="#FF4E698D" SelectionChanged="ListView_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">

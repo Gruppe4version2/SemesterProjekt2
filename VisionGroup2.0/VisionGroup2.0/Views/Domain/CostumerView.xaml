@@ -60,7 +60,7 @@
             </ListView.ItemTemplate>
         </ListView>
         
-        <Button Content="Ny kunde" 
+        <Button Content="Opret ny kunde" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"
                 Height="100"
@@ -113,12 +113,12 @@
             </StackPanel>
 
             <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                       Text="Projekter tilknyttet kunder" Foreground="White" Width="400"/> 
+                       Text="Projekter tilknyttet kunder" Foreground="White" Width="400" TextAlignment="Center"/> 
             <ListView HorizontalAlignment="Center"
-                     Width="600"
-                      Height="500"
+                     Width="500"
+                      Height="400"
                      ItemsSource="{Binding ProjectsForCostumer}"
-                      SelectedItem="{Binding SelectedSelectedProject, Mode=TwoWay}">
+                      SelectedItem="{Binding SelectedSelectedProject, Mode=TwoWay}" Background="#FF4E698D">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">

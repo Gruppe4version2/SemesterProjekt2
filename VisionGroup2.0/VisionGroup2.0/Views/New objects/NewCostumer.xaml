@@ -23,10 +23,6 @@
         <!-- rediger view -->
 
         <StackPanel Grid.Row="0" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" Width="800" >
-            <StackPanel.FocusVisualPrimaryBrush>
-                <AcrylicBrush/>
-            </StackPanel.FocusVisualPrimaryBrush>
-
             <GridViewHeaderItem Content="Tilføj ny kunde" HorizontalAlignment="Center" FontSize="36" Foreground="white" FontWeight="Bold" FontFamily="Segoe UI Symbol"/>
             <!-- Kunde navn textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">

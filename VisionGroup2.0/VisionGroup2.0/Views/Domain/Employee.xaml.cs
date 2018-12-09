@@ -26,5 +26,10 @@ namespace VisionGroup2._0.Views.Domain
         {
             this.InitializeComponent();
         }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

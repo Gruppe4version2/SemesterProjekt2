@@ -59,6 +59,14 @@
             </ListView.ItemTemplate>
         </ListView>
 
+        <Button Content="Opret nyt projekt" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom"
+                Height="100"
+                Width="300"
+                Margin="20,20,20,20"
+                Foreground="White" Background="#FF4E698D" FontSize="24"/>
+
         <!-- rediger view -->
 
         <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" >
@@ -111,7 +119,7 @@
 
             <!-- List af medarbejder for valgte projekt -->
             <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
-                       Text="Medarbejder tilknyttet projektet" Foreground="White" Width="400"/>
+                       Text="Medarbejder tilknyttet projektet" Foreground="White" Width="400" TextAlignment="Center"/>
             <ListView Grid.Row="0" Grid.Column="0" Style="{StaticResource ListViewStyle}"
                       ItemsSource="{Binding EmployeesForProject}"
                       Background="#FF4E698D" Width="500" Height =" 400">
