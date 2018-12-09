@@ -33,7 +33,7 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
                            Text="Firma navn" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         TextChanged="{x:Bind Path=createViewModel.Update}"
+                         LostFocus="{x:Bind Path=createViewModel.Update}"
                          Text="{x:Bind Path=createViewModel.NewCostumer.Name, Mode=TwoWay}"
                          Width="500" />
             </StackPanel>
@@ -42,7 +42,7 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
                            Text="CVR" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         TextChanged="{x:Bind Path=createViewModel.Update}"
+                         LostFocus="{x:Bind Path=createViewModel.Update}"
                          Text="{x:Bind Path=createViewModel.NewCostumer.CvrNr, Mode=TwoWay}"
                          Width="500"/>
             </StackPanel>
@@ -51,7 +51,7 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
                            Text="Email" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         TextChanged="{x:Bind Path=createViewModel.Update}"
+                         LostFocus="{x:Bind Path=createViewModel.Update}"
                          Text="{x:Bind Path=createViewModel.NewCostumer.Email, Mode=TwoWay}"
                          Width="500"/>
             </StackPanel>
@@ -60,13 +60,14 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}"
                            Text="Telefon" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
-                         TextChanged="{x:Bind Path=createViewModel.Update}"
+                         LostFocus="{x:Bind Path=createViewModel.Update}"
                          Text="{x:Bind createViewModel.NewCostumer.PhoneNr, Mode=TwoWay}"
                          Width="500"/>
             </StackPanel>
 
             <!-- Tilføj kunde knap -->
             <Button HorizontalAlignment="Center"
+                    x:Name="Button"
                     VerticalAlignment="Center"
                     Height="100"
                     Width="300"
