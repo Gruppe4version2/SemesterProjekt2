@@ -19,6 +19,9 @@ using VisionGroup2._0.Views.New_objects;
 
 namespace VisionGroup2._0.Views.Domain
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
     using VisionGroup2._0.Catalogs;
     using VisionGroup2._0.DomainClasses;
 
@@ -27,10 +30,24 @@ namespace VisionGroup2._0.Views.Domain
     /// </summary>
     public sealed partial class ProjectView : Page
     {
+        private Project _navigatedProject;
         public ProjectView()
         {
             this.InitializeComponent();
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            var parameters = (Project)e.Parameter;
+            this._navigatedProject = parameters;
 
+        }
+
+        public ProjectView(Project selectedProject)
+        {
+            this.InitializeComponent();
+            this.ProjectListView.SelectedItem = selectedProject;
+            
         }
         public void Button_navigation_NewProject(object sender, RoutedEventArgs e)
         {
@@ -55,6 +72,14 @@ namespace VisionGroup2._0.Views.Domain
         {
             // Set sender.Text. You can use args.SelectedItem to build your text string.
             sender.Text = args.SelectedItem.ToString();
+        }
+
+        private void ProjectListView_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (_navigatedProject != null)
+            {
+                this.ProjectListView.SelectedItem = this._navigatedProject;
+            }
         }
     }
 }

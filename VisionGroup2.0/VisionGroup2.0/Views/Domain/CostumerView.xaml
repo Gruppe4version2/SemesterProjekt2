@@ -114,18 +114,22 @@
 
             <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                        Text="Projekter tilknyttet kunder" Foreground="White" Width="400" TextAlignment="Center"/> 
-            <ListView HorizontalAlignment="Center"
+            <ListView HorizontalAlignment="Center" Name="ProjectListView"
                      Width="500"
                       Height="400"
                       BorderThickness="2"
                       BorderBrush="Black"
                      ItemsSource="{Binding ProjectsForCostumer}"
-                      SelectedItem="{Binding SelectedSelectedProject, Mode=TwoWay}" Background="#FF4E698D">
+                      DoubleTapped="UIElement_OnDoubleTapped"
+                      SelectedItem="{Binding SelectedProject, Mode=TwoWay}" Background="#FF4E698D">
                 <ListView.ItemTemplate>
                     <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
                         <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
                             <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding  Name}" />
                             <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding  Deadline}"/>
+                        </StackPanel>
+
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

@@ -46,9 +46,10 @@
         </Grid.ColumnDefinitions>
 
         <!-- View af projekter -->
-        <ListView Grid.Row="0" Grid.Column="0" Style="{StaticResource ListViewStyle}"
+        <ListView Grid.Row="0" Grid.Column="0" Style="{StaticResource ListViewStyle}" Name="ProjectListView"
                   ItemsSource="{Binding ProjectList}"
-                  SelectedItem="{Binding SelectedProject, Mode=TwoWay}" Background="{x:Null}">
+                  SelectedItem="{Binding SelectedProject, Mode=TwoWay}" Background="{x:Null}"
+                  Loaded="ProjectListView_OnLoaded">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">

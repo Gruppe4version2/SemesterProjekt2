@@ -25,7 +25,8 @@
 
     <NavigationView Header="DreamTeam"
                     OpenPaneLength="200"
-                    SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
+                    SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}"
+                    Name="NavigationView">
 
         <NavigationView.MenuItems>
             <NavigationViewItem Style="{StaticResource NavigationViewItemStyle}" Icon="AlignLeft" Content="Projekter" Tag="OpenProjectView"/>

@@ -78,7 +78,7 @@ namespace VisionGroup2._0.ViewModels
             set
             {
                 this._selectedProject = value;
-                this.OnPropertyChanged(nameof(this.ProjectsForCostumer));
+                this.OnPropertyChanged();
             }
         }
 

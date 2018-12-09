@@ -18,6 +18,9 @@ using VisionGroup2._0.Views.New_objects;
 
 namespace VisionGroup2._0.Views.Domain
 {
+    using VisionGroup2._0.ViewModels;
+    using VisionGroup2._0.Views.App;
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -31,6 +34,11 @@ namespace VisionGroup2._0.Views.Domain
         public void Button_navigation_NewCostumer(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(NewCostumer), null);
+        }
+
+        private void UIElement_OnDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ProjectView), this.ProjectListView.SelectedItem);
         }
     }
 }
