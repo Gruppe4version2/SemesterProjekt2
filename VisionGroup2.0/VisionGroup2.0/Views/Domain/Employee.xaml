@@ -59,7 +59,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button Content="Opret ny Ansat" 
+        <Button Content="Opret ny ansat" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"
                 Height="100"
