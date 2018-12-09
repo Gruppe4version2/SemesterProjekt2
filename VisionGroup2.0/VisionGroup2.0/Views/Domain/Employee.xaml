@@ -109,6 +109,8 @@
             <ListView HorizontalAlignment="Center"
                       Width="500"
                       Height="400"
+                      BorderThickness="2"
+                      BorderBrush="Black"
                       ItemsSource="{Binding EmployeeProjects}"
                       SelectedItem="{Binding SelectedProject, Mode=TwoWay}" Background="#FF4E698D" SelectionChanged="ListView_SelectionChanged">
                 <ListView.ItemTemplate>
