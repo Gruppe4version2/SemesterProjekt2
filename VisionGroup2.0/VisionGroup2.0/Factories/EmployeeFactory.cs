@@ -22,14 +22,19 @@ namespace VisionGroup2._0.Factories
         public Employee NewEmployee { get; set; }
         public bool CanCreate(Employee newEmployee)
         {
+            if (newEmployee.Name == null || newEmployee.Email == null)
+            {
+                return false;
+            }
             foreach (Employee employee in this._employeeCatalog.EmployeeList)
             {
-                if (this.NewEmployee.Name.Length < 1 || this.NewEmployee.Email.Length < 1 || employee.Email == this.NewEmployee.Email || employee.PhoneNr == this.NewEmployee.PhoneNr)
+                if (newEmployee.Name.Length < 1 || newEmployee.Email.Length < 1 || employee.Email == newEmployee.Email || employee.PhoneNr == newEmployee.PhoneNr)
                 {
                     return false;
                 }
             }
 
+            NewEmployee = newEmployee;
             return true;
         }
 

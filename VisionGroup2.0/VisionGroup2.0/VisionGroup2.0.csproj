@@ -121,6 +121,7 @@
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\AppViewModelBase.cs" />
     <Compile Include="ViewModels\CostumerViewModel.cs" />
+    <Compile Include="ViewModels\Create\CreateEmployeeViewModel.cs" />
     <Compile Include="ViewModels\Create\CreateProjectViewModel.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\Create\CreateCostumerViewModel.cs" />
@@ -140,6 +141,9 @@
     </Compile>
     <Compile Include="Views\New objects\NewCostumer.xaml.cs">
       <DependentUpon>NewCostumer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\New objects\NewEmployee.xaml.cs">
+      <DependentUpon>NewEmployee.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\New objects\NewProject.xaml.cs">
       <DependentUpon>NewProject.xaml</DependentUpon>

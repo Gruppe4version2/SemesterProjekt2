@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using VisionGroup2._0.Views.New_objects;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,6 +26,11 @@ namespace VisionGroup2._0.Views.Domain
         public Employee()
         {
             this.InitializeComponent();
+        }
+
+        public void Button_navigation_NewEmployee(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(NewEmployee), null);
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
