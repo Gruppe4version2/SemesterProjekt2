@@ -93,7 +93,9 @@
                            Text="CVR" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding SelectedCostumer.CvrNr, Mode=TwoWay}"
-                          Width="700"/>
+                          KeyDown="UIElement_OnKeyDown_OnlyNumbers"
+                          Width="700"
+                         InputScope="Number"/>
             </StackPanel>
             <!-- Email textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
@@ -109,6 +111,7 @@
                            Text="Telefon nummer" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          Text="{Binding SelectedCostumer.PhoneNr, Mode=TwoWay}"
+                         KeyDown="UIElement_OnKeyDown_OnlyNumbers"
                          Width="700"/>
             </StackPanel>
 

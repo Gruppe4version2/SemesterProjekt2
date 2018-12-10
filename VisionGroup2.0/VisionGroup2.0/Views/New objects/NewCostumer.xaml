@@ -40,6 +40,7 @@
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          LostFocus="{x:Bind Path=createViewModel.Update}"
                          Text="{x:Bind Path=createViewModel.NewCostumer.CvrNr, Mode=TwoWay}"
+                         KeyDown="UIElement_OnKeyDown_OnlyNumbers"
                          Width="500"/>
             </StackPanel>
             <!-- Email textblock -->
@@ -58,6 +59,7 @@
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          LostFocus="{x:Bind Path=createViewModel.Update}"
                          Text="{x:Bind createViewModel.NewCostumer.PhoneNr, Mode=TwoWay}"
+                         KeyDown="UIElement_OnKeyDown_OnlyNumbers"
                          Width="500"/>
             </StackPanel>
 
