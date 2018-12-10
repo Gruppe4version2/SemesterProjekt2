@@ -12,30 +12,30 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using VisionGroup2._0.Views.New_objects;
+using VisionGroup2._0.ViewModels.Create;
+using VisionGroup2._0.Views.Domain;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace VisionGroup2._0.Views.Domain
+namespace VisionGroup2._0.Views.New_objects
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Employee : Page
+    public sealed partial class NewEmployee : Page
     {
-        public Employee()
+        public NewEmployee()
         {
             this.InitializeComponent();
+            CreateEmployeeViewModel = new CreateEmployeeViewModel();
+            DataContext = CreateEmployeeViewModel;
         }
 
-        public void Button_navigation_NewEmployee(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(NewEmployee), null);
-        }
+        CreateEmployeeViewModel CreateEmployeeViewModel { get; set; }
 
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void Button_navigation_EmployeeView(object sender, RoutedEventArgs e)
         {
-
+            this.Frame.Navigate(typeof(Employee), null);
         }
     }
 }

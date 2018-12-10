@@ -65,7 +65,9 @@
                 Height="100"
                 Width="300"
                 Margin="20,20,20,20"
-                Foreground="White" Background="#FF4E698D" FontSize="24"/>
+                Foreground="White" Background="#FF4E698D" FontSize="24"
+                Click="Button_navigation_NewEmployee"/>
+                
 
         <!-- rediger view -->
 
