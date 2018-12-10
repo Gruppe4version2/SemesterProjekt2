@@ -17,12 +17,8 @@ namespace VisionGroup2._0.ViewModels
     {
 
         private ProjectCatalog _projectCatalog;
-        private ProjectForEmployeesCatalog _projectForEmployeesCatalog;
         private CostumerCatalog _costumerCatalog;
         private EmployeeCatalog _employeeCatalog;
-        private Action _remove;
-        private Predicate<Project> _canRemove;
-        private RelayCommand<Project> _deleteCommand;
         private Project _selectedProject;
         private Employee _selectedEmployee;
 
@@ -32,7 +28,6 @@ namespace VisionGroup2._0.ViewModels
             this._employeeCatalog = EmployeeCatalog.Instance;
             this._costumerCatalog = CostumerCatalog.Instance;
             
-            this._canRemove = (Project selectedProject) => this._projectCatalog.ProjectList.Contains(this.SelectedProject);
             this.DeleteCommand = new RelayCommand<Project>(new Action(() =>
                                                                                {
                                                                                    this._projectCatalog.Remove(this.SelectedProject);
@@ -48,30 +43,7 @@ namespace VisionGroup2._0.ViewModels
                                                                           this.SelectedProject = this.ProjectList.Find(project => project.ProjectId == id);
                                                                       }));
         }
-        public ProjectViewModel(Project selected)
-        {
-            this._selectedProject = selected;
-            this._projectCatalog = ProjectCatalog.Instance;
-            this._employeeCatalog = EmployeeCatalog.Instance;
-            this._costumerCatalog = CostumerCatalog.Instance;
-
-            this._canRemove = (Project selectedProject) => this._projectCatalog.ProjectList.Contains(this.SelectedProject);
-            this.DeleteCommand = new RelayCommand<Project>(new Action(() =>
-                                                                          {
-                                                                              this._projectCatalog.Remove(this.SelectedProject);
-                                                                              this._selectedProject = null;
-                                                                              this.OnPropertyChanged(nameof(this.ProjectList));
-                                                                          }),
-                                                           new Predicate<Project>(project => this.SelectedProject != null));
-            this.UpdateCommand = new RelayCommand<Project>(new Action(() =>
-                                                                          {
-                                                                              int id = this._selectedProject.ProjectId;
-                                                                              this._projectCatalog.Update(this._selectedProject);
-                                                                              this.OnPropertyChanged(nameof(this.ProjectList));
-                                                                              this.SelectedProject = this.ProjectList.Find(project => project.ProjectId == id);
-                                                                          }));
-        }
-
+        
         public RelayCommand<Project> DeleteCommand { get; }
         public RelayCommand<Project> UpdateCommand { get; }
 

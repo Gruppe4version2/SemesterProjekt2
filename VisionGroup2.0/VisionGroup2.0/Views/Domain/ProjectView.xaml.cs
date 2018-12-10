@@ -43,12 +43,6 @@ namespace VisionGroup2._0.Views.Domain
 
         }
 
-        public ProjectView(Project selectedProject)
-        {
-            this.InitializeComponent();
-            this.ProjectListView.SelectedItem = selectedProject;
-            
-        }
         public void Button_navigation_NewProject(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(NewProject), null);

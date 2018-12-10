@@ -41,7 +41,7 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="400"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
@@ -70,23 +70,26 @@
                 Foreground="White" Background="#FF4E698D" FontSize="24"/>
 
         <!-- rediger view -->
-
-        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" >
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      Grid.Row="0"
+                      Grid.Column="1">
+        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" Height="Auto" Width="Auto" HorizontalAlignment="Stretch">
             <StackPanel.FocusVisualPrimaryBrush>
                 <AcrylicBrush/>
             </StackPanel.FocusVisualPrimaryBrush>
 
             <!-- Søgebar -->
-            <AutoSuggestBox PlaceholderText="Søg" QueryIcon="Find" Width="1070" Height="40"/>
+            <AutoSuggestBox PlaceholderText="Søg" QueryIcon="Find" Width="Auto"  Height="40"/>
             <GridViewHeaderItem Content="Projekt information" HorizontalAlignment="Center" FontSize="36" Foreground="white" FontWeight="Bold" FontFamily="Segoe UI Symbol"/>
 
             <!-- Projekt navn textblock -->
-            <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
+            <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}" HorizontalAlignment="Stretch" Width="Auto">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Projekt navn" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                         Name="ProjectNameBox"
                           Text="{Binding SelectedProject.Name, Mode=TwoWay}"
-                         Width="700"/>
+                         />
             </StackPanel>
 
             <!-- Firma navn textblock -->
@@ -97,8 +100,7 @@
                          Text="{Binding SelectedProjectCostumerName, Mode=TwoWay}"
                                 TextChanged="AutoSuggestBox_TextChanged"
                                 SuggestionChosen="AutoSuggestBox_SuggestionChosen"
-                                Margin="0,0,0,0"
-                                Width="700" />
+                                Margin="0,0,0,0" />
             </StackPanel>
 
 
@@ -115,33 +117,39 @@
 
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                        Text="Deadline" Foreground="White"/>
-                <DatePicker Width="450" Date="{Binding DeadLineOffset, Mode=TwoWay}"/>
+                <DatePicker Width="500" Date="{Binding DeadLineOffset, Mode=TwoWay}"/>
             </StackPanel>
 
 
             <!-- List af medarbejder for valgte projekt -->
             <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                        Text="Medarbejder tilknyttet projektet" Foreground="White" Width="400" TextAlignment="Center"/>
-            <ListView Grid.Row="0" Grid.Column="0"   
+            <ListView Grid.Row="0"
+                      Grid.Column="0"
                       Name="EmployeeListView"
                       BorderThickness="2"
                       BorderBrush="Black"
                       Style="{StaticResource ListViewStyle}"
                       ItemsSource="{Binding EmployeesForProject}"
-                      Background="#FF4E698D" Width="500" Height =" 400">
+                      VerticalAlignment="Stretch"
+                      ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      Background="#FF4E698D"
+                      Margin="150,0,150,0"
+                      Width="Auto">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
-                            <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding Name}" Foreground="White" />
-                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding PhoneNr}" Foreground="Black"/>
+                            <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"
+                                       Text="{Binding Name}"
+                                       Foreground="White" />
+                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}"
+                                       Text="{Binding PhoneNr}"
+                                       Foreground="Black" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
-
-
-
         </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
