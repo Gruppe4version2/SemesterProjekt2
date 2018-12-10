@@ -92,6 +92,7 @@
                            Text="Telefon nummer" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding SelectedEmployee.PhoneNr, Mode=TwoWay}"
+                         KeyDown="UIElement_OnKeyDown_OnlyNumbers"
                           Width="700"/>
             </StackPanel>
             <!-- Email textblock -->

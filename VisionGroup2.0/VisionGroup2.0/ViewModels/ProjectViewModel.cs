@@ -152,15 +152,22 @@ namespace VisionGroup2._0.ViewModels
                         if (employee.ProjectsForEmployees.Where(p => p.ProjectId == this.SelectedProject.ProjectId).ToList().Count > 0)
                         {
                             list.Add(employee);
+                            //if (employee.ProjectsForEmployees.Where(p => p.ProjectId == this.SelectedProject.ProjectId && p.IsLeader).ToList().Count > 0)
+                            //{
+                            //    employee.ProjectLeader = true;
+                            //}
+                            //else
+                            //{
+                            //    employee.ProjectLeader = false;
+                            //}
                         }
                 }
-
+                //list.Sort(((employee, employee1) => employee));
                 return list;
 
             }
         }
-
-        public Employee ProjectLeader { get; private set; }
+        //public bool ProjectLeader 
 
         public Employee SelectedEmployee
         {
