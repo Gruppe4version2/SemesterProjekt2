@@ -137,11 +137,7 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
-        public void Refresh()
-        {
-            this.OnPropertyChanged(nameof(EmployeeCatalog.Load));
-            this.OnPropertyChanged(nameof(this.EmployeeList));
-        }
+
 
 
 

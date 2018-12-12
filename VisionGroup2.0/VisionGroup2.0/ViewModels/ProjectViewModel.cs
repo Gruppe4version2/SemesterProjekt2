@@ -35,6 +35,8 @@ namespace VisionGroup2._0.ViewModels
                                                                                    this.OnPropertyChanged(nameof(this.ProjectList));
                                                                                }), 
                                                             new Predicate<Project>(project => this.SelectedProject != null));
+
+
             this.UpdateCommand = new RelayCommand<Project>(new Action(() =>
                                                                       {
                                                                           int id = this._selectedProject.ProjectId;
@@ -181,11 +183,6 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
-        public void Refresh()
-        {
-            this.OnPropertyChanged(nameof(ProjectCatalog.Load));
-            this.OnPropertyChanged(nameof(this.ProjectList));
-        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

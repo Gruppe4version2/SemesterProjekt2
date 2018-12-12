@@ -22,7 +22,8 @@
         {
             this.costumerFactory = new CostumerFactory();
 
-            this.AddCommand = new RelayCommand<Costumer>(new Action(this.costumerFactory.Create), new Predicate<Costumer>(costumer => this.costumerFactory.CanCreate(this.costumerFactory.NewCostumer)));
+            this.AddCommand = new RelayCommand<Costumer>(new Action(this.costumerFactory.Create), 
+                new Predicate<Costumer>(costumer => this.costumerFactory.CanCreate(this.costumerFactory.NewCostumer)));
             UpdateCommand = new RelayCommand<Costumer>(new Action(() =>
                                                                        {
                                                                            this.OnPropertyChanged(nameof(NewCostumer));

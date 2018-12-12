@@ -95,7 +95,7 @@ namespace VisionGroup2._0.Catalogs
         {
             using (var db = new DbContextVisionGroup())
             {
-                ProjectList = db.Projects.ToList();
+                _projectList = db.Projects.ToList();
             }
         }
     }

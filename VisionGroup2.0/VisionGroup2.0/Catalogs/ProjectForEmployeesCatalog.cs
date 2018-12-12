@@ -75,7 +75,7 @@ namespace VisionGroup2._0.Catalogs
 
             using (var db = new DbContextVisionGroup())
             {
-                ProjectsForEmployeesList = db.ProjectsForEmployees.ToList();
+                _projectsForEmployees = db.ProjectsForEmployees.ToList();
             }
         }
     }

@@ -47,12 +47,6 @@ namespace VisionGroup2._0.ViewModels
         public RelayCommand<Costumer> UpdateCustomerCommand { get; private set; }
 
 
-        public string ContentText
-        {
-            get { return this.SelectedCostumer.CvrNr + " " + this.SelectedCostumer.PhoneNr + " " + this.SelectedCostumer.Email; }
-        }
-
-
         public List<Project> ProjectsForCostumer
         {
             get
@@ -126,10 +120,7 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
-        public void Refresh()
-        {
-            this.OnPropertyChanged(nameof(this.CostumerList));
-        }
+
 
 
         public event PropertyChangedEventHandler PropertyChanged;

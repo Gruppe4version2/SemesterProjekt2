@@ -82,7 +82,7 @@ namespace VisionGroup2._0.Catalogs
         {
             using (DbContextVisionGroup db = new DbContextVisionGroup())
             {
-                this.CostumerList = db.Costumers.ToList();
+                this._costumerList = db.Costumers.ToList();
             }
         }
     }

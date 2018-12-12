@@ -25,7 +25,8 @@ namespace VisionGroup2._0.ViewModels.Create
             this._factory = new ProjectFactory();
             this._costumerCatalog = CostumerCatalog.Instance;
 
-            this.AddCommand = new RelayCommand<Project>(new Action(this._factory.Create), new Predicate<Project>(project => this._factory.CanCreate(this._factory.NewProject)));
+            this.AddCommand = new RelayCommand<Project>(new Action(this._factory.Create), 
+                new Predicate<Project>(project => this._factory.CanCreate(this._factory.NewProject)));
         }
 
         public RelayCommand<Project> AddCommand { get; }
