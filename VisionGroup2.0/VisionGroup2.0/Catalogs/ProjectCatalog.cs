@@ -68,6 +68,7 @@ namespace VisionGroup2._0.Catalogs
             using (var db = new DbContextVisionGroup())
             {
                 db.Projects.Remove(item);
+                ProjectList.Remove(item);
                 foreach (var projectforEmployee in ProjectForEmployeesCatalog.Instance.ProjectsForEmployeesList.Where(p => p.ProjectId == item.ProjectId).ToList())
                 {
                     db.ProjectsForEmployees.Remove(projectforEmployee);

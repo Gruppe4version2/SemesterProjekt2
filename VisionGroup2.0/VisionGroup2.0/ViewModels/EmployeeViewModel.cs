@@ -100,6 +100,7 @@ namespace VisionGroup2._0.ViewModels
             set
             {
                 this._selectedEmployee = value;
+                this.OnPropertyChanged(nameof(EmployeeProjects));
                 this.OnPropertyChanged();
             }
         }
