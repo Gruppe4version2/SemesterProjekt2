@@ -95,7 +95,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Catalogs\CatalogBase.cs" />
     <Compile Include="Catalogs\CostumerCatalog.cs" />
     <Compile Include="Catalogs\EmployeeCatalog.cs" />
     <Compile Include="Catalogs\ProjectCatalog.cs" />
