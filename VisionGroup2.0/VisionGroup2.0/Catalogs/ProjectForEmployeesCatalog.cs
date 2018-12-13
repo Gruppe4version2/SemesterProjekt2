@@ -48,6 +48,7 @@ namespace VisionGroup2._0.Catalogs
             using (var db = new DbContextVisionGroup())
             {
                 db.ProjectsForEmployees.Add(item);
+                EmployeeCatalog.Instance.EmployeeList[EmployeeCatalog.Instance.EmployeeList.FindIndex((employee => employee.EmployeeId == item.EmployeeId))].ProjectsForEmployees.Add(item);
                 db.SaveChanges();
             }
         }
@@ -57,6 +58,12 @@ namespace VisionGroup2._0.Catalogs
             using (var db = new DbContextVisionGroup())
             {
                 db.ProjectsForEmployees.Remove(item);
+                EmployeeCatalog
+                    .Instance
+                    .EmployeeList[EmployeeCatalog.Instance.EmployeeList.FindIndex(
+                                                                                  (employee => employee.EmployeeId
+                                                                                               == item.EmployeeId))]
+                    .ProjectsForEmployees.Remove(item);
                 db.SaveChanges();
             }
         }

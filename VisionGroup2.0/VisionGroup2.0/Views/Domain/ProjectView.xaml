@@ -73,7 +73,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto"
                       Grid.Row="0"
                       Grid.Column="1">
-        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" Height="Auto" Width="Auto" HorizontalAlignment="Stretch">
+        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" Height="Auto" MaxHeight="720" Width="Auto" HorizontalAlignment="Stretch">
             <StackPanel.FocusVisualPrimaryBrush>
                 <AcrylicBrush/>
             </StackPanel.FocusVisualPrimaryBrush>
@@ -131,10 +131,12 @@
                       BorderBrush="Black"
                       Style="{StaticResource ListViewStyle}"
                       ItemsSource="{Binding EmployeesForProject}"
+                      SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}"
                       VerticalAlignment="Stretch"
                       ScrollViewer.VerticalScrollBarVisibility="Visible"
                       Background="#FF4E698D"
                       Margin="150,0,150,0"
+                      Height="230"
                       Width="Auto">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -149,7 +151,32 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackPanel>
+            <StackPanel Orientation="Horizontal">
+            <AutoSuggestBox Style="{StaticResource AutoSuggestBoxDetailsStyle}"
+                            Text="{Binding AddEmployeeName, Mode=TwoWay}"
+                            TextChanged="NameSuggestBox_TextChanged"
+                            SuggestionChosen="NameSuggestBox_SuggestionChosen"
+                            Width="200"
+                            HorizontalAlignment="Left"
+                            Margin="150,0,0,0" />
+                <Button Content="Tilføj Medarbejder" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Bottom"
+                        Height="Auto"
+                        Width="Auto"
+                        Margin="20,0,0,0"
+                        Command="{Binding AddEmployeeCommand}"
+                        Foreground="White" Background="#FF4E698D" FontSize="24"/>
+                <Button Content="Slet Medarbejder" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Bottom"
+                        Height="Auto"
+                        Width="Auto"
+                        Margin="20,0,0,0"
+                        Command="{Binding DeleteEmployeeCommand}"
+                        Foreground="White" Background="#FF4E698D" FontSize="24"/>
+                </StackPanel>
+            </StackPanel>
         </ScrollViewer>
     </Grid>
 </Page>
