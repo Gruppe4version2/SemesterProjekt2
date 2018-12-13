@@ -73,7 +73,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto"
                       Grid.Row="0"
                       Grid.Column="1">
-        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" Height="Auto" MaxHeight="720" Width="Auto" HorizontalAlignment="Stretch">
+        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" Height="Auto" Width="Auto" HorizontalAlignment="Stretch">
             <StackPanel.FocusVisualPrimaryBrush>
                 <AcrylicBrush/>
             </StackPanel.FocusVisualPrimaryBrush>
@@ -136,7 +136,8 @@
                       ScrollViewer.VerticalScrollBarVisibility="Visible"
                       Background="#FF4E698D"
                       Margin="150,0,150,0"
-                      Height="230"
+                      Height="Auto"
+                      MaxHeight="230"
                       Width="Auto">
                 <ListView.ItemTemplate>
                     <DataTemplate>
