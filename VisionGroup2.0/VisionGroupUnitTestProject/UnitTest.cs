@@ -24,11 +24,6 @@ namespace VisionGroupUnitTestProject
             p.Deadline = DateTime.Now;
 
             // Act
-            if (ProjectCatalog.Instance.ProjectList.Exists((project => project.Name == p.Name)))
-            {
-                ProjectCatalog.Instance.Remove(ProjectCatalog.Instance.ProjectList.Find((project => project.Name == p.Name)));
-            }
-            pFactory.NewProject = p;
             pFactory.CanCreate(p);
             pFactory.Create();
 

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
+using VisionGroup2._0.Interfaces;
 
 namespace VisionGroup2._0.Commands
 {
-    public class NavigationCommand : CommandBase
+    public class NavigationCommand : ICommand
     {
         private Frame _frame;
         private Type _pageType;
@@ -25,14 +27,23 @@ namespace VisionGroup2._0.Commands
         {
         }
 
-        protected override bool CanExecute()
+        public bool CanExecute(object parameter)
         {
             return this._canNavigateFunc();
         }
 
-        protected override void Execute()
+        public void Execute(object parameter)
         {
             this._frame.Navigate(this._pageType);
+        }
+
+        public event EventHandler CanExecuteChanged;
+        public void RaiseCanExecuteChanged()
+        {
+            EventHandler canExecuteChanged = this.CanExecuteChanged;
+            if (canExecuteChanged == null)
+                return;
+            canExecuteChanged((object)this, EventArgs.Empty);
         }
     }
 }
