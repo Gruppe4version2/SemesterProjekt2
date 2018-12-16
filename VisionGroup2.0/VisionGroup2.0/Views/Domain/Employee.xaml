@@ -136,7 +136,7 @@
                     <DataTemplate>
                         <StackPanel Style="{StaticResource StackPanelItemTemplateStyle}">
                             <TextBlock Style="{StaticResource TextBlockItemHeaderStyle}"  Text="{Binding Name}" Foreground="White" />
-                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding PhoneNr}" Foreground="Black"/>
+                            <TextBlock Style="{StaticResource TextBlockItemContentStyle}" Text="{Binding Deadline}" Foreground="Black"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

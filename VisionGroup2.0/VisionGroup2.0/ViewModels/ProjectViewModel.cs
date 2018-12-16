@@ -79,6 +79,11 @@ namespace VisionGroup2._0.ViewModels
                                                                                                             project
                                                                                                                 .ProjectId
                                                                                                             == id);
+                                                                              foreach (var projectsForEmployee in EmployeesForProject)
+                                                                              {
+                                                                                  this._projectForEmployeesCatalog.Update(projectsForEmployee);
+                                                                                  this._employeeCatalog.Load();
+                                                                              }
                                                                           }), project => Edit);
             this.AddEmployeeCommand =
                 new RelayCommand<Employee>(new Action(
@@ -101,7 +106,7 @@ namespace VisionGroup2._0.ViewModels
                                                                                                 return false;
                                                                                             }
 
-                                                                                            if (this._employeeCatalog.EmployeeList.Exists(employee => employee.Name == this._addEmployee.Name) && !this.EmployeesForProject.Exists(employee => employee.Name == this._addEmployee.Name))
+                                                                                            if (this._employeeCatalog.EmployeeList.Exists(employee => employee.Name == this._addEmployee.Name) && !this.EmployeesForProject.Exists(employee => employee.Employee.Name == this._addEmployee.Name))
                                                                                             {
                                                                                                 return true;
                                                                                             }
@@ -224,57 +229,90 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
-        public List<Employee> EmployeesForProject
+        public List<ProjectsForEmployee> EmployeesForProject
         {
             get
             {
-                var list = new List<Employee>();
+                var list = new List<ProjectsForEmployee>();
 
                 if (this._selectedProject != null)
                 {
                     foreach (Employee employee in this._employeeCatalog.EmployeeList)
                     {
-                        if (employee.ProjectsForEmployees.Where(p => p.ProjectId == this.SelectedProject.ProjectId)
-                                    .ToList().Count > 0)
+                        foreach (var projectForEmployee in employee.ProjectsForEmployees)
                         {
-                            list.Add(employee);
-
-                            // if (employee.ProjectsForEmployees.Where(p => p.ProjectId == this.SelectedProject.ProjectId && p.IsLeader).ToList().Count > 0)
-                            // {
-                            // employee.ProjectLeader = true;
-                            // }
-                            // else
-                            // {
-                            // employee.ProjectLeader = false;
-                            // }
+                            if (projectForEmployee.ProjectId == this._selectedProject.ProjectId)
+                            {
+                                projectForEmployee.Employee = employee;
+                                list.Add(projectForEmployee);
+                            }
                         }
+                        //if (employee.ProjectsForEmployees.Where(p => p.ProjectId == this.SelectedProject.ProjectId)
+                        //            .ToList().Count > 0)
+                        //{
+                        //    list.Add(employee);
+
+                        //    // if (employee.ProjectsForEmployees.Where(p => p.ProjectId == this.SelectedProject.ProjectId && p.IsLeader).ToList().Count > 0)
+                        //    // {
+                        //    // employee.ProjectLeader = true;
+                        //    // }
+                        //    // else
+                        //    // {
+                        //    // employee.ProjectLeader = false;
+                        //    // }
+                        //}
                     }
                 }
 
                 // list.Sort(((employee, employee1) => employee));
                 return list;
             }
+            set
+            {
+                foreach (var projectsForEmployee in value)
+                {
+                    this._projectForEmployeesCatalog.Update(projectsForEmployee);
+                    this._employeeCatalog.Load();
+                }
+            }
         }
 
         // public bool ProjectLeader 
-        public Employee SelectedEmployee
+        public ProjectsForEmployee SelectedEmployee
         {
             get
             {
-                //if (this._selectedEmployee != null)
-                //{
-                    return this._selectedEmployee;
-                //}
-                //else
-                //{
-                //    this._selectedEmployee = this.EmployeesForProject[0];
-                //    return this._selectedEmployee;
-                //}
+                if (this._selectedEmployee != null)
+                {
+                    return this._selectedEmployee.ProjectsForEmployees.First((employee => employee.ProjectId == this._selectedProject.ProjectId));
+                }
+                else
+                {
+                    return null;
+                }
             }
 
             set
             {
-                this._selectedEmployee = value;
+                if (value == null)
+                {
+                    if (EmployeesForProject.Count < 1)
+                    {
+                        this._selectedEmployee = null;
+                    }
+                    else if (EmployeesForProject[0].Employee == null)
+                    {
+                        this._selectedEmployee = null;
+                    }
+                    else
+                    {
+                        this._selectedEmployee = EmployeesForProject[0].Employee;
+                    }
+                }
+                else
+                {
+                    this._selectedEmployee = value.Employee;
+                }
                 this.OnPropertyChanged();
                 DeleteEmployeeCommand.RaiseCanExecuteChanged();
             }
