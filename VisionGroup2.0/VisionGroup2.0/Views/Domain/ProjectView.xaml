@@ -88,7 +88,8 @@
                            Text="Projekt navn" Foreground="white"/>
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="{Binding SelectedProject.Name}" Foreground="Black"
-                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"
+                           Width="500"/>
                     <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          Name="ProjectNameBox"
                           Text="{Binding SelectedProject.Name, Mode=TwoWay}"
@@ -101,7 +102,8 @@
                            Text="Firma navn" Foreground="White" />
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="{Binding SelectedProjectCostumerName}" Foreground="Black"
-                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"
+                           Width="500"/>
                     <AutoSuggestBox Style="{StaticResource AutoSuggestBoxDetailsStyle}"
                          Text="{Binding SelectedProjectCostumerName, Mode=TwoWay}"
                                 TextChanged="AutoSuggestBox_TextChanged"

@@ -89,7 +89,8 @@
                            Text="Fulde navn" Foreground="white"/>
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="{Binding SelectedEmployee.Name}" Foreground="Black"
-                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"
+                           Width="500"/>
                     <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding SelectedEmployee.Name, Mode=TwoWay}"
                          Visibility="{Binding Edit, Mode=OneWay}"/>
@@ -100,7 +101,8 @@
                            Text="Telefon nummer" Foreground="White" />
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="{Binding SelectedEmployee.PhoneNr}" Foreground="Black"
-                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"
+                           Width="500"/>
                     <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding SelectedEmployee.PhoneNr, Mode=TwoWay}"
                          KeyDown="UIElement_OnKeyDown_OnlyNumbers"
@@ -112,7 +114,8 @@
                            Text="Email" Foreground="White" />
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="{Binding SelectedEmployee.Email}" Foreground="Black"
-                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"
+                           Width="500"/>
                     <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          Text="{Binding SelectedEmployee.Email, Mode=TwoWay}"
                          Visibility="{Binding Edit, Mode=OneWay}"/>

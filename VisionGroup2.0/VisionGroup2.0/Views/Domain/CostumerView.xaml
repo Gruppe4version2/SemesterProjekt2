@@ -89,7 +89,8 @@
                            Text="Firma navn" Foreground="white"/>
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="{Binding SelectedCostumer.Name}" Foreground="Black"
-                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"
+                           Width="500"/>
                     <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding SelectedCostumer.Name, Mode=TwoWay}"
                           Visibility="{Binding Edit, Mode=OneWay}"/>
@@ -100,7 +101,8 @@
                            Text="CVR" Foreground="White" />
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="{Binding SelectedCostumer.CvrNr}" Foreground="Black"
-                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"
+                           Width="500"/>
                     <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding SelectedCostumer.CvrNr, Mode=TwoWay}"
                           KeyDown="UIElement_OnKeyDown_OnlyNumbers"
@@ -112,7 +114,8 @@
                            Text="Email" Foreground="White" />
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="{Binding SelectedCostumer.Email}" Foreground="Black"
-                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"
+                           Width="500"/>
                     <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          Text="{Binding SelectedCostumer.Email, Mode=TwoWay}"
                          Visibility="{Binding Edit, Mode=OneWay}"/>
@@ -123,7 +126,8 @@
                            Text="Telefon nummer" Foreground="White" />
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="{Binding SelectedCostumer.PhoneNr}" Foreground="Black"
-                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"
+                           Width="500"/>
                     <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          Text="{Binding SelectedCostumer.PhoneNr, Mode=TwoWay}"
                          KeyDown="UIElement_OnKeyDown_OnlyNumbers"
