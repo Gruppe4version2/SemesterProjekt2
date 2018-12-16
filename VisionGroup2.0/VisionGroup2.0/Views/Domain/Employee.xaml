@@ -28,11 +28,11 @@
                 <TextBlock Style="{StaticResource TextBlockCommandContentStyle}" />
 
             </CommandBar.Content>
-            <AppBarButton Icon="Edit" Label="Rediger" />
+            <AppBarButton Icon="Save" Label="Gem" Command="{Binding UpdateCommand}" />
 
             <AppBarButton Icon="Delete" Label="Slet" IsEnabled="True" Command="{Binding DeleteCommand}"/>
 
-            <AppBarButton Icon="NewFolder" Label="Opret" />
+            <AppBarToggleButton Name="EditToggle" Icon="Edit" Label="Rediger" IsChecked="{Binding Edit, Mode=TwoWay}"/>
 
 
         </CommandBar>
@@ -41,7 +41,7 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="400"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
@@ -71,13 +71,16 @@
 
         <!-- rediger view -->
 
-        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" >
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      Grid.Row="0"
+                      Grid.Column="1">
+            <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource StackPanelDetailsMidStyle}" Background="#FF6283B0" Height="Auto" Width="Auto" HorizontalAlignment="Stretch">
             <StackPanel.FocusVisualPrimaryBrush>
                 <AcrylicBrush/>
             </StackPanel.FocusVisualPrimaryBrush>
 
             <!-- Søgebar -->
-            <AutoSuggestBox PlaceholderText="Søg" QueryIcon="Find" Width="1070" Height="40"/>
+            <AutoSuggestBox PlaceholderText="Søg" QueryIcon="Find" Width="Auto" Height="40"/>
             <GridViewHeaderItem Content="Medarbejder information" HorizontalAlignment="Center" FontSize="36" Foreground="white" FontWeight="Bold" FontFamily="Segoe UI Symbol"/>
 
             <!-- Kunde navn textblock -->
@@ -86,7 +89,7 @@
                            Text="Fulde navn" Foreground="white"/>
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding SelectedEmployee.Name, Mode=TwoWay}"
-                         Width="700"/>
+                         IsReadOnly="{Binding ReadOnly, Mode=OneWay}"/>
             </StackPanel>
             <!-- Telefon textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
@@ -95,7 +98,7 @@
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding SelectedEmployee.PhoneNr, Mode=TwoWay}"
                          KeyDown="UIElement_OnKeyDown_OnlyNumbers"
-                          Width="700"/>
+                         IsReadOnly="{Binding ReadOnly, Mode=OneWay}"/>
             </StackPanel>
             <!-- Email textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
@@ -103,7 +106,7 @@
                            Text="Email" Foreground="White" />
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          Text="{Binding SelectedEmployee.Email, Mode=TwoWay}"
-                         Width="700"/>
+                         IsReadOnly="{Binding ReadOnly, Mode=OneWay}"/>
             </StackPanel>
             <!-- Liste af projekter -->
 
@@ -111,7 +114,8 @@
                        Text="Tilknyttet projekter" Foreground="White" Width="400" HorizontalAlignment="Center" TextAlignment="Center"/>
             <ListView HorizontalAlignment="Center"
                       Width="500"
-                      Height="400"
+                      Height="Auto"
+                      MaxHeight="230"
                       BorderThickness="2"
                       BorderBrush="Black"
                       ItemsSource="{Binding EmployeeProjects}"
@@ -127,5 +131,6 @@
             </ListView>
 
         </StackPanel>
+            </ScrollViewer>
     </Grid>
 </Page>

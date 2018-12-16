@@ -31,6 +31,8 @@ namespace VisionGroup2._0.ViewModels
 
         private ProjectsForEmployee _projectForEmployee;
 
+        private bool _canEdit;
+
         public ProjectViewModel()
         {
             this._projectCatalog = ProjectCatalog.Instance;
@@ -77,7 +79,7 @@ namespace VisionGroup2._0.ViewModels
                                                                                                             project
                                                                                                                 .ProjectId
                                                                                                             == id);
-                                                                          }));
+                                                                          }), project => Edit);
             this.AddEmployeeCommand =
                 new RelayCommand<Employee>(new Action(
                                                     () =>
@@ -127,6 +129,28 @@ namespace VisionGroup2._0.ViewModels
                                                                                                          nameof(this.EmployeesForProject));
                                                                                   DeleteEmployeeCommand.RaiseCanExecuteChanged();
                                                                               }), new Predicate<Employee>(employee => this._selectedEmployee != null && this._selectedProject != null));
+            this._canEdit = false;
+        }
+        public bool Edit
+        {
+            get
+            {
+                return this._canEdit;
+            }
+            set
+            {
+                this._canEdit = value;
+                this.OnPropertyChanged(nameof(ReadOnly));
+                UpdateCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public bool ReadOnly
+        {
+            get
+            {
+                return !this._canEdit;
+            }
         }
 
         public RelayCommand<Project> DeleteCommand { get; }

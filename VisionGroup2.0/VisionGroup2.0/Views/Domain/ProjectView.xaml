@@ -32,7 +32,7 @@
 
             <AppBarButton Icon="Delete" Label="Slet" IsEnabled="True" Command="{Binding DeleteCommand}" />
 
-            <AppBarButton Icon="NewFolder" Label="Opret" IsEnabled="True" Command="{Binding AddProject}" />
+            <AppBarToggleButton Name="EditToggle" Icon="Edit" Label="Rediger" IsChecked="{Binding Edit, Mode=TwoWay}"/>
 
 
         </CommandBar>
@@ -89,7 +89,7 @@
                 <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          Name="ProjectNameBox"
                           Text="{Binding SelectedProject.Name, Mode=TwoWay}"
-                         />
+                         IsReadOnly="{Binding ReadOnly, Mode=OneWay}"/>
             </StackPanel>
 
             <!-- Firma navn textblock -->
@@ -100,7 +100,8 @@
                          Text="{Binding SelectedProjectCostumerName, Mode=TwoWay}"
                                 TextChanged="AutoSuggestBox_TextChanged"
                                 SuggestionChosen="AutoSuggestBox_SuggestionChosen"
-                                Margin="0,0,0,0" />
+                                Margin="0,0,0,0" 
+                                IsEnabled="{x:Bind EditToggle.IsChecked.Value, Mode=OneWay}"/>
             </StackPanel>
 
 
@@ -117,7 +118,8 @@
 
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                        Text="Deadline" Foreground="White"/>
-                <DatePicker Width="500" Date="{Binding DeadLineOffset, Mode=TwoWay}"/>
+                <DatePicker Width="500" Date="{Binding DeadLineOffset, Mode=TwoWay}"
+                            IsEnabled="{x:Bind EditToggle.IsChecked.Value, Mode=OneWay}"/>
             </StackPanel>
 
 

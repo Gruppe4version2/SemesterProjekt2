@@ -23,6 +23,8 @@ namespace VisionGroup2._0.ViewModels
         private RelayCommand<Employee> _deleteCommand;
         private Project _selectedProject;
 
+        private bool _canEdit;
+
 
         public EmployeeViewModel()
         {
@@ -31,15 +33,57 @@ namespace VisionGroup2._0.ViewModels
             this._projectsForEmployee = ProjectForEmployeesCatalog.Instance;
             this._remove = () =>
             {
-                this._projectCatalog.Remove(this.SelectedProject);
-                this._projectCatalog.ProjectList.Remove(this.SelectedProject);
+                this._employeeCatalog.Remove(this._selectedEmployee);
                 this._selectedEmployee = null;
                 this.OnPropertyChanged(nameof(this.EmployeeList));
             };
             this._canRemove = (Employee selectedEmployee) => this._employeeCatalog.EmployeeList.Contains(this.SelectedEmployee);
             this._deleteCommand = new RelayCommand<Employee>(this._remove, this._canRemove);
+            this.UpdateCommand = new RelayCommand<Employee>(
+                                                           new Action(
+                                                                      () =>
+                                                                      {
+                                                                          int id = this._selectedEmployee.EmployeeId;
+                                                                          this._employeeCatalog.Update(
+                                                                                                      this
+                                                                                                          ._selectedEmployee);
+                                                                          this.OnPropertyChanged(
+                                                                                                 nameof(
+                                                                                                     this
+                                                                                                         .EmployeeList
+                                                                                                 ));
+                                                                          this.SelectedEmployee =
+                                                                              this.EmployeeList.Find(
+                                                                                                    employee =>
+                                                                                                        employee
+                                                                                                            .EmployeeId
+                                                                                                        == id);
+                                                                      }), employee => Edit);
+            this._canEdit = false;
         }
-        
+        public bool Edit
+        {
+            get
+            {
+                return this._canEdit;
+            }
+            set
+            {
+                this._canEdit = value;
+                this.OnPropertyChanged(nameof(ReadOnly));
+                UpdateCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public bool ReadOnly
+        {
+            get
+            {
+                return !this._canEdit;
+            }
+        }
+
+        public RelayCommand<Employee> UpdateCommand { get; set; }
         public RelayCommand<Employee> DeleteCommand
         {
             get { return this._deleteCommand; }
@@ -112,18 +156,12 @@ namespace VisionGroup2._0.ViewModels
             {
                 if (this._selectedEmployee == null)
                 {
-                    if (this._employeeCatalog.EmployeeList != null)
-                    {
+                    
                         IOrderedEnumerable<Employee> employeeList = from employee in this._employeeCatalog.EmployeeList
                             orderby employee.Name
                             select employee;
                         this.SelectedEmployee = employeeList.First();
                         return employeeList.ToList();
-                    }
-                    else
-                    {
-                        return this._employeeCatalog.EmployeeList;
-                    }
                 }
                 else
                 {

@@ -20,6 +20,8 @@ namespace VisionGroup2._0.ViewModels
         private Costumer _selectedCostumer;
         private Project _selectedProject;
 
+        private bool _canEdit;
+
         public CostumerViewModel()
         {
             this._projectCatalog = ProjectCatalog.Instance;
@@ -39,13 +41,33 @@ namespace VisionGroup2._0.ViewModels
                     this._costumerCatalog.Update(this._selectedCostumer);
                     this.OnPropertyChanged(nameof(this.CostumerList));
                     SelectedCostumer = CostumerList.Find((costumer => costumer.CostumerId == id));
-                });
-
+                }, costumer => Edit);
+            Edit = false;
         }
 
         public RelayCommand<Costumer> DeleteCustomerCommand { get; private set; }
         public RelayCommand<Costumer> UpdateCustomerCommand { get; private set; }
 
+        public bool Edit {
+            get
+            {
+                return this._canEdit;
+            }
+            set
+            {
+                this._canEdit = value;
+                this.OnPropertyChanged(nameof(ReadOnly));
+                UpdateCustomerCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public bool ReadOnly
+        {
+            get
+            {
+                return !this._canEdit;
+            }
+        }
 
         public List<Project> ProjectsForCostumer
         {
