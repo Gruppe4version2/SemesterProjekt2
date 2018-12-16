@@ -71,6 +71,7 @@ namespace VisionGroup2._0.ViewModels
             {
                 this._canEdit = value;
                 this.OnPropertyChanged(nameof(ReadOnly));
+                this.OnPropertyChanged();
                 UpdateCommand.RaiseCanExecuteChanged();
             }
         }

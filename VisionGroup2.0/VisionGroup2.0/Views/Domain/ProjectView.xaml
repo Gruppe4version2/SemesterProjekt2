@@ -86,22 +86,28 @@
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}" HorizontalAlignment="Stretch" Width="Auto">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Projekt navn" Foreground="white"/>
-                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                           Text="{Binding SelectedProject.Name}" Foreground="Black"
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                    <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          Name="ProjectNameBox"
                           Text="{Binding SelectedProject.Name, Mode=TwoWay}"
-                         IsReadOnly="{Binding ReadOnly, Mode=OneWay}"/>
+                         Visibility="{Binding Edit, Mode=OneWay}"/>
             </StackPanel>
 
             <!-- Firma navn textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Firma navn" Foreground="White" />
-                <AutoSuggestBox Style="{StaticResource AutoSuggestBoxDetailsStyle}"
+                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                           Text="{Binding SelectedProjectCostumerName}" Foreground="Black"
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                    <AutoSuggestBox Style="{StaticResource AutoSuggestBoxDetailsStyle}"
                          Text="{Binding SelectedProjectCostumerName, Mode=TwoWay}"
                                 TextChanged="AutoSuggestBox_TextChanged"
                                 SuggestionChosen="AutoSuggestBox_SuggestionChosen"
                                 Margin="0,0,0,0" 
-                                IsEnabled="{x:Bind EditToggle.IsChecked.Value, Mode=OneWay}"/>
+                                Visibility="{Binding Edit, Mode=OneWay}"/>
             </StackPanel>
 
 
@@ -119,7 +125,8 @@
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                        Text="Deadline" Foreground="White"/>
                 <DatePicker Width="500" Date="{Binding DeadLineOffset, Mode=TwoWay}"
-                            IsEnabled="{x:Bind EditToggle.IsChecked.Value, Mode=OneWay}"/>
+                            IsEnabled="{x:Bind EditToggle.IsChecked.Value, Mode=OneWay}"
+                             />
             </StackPanel>
 
 

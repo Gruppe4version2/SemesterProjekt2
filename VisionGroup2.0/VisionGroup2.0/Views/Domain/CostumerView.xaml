@@ -87,35 +87,47 @@
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Firma navn" Foreground="white"/>
-                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                           Text="{Binding SelectedCostumer.Name}" Foreground="Black"
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                    <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding SelectedCostumer.Name, Mode=TwoWay}"
-                          IsReadOnly="{Binding ReadOnly, Mode=OneWay}"/>
+                          Visibility="{Binding Edit, Mode=OneWay}"/>
             </StackPanel>
             <!-- CVR textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="CVR" Foreground="White" />
-                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                           Text="{Binding SelectedCostumer.CvrNr}" Foreground="Black"
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                    <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding SelectedCostumer.CvrNr, Mode=TwoWay}"
                           KeyDown="UIElement_OnKeyDown_OnlyNumbers"
-                         IsReadOnly="{Binding ReadOnly, Mode=OneWay}"/>
+                         Visibility="{Binding Edit, Mode=OneWay}"/>
             </StackPanel>
             <!-- Email textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Email" Foreground="White" />
-                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                           Text="{Binding SelectedCostumer.Email}" Foreground="Black"
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                    <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          Text="{Binding SelectedCostumer.Email, Mode=TwoWay}"
-                         IsReadOnly="{Binding ReadOnly, Mode=OneWay}"/>
+                         Visibility="{Binding Edit, Mode=OneWay}"/>
             </StackPanel>
             <!-- Telefon nr textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Telefon nummer" Foreground="White" />
-                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                           Text="{Binding SelectedCostumer.PhoneNr}" Foreground="Black"
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                    <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          Text="{Binding SelectedCostumer.PhoneNr, Mode=TwoWay}"
                          KeyDown="UIElement_OnKeyDown_OnlyNumbers"
-                         IsReadOnly="{Binding ReadOnly, Mode=OneWay}"/>
+                         Visibility="{Binding Edit, Mode=OneWay}"/>
             </StackPanel>
 
             <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 

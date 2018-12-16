@@ -87,26 +87,35 @@
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Fulde navn" Foreground="white"/>
-                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                           Text="{Binding SelectedEmployee.Name}" Foreground="Black"
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                    <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding SelectedEmployee.Name, Mode=TwoWay}"
-                         IsReadOnly="{Binding ReadOnly, Mode=OneWay}"/>
+                         Visibility="{Binding Edit, Mode=OneWay}"/>
             </StackPanel>
             <!-- Telefon textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Telefon nummer" Foreground="White" />
-                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                           Text="{Binding SelectedEmployee.PhoneNr}" Foreground="Black"
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                    <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                           Text="{Binding SelectedEmployee.PhoneNr, Mode=TwoWay}"
                          KeyDown="UIElement_OnKeyDown_OnlyNumbers"
-                         IsReadOnly="{Binding ReadOnly, Mode=OneWay}"/>
+                         Visibility="{Binding Edit, Mode=OneWay}"/>
             </StackPanel>
             <!-- Email textblock -->
             <StackPanel Style="{StaticResource StackPanelDetailsItemStyle}">
                 <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
                            Text="Email" Foreground="White" />
-                <TextBox Style="{StaticResource TextBoxDetailsStyle}"
+                <TextBlock Style="{StaticResource TextBlockDetailsHeaderStyle}" 
+                           Text="{Binding SelectedEmployee.Email}" Foreground="Black"
+                           Visibility="{Binding ReadOnly, Mode=OneWay}"/>
+                    <TextBox Style="{StaticResource TextBoxDetailsStyle}"
                          Text="{Binding SelectedEmployee.Email, Mode=TwoWay}"
-                         IsReadOnly="{Binding ReadOnly, Mode=OneWay}"/>
+                         Visibility="{Binding Edit, Mode=OneWay}"/>
             </StackPanel>
             <!-- Liste af projekter -->
 
