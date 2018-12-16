@@ -175,6 +175,7 @@
             <StackPanel Orientation="Horizontal">
             <AutoSuggestBox Style="{StaticResource AutoSuggestBoxDetailsStyle}"
                             Text="{Binding AddEmployeeName, Mode=TwoWay}"
+                            PlaceholderText="Medarbejder Navn"
                             TextChanged="NameSuggestBox_TextChanged"
                             SuggestionChosen="NameSuggestBox_SuggestionChosen"
                             Width="200"
