@@ -91,7 +91,7 @@ namespace VisionGroup2._0.ViewModels
                                                         {
                                                             this._projectForEmployee.ProjectId = this._selectedProject.ProjectId;
                                                             this._projectForEmployee.EmployeeId = this._addEmployee.EmployeeId;
-                                                            this._projectForEmployee.IsLeader = true;
+                                                            this._projectForEmployee.IsLeader = false;
                                                             this._projectForEmployeesCatalog.Add(this._projectForEmployee);
                                                             this._employeeCatalog.Load();
                                                             this._addEmployee = new Employee();
