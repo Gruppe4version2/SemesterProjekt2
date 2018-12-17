@@ -106,7 +106,7 @@ namespace VisionGroup2._0.ViewModels
                                                                                                 return false;
                                                                                             }
 
-                                                                                            if (this._employeeCatalog.EmployeeList.Exists(employee => employee.Name == this._addEmployee.Name) && !this.EmployeesForProject.Exists(employee => employee.Employee.Name == this._addEmployee.Name))
+                                                                                            if (this._employeeCatalog.EmployeeList.Exists(employee => employee.Name == this._addEmployee.Name) && !this.EmployeesForProject.Exists(employee => employee.Employee.Name == this._addEmployee.Name && Edit))
                                                                                             {
                                                                                                 return true;
                                                                                             }
@@ -133,7 +133,7 @@ namespace VisionGroup2._0.ViewModels
                                                                                   this.OnPropertyChanged(
                                                                                                          nameof(this.EmployeesForProject));
                                                                                   DeleteEmployeeCommand.RaiseCanExecuteChanged();
-                                                                              }), new Predicate<Employee>(employee => this._selectedEmployee != null && this._selectedProject != null));
+                                                                              }), new Predicate<Employee>(employee => this._selectedEmployee != null && this._selectedProject != null && Edit));
             this._canEdit = false;
             RefreshCommand = new RelayCommand<bool>(
                                                     () =>
@@ -158,6 +158,8 @@ namespace VisionGroup2._0.ViewModels
                 this.OnPropertyChanged();
                 this.OnPropertyChanged(nameof(ReadOnly));
                 UpdateCommand.RaiseCanExecuteChanged();
+                AddEmployeeCommand.RaiseCanExecuteChanged();
+                DeleteEmployeeCommand.RaiseCanExecuteChanged();
             }
         }
 
