@@ -185,7 +185,25 @@ namespace VisionGroup2._0.ViewModels
                 }
             }
         }
+        public string SearchEmployeeName
+        {
+            get
+            {
+                return string.Empty;
+            }
 
+            set
+            {
+                if (this._employeeCatalog.EmployeeList.Exists((employee => employee.Name == value)))
+                {
+                    SelectedEmployee =
+                        this._employeeCatalog.EmployeeList[this._employeeCatalog.EmployeeList.FindIndex(
+                                                                                                    (employee =>
+                                                                                                         employee.Name
+                                                                                                         == value))];
+                }
+            }
+        }
 
 
 

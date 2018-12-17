@@ -152,7 +152,25 @@ namespace VisionGroup2._0.ViewModels
                 this.DeleteCustomerCommand.RaiseCanExecuteChanged();
             }
         }
+        public string SearchCostumerName
+        {
+            get
+            {
+                return string.Empty;
+            }
 
+            set
+            {
+                if (this._costumerCatalog.CostumerList.Exists((costumer => costumer.Name == value)))
+                {
+                    SelectedCostumer=
+                        this._costumerCatalog.CostumerList[this._costumerCatalog.CostumerList.FindIndex(
+                                                                                                    (costumer =>
+                                                                                                         costumer.Name
+                                                                                                         == value))];
+                }
+            }
+        }
 
 
 

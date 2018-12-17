@@ -380,6 +380,26 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
+        public string SearchProjectName
+        {
+            get
+            {
+                return string.Empty;
+            }
+
+            set
+            {
+                if (this._projectCatalog.ProjectList.Exists((project => project.Name == value)))
+                {
+                    SelectedProject =
+                        this._projectCatalog.ProjectList[this._projectCatalog.ProjectList.FindIndex(
+                                                                                                    (project =>
+                                                                                                         project.Name
+                                                                                                         == value))];
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

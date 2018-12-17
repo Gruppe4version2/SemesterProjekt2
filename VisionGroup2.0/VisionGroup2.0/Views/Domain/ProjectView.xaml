@@ -81,7 +81,10 @@
             </StackPanel.FocusVisualPrimaryBrush>
 
             <!-- Søgebar -->
-            <AutoSuggestBox PlaceholderText="Søg" QueryIcon="Find" Width="Auto"  Height="40"/>
+            <AutoSuggestBox PlaceholderText="Søg" QueryIcon="Find" Width="Auto"  Height="40"
+                            Text="{Binding SearchProjectName, Mode=TwoWay}"
+                            TextChanged="SearchBox_TextChanged"
+                            SuggestionChosen="SearchBox_SuggestionChosen"/>
             <GridViewHeaderItem Content="Projekt information" HorizontalAlignment="Center" FontSize="36" Foreground="white" FontWeight="Bold" FontFamily="Segoe UI Symbol"/>
 
             <!-- Projekt navn textblock -->
