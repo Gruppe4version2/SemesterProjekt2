@@ -29,6 +29,8 @@
                 <TextBlock Style="{StaticResource TextBlockCommandContentStyle}" />
 
             </CommandBar.Content>
+            <AppBarButton Icon="Refresh" Label="Refresh" Command="{Binding RefreshCommand}"/>
+
             <AppBarButton Icon="Save" Label="Gem" IsEnabled="True" Command="{Binding UpdateCustomerCommand}" />
 
             <AppBarButton Icon="Delete" Label="Slet" IsEnabled="True" Command="{Binding DeleteCustomerCommand}" />

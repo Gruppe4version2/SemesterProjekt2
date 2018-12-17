@@ -43,8 +43,18 @@ namespace VisionGroup2._0.ViewModels
                     SelectedCostumer = CostumerList.Find((costumer => costumer.CostumerId == id));
                 }, costumer => Edit);
             Edit = false;
+            RefreshCommand = new RelayCommand<bool>(
+                                                    () =>
+                                                        {
+                                                            this._projectCatalog.Load();
+                                                            this._costumerCatalog.Load();
+                                                            this.OnPropertyChanged(nameof(CostumerList));
+                                                            this.OnPropertyChanged(nameof(SelectedCostumer));
+                                                            this.OnPropertyChanged(nameof(ProjectsForCostumer));
+                                                        });
         }
 
+        public RelayCommand<bool> RefreshCommand { get; }
         public RelayCommand<Costumer> DeleteCustomerCommand { get; private set; }
         public RelayCommand<Costumer> UpdateCustomerCommand { get; private set; }
 

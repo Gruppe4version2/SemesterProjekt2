@@ -135,6 +135,16 @@ namespace VisionGroup2._0.ViewModels
                                                                                   DeleteEmployeeCommand.RaiseCanExecuteChanged();
                                                                               }), new Predicate<Employee>(employee => this._selectedEmployee != null && this._selectedProject != null));
             this._canEdit = false;
+            RefreshCommand = new RelayCommand<bool>(
+                                                    () =>
+                                                        {
+                                                            this._projectCatalog.Load();
+                                                            this._employeeCatalog.Load();
+                                                            this._costumerCatalog.Load();
+                                                            this.OnPropertyChanged(nameof(ProjectList));
+                                                            this.OnPropertyChanged(nameof(SelectedProject));
+                                                            this.OnPropertyChanged(nameof(EmployeesForProject));
+                                                        });
         }
         public bool Edit
         {
@@ -158,7 +168,7 @@ namespace VisionGroup2._0.ViewModels
                 return !this._canEdit;
             }
         }
-
+        public RelayCommand<bool> RefreshCommand { get; }
         public RelayCommand<Project> DeleteCommand { get; }
 
         public RelayCommand<Project> UpdateCommand { get; }

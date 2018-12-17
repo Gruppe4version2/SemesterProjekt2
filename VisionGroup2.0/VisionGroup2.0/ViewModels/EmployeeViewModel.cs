@@ -60,6 +60,14 @@ namespace VisionGroup2._0.ViewModels
                                                                                                         == id);
                                                                       }), employee => Edit);
             this._canEdit = false;
+            RefreshCommand = new RelayCommand<bool>(
+                                                    () =>
+                                                        {
+                                                            this._projectCatalog.Load();
+                                                            this._employeeCatalog.Load();
+                                                            this._selectedEmployee = null;
+                                                            this.OnPropertyChanged(nameof(EmployeeList));
+                                                        });
         }
         public bool Edit
         {
@@ -84,8 +92,10 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
+        public RelayCommand<bool> RefreshCommand { get; }
         public RelayCommand<Employee> UpdateCommand { get; set; }
         public RelayCommand<Employee> DeleteCommand
+        
         {
             get { return this._deleteCommand; }
         }
@@ -173,7 +183,6 @@ namespace VisionGroup2._0.ViewModels
                         select employee;
                     return employeeList.ToList();
                 }
-
             }
         }
 
