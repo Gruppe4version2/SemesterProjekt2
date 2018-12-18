@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VisionGroup2._0.DomainClasses;
-using VisionGroup2._0.Interfaces;
-
-namespace VisionGroup2._0.Catalogs
+﻿namespace VisionGroup2._0.Catalogs
 {
-    class ProjectForEmployeesCatalog : ICatalog<ProjectsForEmployee>
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using VisionGroup2._0.DomainClasses;
+    using VisionGroup2._0.Interfaces;
+
+    internal class ProjectForEmployeesCatalog : ICatalog<ProjectsForEmployee>
     {
-        #region Singleton
         private static ProjectForEmployeesCatalog _instance;
+
+        private List<ProjectsForEmployee> _projectsForEmployees;
+
         public static ProjectForEmployeesCatalog Instance
         {
             get
@@ -20,8 +20,7 @@ namespace VisionGroup2._0.Catalogs
                 return _instance;
             }
         }
-        #endregion
-        private List<ProjectsForEmployee> _projectsForEmployees;
+
         public List<ProjectsForEmployee> ProjectsForEmployeesList
         {
             get
@@ -30,39 +29,52 @@ namespace VisionGroup2._0.Catalogs
                 {
                     return this._projectsForEmployees;
                 }
-                else
-                {
-                    Load();
-                    return this._projectsForEmployees;
 
-                }
+                this.Load();
+                return this._projectsForEmployees;
             }
+
             set
             {
                 this._projectsForEmployees = value;
             }
         }
+
         public void Add(ProjectsForEmployee item)
         {
-
-            using (var db = new DbContextVisionGroup())
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
             {
                 db.ProjectsForEmployees.Add(item);
-                EmployeeCatalog.Instance.EmployeeList[EmployeeCatalog.Instance.EmployeeList.FindIndex((employee => employee.EmployeeId == item.EmployeeId))].ProjectsForEmployees.Add(item);
+                EmployeeCatalog
+                    .Instance
+                    .EmployeeList[EmployeeCatalog.Instance.EmployeeList.FindIndex(
+                                                                                  employee =>
+                                                                                      employee.EmployeeId
+                                                                                      == item.EmployeeId)]
+                    .ProjectsForEmployees.Add(item);
                 db.SaveChanges();
+            }
+        }
+
+        public void Load()
+        {
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
+            {
+                this._projectsForEmployees = db.ProjectsForEmployees.ToList();
             }
         }
 
         public void Remove(ProjectsForEmployee item)
         {
-            using (var db = new DbContextVisionGroup())
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
             {
                 db.ProjectsForEmployees.Remove(item);
                 EmployeeCatalog
                     .Instance
                     .EmployeeList[EmployeeCatalog.Instance.EmployeeList.FindIndex(
-                                                                                  (employee => employee.EmployeeId
-                                                                                               == item.EmployeeId))]
+                                                                                  employee =>
+                                                                                      employee.EmployeeId
+                                                                                      == item.EmployeeId)]
                     .ProjectsForEmployees.Remove(item);
                 db.SaveChanges();
             }
@@ -70,19 +82,10 @@ namespace VisionGroup2._0.Catalogs
 
         public void Update(ProjectsForEmployee item)
         {
-            using (var db = new DbContextVisionGroup())
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
             {
                 db.ProjectsForEmployees.Update(item);
                 db.SaveChanges();
-            }
-        }
-
-        public void Load()
-        {
-
-            using (var db = new DbContextVisionGroup())
-            {
-                _projectsForEmployees = db.ProjectsForEmployees.ToList();
             }
         }
     }

@@ -33,7 +33,7 @@
 
             <AppBarButton Icon="Save" Label="Gem" IsEnabled="True" Command="{Binding UpdateCustomerCommand}" />
 
-            <AppBarButton Icon="Delete" Label="Slet" IsEnabled="True" Command="{Binding DeleteCustomerCommand}" />
+            <AppBarButton Icon="Delete" Label="Slet" IsEnabled="{Binding Edit, Mode=OneWay}" Command="{Binding DeleteCustomerCommand}" />
             <AppBarToggleButton Name="EditToggle" Icon="Edit" Label="Rediger" IsChecked="{Binding Edit, Mode=TwoWay}"/>
             
             

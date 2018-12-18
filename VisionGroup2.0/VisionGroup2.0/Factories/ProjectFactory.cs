@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using VisionGroup2._0.Catalogs;
-using VisionGroup2._0.DomainClasses;
-using VisionGroup2._0.Interfaces;
-
-namespace VisionGroup2._0.Factories
+﻿namespace VisionGroup2._0.Factories
 {
+    using System.Linq;
+
+    using VisionGroup2._0.Catalogs;
+    using VisionGroup2._0.DomainClasses;
+    using VisionGroup2._0.Interfaces;
+
     public class ProjectFactory : IFactory
     {
-        private ProjectCatalog _projectCatalog;
+        private readonly ProjectCatalog _projectCatalog;
+
         public ProjectFactory()
         {
             this.NewProject = new Project();
@@ -20,24 +17,28 @@ namespace VisionGroup2._0.Factories
         }
 
         public Project NewProject { get; set; }
+
         public bool CanCreate(Project newProject)
         {
-            if (newProject.Name == null || newProject.Deadline == null || CostumerCatalog.Instance.CostumerList.Where(p => p.CostumerId == newProject.CostumerId)
-                                                                                         .ToList().Count != 1)
+            if (newProject.Name == null || newProject.Deadline == null || CostumerCatalog
+                                                                          .Instance.CostumerList
+                                                                          .Where(
+                                                                                 p => p.CostumerId
+                                                                                      == newProject.CostumerId).ToList()
+                                                                          .Count != 1)
             {
                 return false;
             }
 
             foreach (Project project in this._projectCatalog.ProjectList)
+            {
+                if (project.Name == newProject.Name)
                 {
-                    if (project.Name == newProject.Name)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
-            
+            }
 
-            NewProject = newProject;
+            this.NewProject = newProject;
             return true;
         }
 

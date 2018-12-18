@@ -1,27 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using VisionGroup2._0.Annotations;
-using VisionGroup2._0.Catalogs;
-using VisionGroup2._0.Commands;
-using VisionGroup2._0.DomainClasses;
-using VisionGroup2._0.Factories;
-
-namespace VisionGroup2._0.ViewModels.Create
+﻿namespace VisionGroup2._0.ViewModels.Create
 {
-    class CreateEmployeeViewModel : INotifyPropertyChanged
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+
+    using VisionGroup2._0.Annotations;
+    using VisionGroup2._0.Catalogs;
+    using VisionGroup2._0.Commands;
+    using VisionGroup2._0.DomainClasses;
+    using VisionGroup2._0.Factories;
+
+    internal class CreateEmployeeViewModel : INotifyPropertyChanged
     {
-
-
-        private EmployeeFactory _employeeFactory;
-
         private EmployeeCatalog _employeeCatalog;
 
-        public RelayCommand<Employee> AddCommand { get; set; }
+        private readonly EmployeeFactory _employeeFactory;
 
         public CreateEmployeeViewModel()
         {
@@ -29,9 +21,17 @@ namespace VisionGroup2._0.ViewModels.Create
 
             this._employeeCatalog = EmployeeCatalog.Instance;
 
-            this.AddCommand = new RelayCommand<Employee>(new Action(this._employeeFactory.Create),
-                new Predicate<Employee>(employee => this._employeeFactory.CanCreate(this._employeeFactory.NewEmployee)));
+            this.AddCommand = new RelayCommand<Employee>(
+                                                         this._employeeFactory.Create,
+                                                         employee =>
+                                                             this._employeeFactory.CanCreate(
+                                                                                             this._employeeFactory
+                                                                                                 .NewEmployee));
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public RelayCommand<Employee> AddCommand { get; set; }
 
         public Employee NewEmployee
         {
@@ -51,17 +51,13 @@ namespace VisionGroup2._0.ViewModels.Create
 
         public void Update()
         {
-            AddCommand.RaiseCanExecuteChanged();
+            this.AddCommand.RaiseCanExecuteChanged();
         }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

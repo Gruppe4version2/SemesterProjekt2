@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Windows.UI.Xaml.Controls;
-using VisionGroup2._0.Interfaces;
-
-namespace VisionGroup2._0.Commands
+﻿namespace VisionGroup2._0.Commands
 {
+    using System;
+    using System.Windows.Input;
+
+    using Windows.UI.Xaml.Controls;
+
     public class NavigationCommand : ICommand
     {
-        private Frame _frame;
-        private Type _pageType;
-        private Func<bool> _canNavigateFunc;
+        private readonly Func<bool> _canNavigateFunc;
+
+        private readonly Frame _frame;
+
+        private readonly Type _pageType;
 
         public NavigationCommand(Frame frame, Type pageType, Func<bool> canNavigateFunc)
         {
@@ -23,9 +21,11 @@ namespace VisionGroup2._0.Commands
         }
 
         public NavigationCommand(Frame frame, Type pageType)
-            : this(frame, pageType, (Func<bool>) (() => true))
+            : this(frame, pageType, () => true)
         {
         }
+
+        public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
         {
@@ -37,13 +37,15 @@ namespace VisionGroup2._0.Commands
             this._frame.Navigate(this._pageType);
         }
 
-        public event EventHandler CanExecuteChanged;
         public void RaiseCanExecuteChanged()
         {
             EventHandler canExecuteChanged = this.CanExecuteChanged;
             if (canExecuteChanged == null)
+            {
                 return;
-            canExecuteChanged((object)this, EventArgs.Empty);
+            }
+
+            canExecuteChanged(this, EventArgs.Empty);
         }
     }
 }

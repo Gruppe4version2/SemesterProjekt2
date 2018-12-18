@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using VisionGroup2._0.Annotations;
-using VisionGroup2._0.DomainClasses;
-using VisionGroup2._0.Interfaces;
-
-namespace VisionGroup2._0.Catalogs
+﻿namespace VisionGroup2._0.Catalogs
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using VisionGroup2._0.DomainClasses;
+    using VisionGroup2._0.Interfaces;
+
     public class EmployeeCatalog : ICatalog<Employee>
     {
-        #region Singleton
-
         private static EmployeeCatalog _instance;
+
+        private List<Employee> _employeeList;
 
         public static EmployeeCatalog Instance
         {
@@ -26,10 +23,6 @@ namespace VisionGroup2._0.Catalogs
             }
         }
 
-        #endregion
-
-        private List<Employee> _employeeList;
-
         public List<Employee> EmployeeList
         {
             get
@@ -38,70 +31,38 @@ namespace VisionGroup2._0.Catalogs
                 {
                     return this._employeeList;
                 }
-                else
-                {
-                    Load();
-                    return this._employeeList;
 
-                }
+                this.Load();
+                return this._employeeList;
             }
+
             set
             {
                 this._employeeList = value;
             }
         }
 
-
         public void Add(Employee item)
         {
-            using (var db = new DbContextVisionGroup())
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
             {
                 db.Employees.Add(item);
-                EmployeeList.Add(item);
-                db.SaveChanges();
-            }
-        }
-
-        public void Remove(Employee item)
-        {
-            using (var db = new DbContextVisionGroup())
-            {
-                db.Employees.Remove(item);
-                EmployeeList.Remove(item);
-                foreach (var project in item.ProjectsForEmployees)
-                {
-                    db.ProjectsForEmployees.Remove(project);
-                    ProjectForEmployeesCatalog.Instance.ProjectsForEmployeesList.Remove(project);
-                }
-
-                db.SaveChanges();
-
-            }
-        }
-
-
-
-
-        public void Update(Employee item)
-        {
-            using (var db = new DbContextVisionGroup())
-            {
-                db.Employees.Update(item);
-                this.EmployeeList[this.EmployeeList.FindIndex(employee => employee.EmployeeId == item.EmployeeId)] = item;
+                this.EmployeeList.Add(item);
                 db.SaveChanges();
             }
         }
 
         public void Load()
         {
-            using (var db = new DbContextVisionGroup())
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
             {
                 Task a = Task.Run(new Action(ProjectForEmployeesCatalog.Instance.Load));
-                EmployeeList = db.Employees.ToList();
+                this.EmployeeList = db.Employees.ToList();
                 a.Wait();
-                foreach (var employee in this._employeeList)
+                foreach (Employee employee in this._employeeList)
                 {
-                    foreach (var projectForEmployee in ProjectForEmployeesCatalog.Instance.ProjectsForEmployeesList)
+                    foreach (ProjectsForEmployee projectForEmployee in ProjectForEmployeesCatalog
+                                                                       .Instance.ProjectsForEmployeesList)
                     {
                         if (employee.EmployeeId == projectForEmployee.EmployeeId)
                         {
@@ -109,6 +70,33 @@ namespace VisionGroup2._0.Catalogs
                         }
                     }
                 }
+            }
+        }
+
+        public void Remove(Employee item)
+        {
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
+            {
+                db.Employees.Remove(item);
+                this.EmployeeList.Remove(item);
+                foreach (ProjectsForEmployee project in item.ProjectsForEmployees)
+                {
+                    db.ProjectsForEmployees.Remove(project);
+                    ProjectForEmployeesCatalog.Instance.ProjectsForEmployeesList.Remove(project);
+                }
+
+                db.SaveChanges();
+            }
+        }
+
+        public void Update(Employee item)
+        {
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
+            {
+                db.Employees.Update(item);
+                this.EmployeeList[this.EmployeeList.FindIndex(employee => employee.EmployeeId == item.EmployeeId)] =
+                    item;
+                db.SaveChanges();
             }
         }
     }

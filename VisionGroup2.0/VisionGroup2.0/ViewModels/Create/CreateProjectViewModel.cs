@@ -1,51 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using VisionGroup2._0.Annotations;
-using VisionGroup2._0.Catalogs;
-using VisionGroup2._0.Commands;
-using VisionGroup2._0.DomainClasses;
-using VisionGroup2._0.Factories;
-
-namespace VisionGroup2._0.ViewModels.Create
+﻿namespace VisionGroup2._0.ViewModels.Create
 {
+    using System;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Runtime.CompilerServices;
+
+    using VisionGroup2._0.Annotations;
+    using VisionGroup2._0.Catalogs;
+    using VisionGroup2._0.Commands;
+    using VisionGroup2._0.DomainClasses;
+    using VisionGroup2._0.Factories;
+
     public class CreateProjectViewModel : INotifyPropertyChanged
     {
-        private ProjectFactory _factory;
+        private readonly CostumerCatalog _costumerCatalog;
 
-        private CostumerCatalog _costumerCatalog;
-
+        private readonly ProjectFactory _factory;
 
         public CreateProjectViewModel()
         {
             this._factory = new ProjectFactory();
             this._costumerCatalog = CostumerCatalog.Instance;
 
-            this.AddCommand = new RelayCommand<Project>(new Action(this._factory.Create), 
-                new Predicate<Project>(project => this._factory.CanCreate(this._factory.NewProject)));
+            this.AddCommand = new RelayCommand<Project>(
+                                                        this._factory.Create,
+                                                        project => this._factory.CanCreate(this._factory.NewProject));
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public RelayCommand<Project> AddCommand { get; }
-        public Project NewProject
-        {
-            get
-            {
-                return this._factory.NewProject;
-            }
-
-            set
-            {
-
-                this._factory.NewProject = value;
-                this.OnPropertyChanged();
-                this.AddCommand.RaiseCanExecuteChanged();
-                this.OnPropertyChanged(nameof(this.AddCommand));
-            }
-        }
 
         public DateTimeOffset DeadLineOffset
         {
@@ -58,49 +42,68 @@ namespace VisionGroup2._0.ViewModels.Create
                 }
                 else
                 {
-                    NewProject.Deadline = DateTime.Today;
+                    this.NewProject.Deadline = DateTime.Today;
                     DateTimeOffset d = new DateTimeOffset(this.NewProject.Deadline.Value);
-                    this.OnPropertyChanged(nameof(NewProject));
-                    AddCommand.RaiseCanExecuteChanged();
+                    this.OnPropertyChanged(nameof(this.NewProject));
+                    this.AddCommand.RaiseCanExecuteChanged();
                     return d;
                 }
             }
 
             set
             {
-                NewProject.Deadline = value.DateTime;
-                AddCommand.RaiseCanExecuteChanged();
+                this.NewProject.Deadline = value.DateTime;
+                this.AddCommand.RaiseCanExecuteChanged();
                 this.OnPropertyChanged();
-                this.OnPropertyChanged(nameof(NewProject));
+                this.OnPropertyChanged(nameof(this.NewProject));
             }
         }
+
+        public Project NewProject
+        {
+            get
+            {
+                return this._factory.NewProject;
+            }
+
+            set
+            {
+                this._factory.NewProject = value;
+                this.OnPropertyChanged();
+                this.AddCommand.RaiseCanExecuteChanged();
+                this.OnPropertyChanged(nameof(this.AddCommand));
+            }
+        }
+
         public string SelectedProjectCostumerName
         {
             get
             {
-                if (this._costumerCatalog.CostumerList.Where(p => p.CostumerId == NewProject.CostumerId).ToList().Count != 1)
+                if (this._costumerCatalog.CostumerList.Where(p => p.CostumerId == this.NewProject.CostumerId).ToList()
+                        .Count != 1)
                 {
                     return string.Empty;
                 }
-                return this._costumerCatalog.CostumerList.Find(
-                                                               costumer => costumer.CostumerId == this.NewProject.CostumerId).Name;
+
+                return this._costumerCatalog.CostumerList
+                           .Find(costumer => costumer.CostumerId == this.NewProject.CostumerId).Name;
             }
+
             set
             {
                 if (this._costumerCatalog.CostumerList.Where(n => n.Name == value).ToList().Count == 1)
                 {
-                    this.NewProject.CostumerId = this._costumerCatalog.CostumerList.Find((costumer => costumer.Name == value)).CostumerId;
-                    AddCommand.RaiseCanExecuteChanged();
+                    this.NewProject.CostumerId = this._costumerCatalog.CostumerList
+                                                     .Find(costumer => costumer.Name == value).CostumerId;
+                    this.AddCommand.RaiseCanExecuteChanged();
                 }
             }
         }
 
         public void Update()
         {
-            AddCommand.RaiseCanExecuteChanged();
+            this.AddCommand.RaiseCanExecuteChanged();
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

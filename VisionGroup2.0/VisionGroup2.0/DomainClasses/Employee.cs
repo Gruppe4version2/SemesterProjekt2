@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace VisionGroup2._0.DomainClasses
+﻿namespace VisionGroup2._0.DomainClasses
 {
-    public partial class Employee
+    using System.Collections.Generic;
+
+    public class Employee
     {
         public Employee()
         {
-            ProjectsForEmployees = new HashSet<ProjectsForEmployee>();
+            this.ProjectsForEmployees = new HashSet<ProjectsForEmployee>();
         }
 
-        public int EmployeeId { get; set; }
-        public string Name { get; set; }
-        public int PhoneNr { get; set; }
         public string Email { get; set; }
+
+        public int EmployeeId { get; set; }
+
+        public string Name { get; set; }
+
+        public int PhoneNr { get; set; }
 
         public ICollection<ProjectsForEmployee> ProjectsForEmployees { get; set; }
     }

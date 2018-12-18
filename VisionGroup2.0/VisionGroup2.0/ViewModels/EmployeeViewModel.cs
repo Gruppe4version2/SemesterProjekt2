@@ -1,119 +1,128 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using VisionGroup2._0.Annotations;
-using VisionGroup2._0.Catalogs;
-using VisionGroup2._0.Commands;
-using VisionGroup2._0.DomainClasses;
-
-namespace VisionGroup2._0.ViewModels
+﻿namespace VisionGroup2._0.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Runtime.CompilerServices;
+
+    using VisionGroup2._0.Annotations;
+    using VisionGroup2._0.Catalogs;
+    using VisionGroup2._0.Commands;
+    using VisionGroup2._0.DomainClasses;
+
     public class EmployeeViewModel : INotifyPropertyChanged
     {
-        private ProjectCatalog _projectCatalog;
-        private EmployeeCatalog _employeeCatalog;
-        private Employee _selectedEmployee;
-        private ProjectForEmployeesCatalog _projectsForEmployee;
-        private Action _remove;
-        private Predicate<Employee> _canRemove;
-        private RelayCommand<Employee> _deleteCommand;
-        private Project _selectedProject;
-
         private bool _canEdit;
 
+        private readonly Predicate<Employee> _canRemove;
+
+        private readonly EmployeeCatalog _employeeCatalog;
+
+        private readonly ProjectCatalog _projectCatalog;
+
+        private ProjectForEmployeesCatalog _projectsForEmployee;
+
+        private readonly Action _remove;
+
+        private Employee _selectedEmployee;
+
+        private Project _selectedProject;
 
         public EmployeeViewModel()
         {
             this._projectCatalog = ProjectCatalog.Instance;
             this._employeeCatalog = EmployeeCatalog.Instance;
             this._projectsForEmployee = ProjectForEmployeesCatalog.Instance;
-            this._remove = () =>
-            {
-                this._employeeCatalog.Remove(this._selectedEmployee);
-                this._selectedEmployee = null;
-                this.OnPropertyChanged(nameof(this.EmployeeList));
-            };
-            this._canRemove = (Employee selectedEmployee) => this._employeeCatalog.EmployeeList.Contains(this.SelectedEmployee);
-            this._deleteCommand = new RelayCommand<Employee>(this._remove, this._canRemove);
-            this.UpdateCommand = new RelayCommand<Employee>(
-                                                           new Action(
-                                                                      () =>
-                                                                      {
-                                                                          int id = this._selectedEmployee.EmployeeId;
-                                                                          this._employeeCatalog.Update(
-                                                                                                      this
-                                                                                                          ._selectedEmployee);
-                                                                          this.OnPropertyChanged(
-                                                                                                 nameof(
-                                                                                                     this
-                                                                                                         .EmployeeList
-                                                                                                 ));
-                                                                          this.SelectedEmployee =
-                                                                              this.EmployeeList.Find(
-                                                                                                    employee =>
-                                                                                                        employee
-                                                                                                            .EmployeeId
-                                                                                                        == id);
-                                                                      }), employee => Edit);
             this._canEdit = false;
-            RefreshCommand = new RelayCommand<bool>(
-                                                    () =>
-                                                        {
-                                                            this._projectCatalog.Load();
-                                                            this._employeeCatalog.Load();
-                                                            this._selectedEmployee = null;
-                                                            this.OnPropertyChanged(nameof(EmployeeList));
-                                                        });
+            this.DeleteCommand = new RelayCommand<Employee>(() => {
+                                                                     this._employeeCatalog.Remove(this._selectedEmployee);
+                                                                     this._selectedEmployee = null;
+                                                                     this.OnPropertyChanged(nameof(this.EmployeeList));
+                                                                 }, employee => this._employeeCatalog.EmployeeList.Contains(this.SelectedEmployee));
+            this.UpdateCommand = new RelayCommand<Employee>(
+                                                            () =>
+                                                                {
+                                                                    int id = this._selectedEmployee.EmployeeId;
+                                                                    this._employeeCatalog.Update(
+                                                                                                 this
+                                                                                                     ._selectedEmployee);
+                                                                    this.OnPropertyChanged(nameof(this.EmployeeList));
+                                                                    this.SelectedEmployee =
+                                                                        this.EmployeeList.Find(
+                                                                                               employee =>
+                                                                                                   employee.EmployeeId
+                                                                                                   == id);
+                                                                },
+                                                            employee => this.Edit);
+            this.RefreshCommand = new RelayCommand<bool>(
+                                                         () =>
+                                                             {
+                                                                 this._projectCatalog.Load();
+                                                                 this._employeeCatalog.Load();
+                                                                 this._selectedEmployee = null;
+                                                                 this.OnPropertyChanged(nameof(this.EmployeeList));
+                                                             });
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public string ContentText
+        {
+            get
+            {
+                return this.SelectedEmployee.PhoneNr + " " + this.SelectedEmployee.Email;
+            }
+        }
+
+        public RelayCommand<Employee> DeleteCommand { get; }
+
         public bool Edit
         {
             get
             {
                 return this._canEdit;
             }
+
             set
             {
                 this._canEdit = value;
-                this.OnPropertyChanged(nameof(ReadOnly));
+                this.OnPropertyChanged(nameof(this.ReadOnly));
                 this.OnPropertyChanged();
-                UpdateCommand.RaiseCanExecuteChanged();
+                this.UpdateCommand.RaiseCanExecuteChanged();
             }
         }
 
-        public bool ReadOnly
+        public List<Employee> EmployeeList
         {
             get
             {
-                return !this._canEdit;
+                if (this._selectedEmployee == null)
+                {
+                    var employeeList = from employee in this._employeeCatalog.EmployeeList
+                                       orderby employee.Name
+                                       select employee;
+                    this.SelectedEmployee = employeeList.First();
+                    return employeeList.ToList();
+                }
+                else
+                {
+                    var employeeList = from employee in this._employeeCatalog.EmployeeList
+                                       orderby employee.Name
+                                       select employee;
+                    return employeeList.ToList();
+                }
             }
         }
-
-        public RelayCommand<bool> RefreshCommand { get; }
-        public RelayCommand<Employee> UpdateCommand { get; set; }
-        public RelayCommand<Employee> DeleteCommand
-        
-        {
-            get { return this._deleteCommand; }
-        }
-
-        public string ContentText
-        {
-            get { return this.SelectedEmployee.PhoneNr + " " + this.SelectedEmployee.Email; }
-        }
-
 
         public List<Project> EmployeeProjects
         {
             get
             {
-                List<Project> projectList = new List<Project>();
-                foreach (var projectForEmployee in SelectedEmployee.ProjectsForEmployees)
+                var projectList = new List<Project>();
+                foreach (ProjectsForEmployee projectForEmployee in this.SelectedEmployee.ProjectsForEmployees)
                 {
-                    foreach (var project in this._projectCatalog.ProjectList)
+                    foreach (Project project in this._projectCatalog.ProjectList)
                     {
                         if (project.ProjectId == projectForEmployee.ProjectId)
                         {
@@ -126,65 +135,16 @@ namespace VisionGroup2._0.ViewModels
             }
         }
 
-        public Project SelectedProject
-        {
-            get { return this._selectedProject; }
-            set
-            {
-                this._selectedProject = value;
-                this.OnPropertyChanged();
-            }
-        }
-
-
-        public Employee SelectedEmployee
+        public bool ReadOnly
         {
             get
             {
-                if (this._selectedEmployee != null)
-                {
-                    return this._selectedEmployee;
-                }
-                else
-                {
-                    this._selectedEmployee = this.EmployeeList[0];
-                    return this._selectedEmployee;
-                }
-            }
-
-            set
-            {
-                this._selectedEmployee = value;
-                this.OnPropertyChanged(nameof(EmployeeProjects));
-                this.OnPropertyChanged();
+                return !this._canEdit;
             }
         }
 
+        public RelayCommand<bool> RefreshCommand { get; }
 
-        public List<Employee> EmployeeList
-        {
-            get
-            {
-                if (this._selectedEmployee == null)
-                {
-                    
-                        IOrderedEnumerable<Employee> employeeList = from employee in this._employeeCatalog.EmployeeList
-                            orderby employee.Name
-                            select employee;
-                        this.SelectedEmployee = employeeList.First();
-                        return employeeList.ToList();
-                }
-                else
-                {
-                    IOrderedEnumerable<Employee> employeeList = from employee in this._employeeCatalog.EmployeeList
-                        where employee.Name == this.SelectedEmployee.Name
-
-                        orderby employee.Name
-                        select employee;
-                    return employeeList.ToList();
-                }
-            }
-        }
         public string SearchEmployeeName
         {
             get
@@ -194,21 +154,54 @@ namespace VisionGroup2._0.ViewModels
 
             set
             {
-                if (this._employeeCatalog.EmployeeList.Exists((employee => employee.Name == value)))
+                if (this._employeeCatalog.EmployeeList.Exists(employee => employee.Name == value))
                 {
-                    SelectedEmployee =
+                    this.SelectedEmployee =
                         this._employeeCatalog.EmployeeList[this._employeeCatalog.EmployeeList.FindIndex(
-                                                                                                    (employee =>
-                                                                                                         employee.Name
-                                                                                                         == value))];
+                                                                                                        employee =>
+                                                                                                            employee
+                                                                                                                .Name
+                                                                                                            == value)];
                 }
             }
         }
 
+        public Employee SelectedEmployee
+        {
+            get
+            {
+                if (this._selectedEmployee != null)
+                {
+                    return this._selectedEmployee;
+                }
 
+                this._selectedEmployee = this.EmployeeList[0];
+                return this._selectedEmployee;
+            }
 
+            set
+            {
+                this._selectedEmployee = value;
+                this.OnPropertyChanged(nameof(this.EmployeeProjects));
+                this.OnPropertyChanged();
+            }
+        }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public Project SelectedProject
+        {
+            get
+            {
+                return this._selectedProject;
+            }
+
+            set
+            {
+                this._selectedProject = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public RelayCommand<Employee> UpdateCommand { get; set; }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -217,4 +210,3 @@ namespace VisionGroup2._0.ViewModels
         }
     }
 }
-

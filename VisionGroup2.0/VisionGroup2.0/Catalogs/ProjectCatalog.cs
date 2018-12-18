@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using VisionGroup2._0.Annotations;
-using VisionGroup2._0.DomainClasses;
-using VisionGroup2._0.Interfaces;
-
-namespace VisionGroup2._0.Catalogs
+﻿namespace VisionGroup2._0.Catalogs
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using VisionGroup2._0.DomainClasses;
+    using VisionGroup2._0.Interfaces;
+
     public class ProjectCatalog : ICatalog<Project>
     {
-        #region Singleton
-
         private static ProjectCatalog _instance;
+
+        private List<Project> _projectList;
 
         public static ProjectCatalog Instance
         {
@@ -27,10 +21,6 @@ namespace VisionGroup2._0.Catalogs
             }
         }
 
-        #endregion
-
-        private List<Project> _projectList;
-
         public List<Project> ProjectList
         {
             get
@@ -39,37 +29,44 @@ namespace VisionGroup2._0.Catalogs
                 {
                     return this._projectList;
                 }
-                else
-                {
-                    Load();
-                    return this._projectList;
 
-                }
+                this.Load();
+                return this._projectList;
             }
+
             set
             {
                 this._projectList = value;
             }
         }
 
-
         public void Add(Project item)
         {
-            using (var db = new DbContextVisionGroup())
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
             {
                 db.Projects.Add(item);
-                ProjectList.Add(item);
+                this.ProjectList.Add(item);
                 db.SaveChanges();
+            }
+        }
+
+        public void Load()
+        {
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
+            {
+                this._projectList = db.Projects.ToList();
             }
         }
 
         public void Remove(Project item)
         {
-            using (var db = new DbContextVisionGroup())
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
             {
                 db.Projects.Remove(item);
-                ProjectList.Remove(item);
-                foreach (var projectforEmployee in ProjectForEmployeesCatalog.Instance.ProjectsForEmployeesList.Where(p => p.ProjectId == item.ProjectId).ToList())
+                this.ProjectList.Remove(item);
+                foreach (ProjectsForEmployee projectforEmployee in ProjectForEmployeesCatalog
+                                                                   .Instance.ProjectsForEmployeesList
+                                                                   .Where(p => p.ProjectId == item.ProjectId).ToList())
                 {
                     db.ProjectsForEmployees.Remove(projectforEmployee);
                     ProjectForEmployeesCatalog.Instance.ProjectsForEmployeesList.Remove(projectforEmployee);
@@ -79,24 +76,13 @@ namespace VisionGroup2._0.Catalogs
             }
         }
 
-
-
-
         public void Update(Project item)
         {
-            using (var db = new DbContextVisionGroup())
+            using (DbContextVisionGroup db = new DbContextVisionGroup())
             {
                 db.Projects.Update(item);
                 this.ProjectList[this.ProjectList.FindIndex(project => project.ProjectId == item.ProjectId)] = item;
                 db.SaveChanges();
-            }
-        }
-
-        public void Load()
-        {
-            using (var db = new DbContextVisionGroup())
-            {
-                _projectList = db.Projects.ToList();
             }
         }
     }

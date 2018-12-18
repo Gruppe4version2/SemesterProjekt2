@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VisionGroup2._0.DomainClasses;
-using VisionGroup2._0.Interfaces;
-
-namespace VisionGroup2._0.Factories
+﻿namespace VisionGroup2._0.Factories
 {
     using VisionGroup2._0.Catalogs;
+    using VisionGroup2._0.DomainClasses;
+    using VisionGroup2._0.Interfaces;
 
     public class CostumerFactory : IFactory
     {
-        private CostumerCatalog _costumerCatalog;
+        private readonly CostumerCatalog _costumerCatalog;
+
         public CostumerFactory()
         {
             this.NewCostumer = new Costumer();
@@ -20,6 +15,7 @@ namespace VisionGroup2._0.Factories
         }
 
         public Costumer NewCostumer { get; set; }
+
         public bool CanCreate(Costumer newCostumer)
         {
             foreach (Costumer costumer in this._costumerCatalog.CostumerList)
@@ -28,16 +24,17 @@ namespace VisionGroup2._0.Factories
                 {
                     return false;
                 }
-                if (costumer.CvrNr == newCostumer.CvrNr || costumer.Name == newCostumer.Name || costumer.Email == newCostumer.Email 
-                    || costumer.PhoneNr == newCostumer.PhoneNr 
-                    || newCostumer.Name.Length < 3 
-                    || newCostumer.Email.Length < 3)
+
+                if (costumer.CvrNr == newCostumer.CvrNr || costumer.Name == newCostumer.Name
+                                                        || costumer.Email == newCostumer.Email
+                                                        || costumer.PhoneNr == newCostumer.PhoneNr
+                                                        || newCostumer.Name.Length < 3 || newCostumer.Email.Length < 3)
                 {
                     return false;
                 }
             }
 
-            NewCostumer = newCostumer;
+            this.NewCostumer = newCostumer;
             return true;
         }
 
