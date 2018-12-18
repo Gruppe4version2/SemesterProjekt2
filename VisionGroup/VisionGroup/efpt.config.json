@@ -1,1 +1,0 @@
-﻿{"ContextClassName":"VisionGroupDbContext","DefaultDacpacSchema":null,"IdReplace":false,"IncludeConnectionString":true,"OutputPath":"","ProjectRootNamespace":"VisionGroup","SelectedToBeGenerated":0,"Tables":["dbo.Costumer","dbo.Project"],"UseDatabaseNames":false,"UseFluentApiOnly":true,"UseHandleBars":false,"UseInflector":true}
