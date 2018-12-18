@@ -1,6 +1,5 @@
 ﻿namespace VisionGroup2._0.ViewModels
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
@@ -13,17 +12,13 @@
 
     public class EmployeeViewModel : INotifyPropertyChanged
     {
-        private bool _canEdit;
-
-        private readonly Predicate<Employee> _canRemove;
-
         private readonly EmployeeCatalog _employeeCatalog;
 
         private readonly ProjectCatalog _projectCatalog;
 
-        private ProjectForEmployeesCatalog _projectsForEmployee;
+        private bool _canEdit;
 
-        private readonly Action _remove;
+        private ProjectForEmployeesCatalog _projectsForEmployee;
 
         private Employee _selectedEmployee;
 
@@ -35,11 +30,19 @@
             this._employeeCatalog = EmployeeCatalog.Instance;
             this._projectsForEmployee = ProjectForEmployeesCatalog.Instance;
             this._canEdit = false;
-            this.DeleteCommand = new RelayCommand<Employee>(() => {
-                                                                     this._employeeCatalog.Remove(this._selectedEmployee);
-                                                                     this._selectedEmployee = null;
-                                                                     this.OnPropertyChanged(nameof(this.EmployeeList));
-                                                                 }, employee => this._employeeCatalog.EmployeeList.Contains(this.SelectedEmployee));
+            this.DeleteCommand = new RelayCommand<Employee>(
+                                                            () =>
+                                                                {
+                                                                    this._employeeCatalog.Remove(
+                                                                                                 this
+                                                                                                     ._selectedEmployee);
+                                                                    this._selectedEmployee = null;
+                                                                    this.OnPropertyChanged(nameof(this.EmployeeList));
+                                                                },
+                                                            employee =>
+                                                                this._employeeCatalog.EmployeeList.Contains(
+                                                                                                            this
+                                                                                                                .SelectedEmployee));
             this.UpdateCommand = new RelayCommand<Employee>(
                                                             () =>
                                                                 {
