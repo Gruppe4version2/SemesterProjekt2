@@ -148,6 +148,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="ClassDiagram1.cd" />
     <None Include="efpt.config.json" />
     <None Include="VisionGroup2.0_TemporaryKey.pfx" />
   </ItemGroup>
